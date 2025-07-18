@@ -1,162 +1,1318 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pica-Pau - O Desenho</title>
-    <!-- Tailwind CSS -->
+    <title>CineVerse - Explore Universos Cinematográficos</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        /* Estilo base para a fonte */
+        :root {
+            --background: #0c0a09; --text-primary: #e5e7eb; --text-secondary: #9ca3af;
+            --card-bg: #1f2937; --header-bg: rgba(12, 10, 9, 0.7);
+            --overlay-bg: rgba(12, 10, 9, 0.95);
+            --card-hover-bg: #374151; /* gray-700 */
+            --accent-color: #a855f7; /* purple-500 */
+            --hero-text-primary: #ffffff;
+            --hero-text-secondary: #e5e7eb;
+            --star-color: #facc15; /* yellow-400 */
+        }
+        html.light {
+            --background: #f3f4f6; --text-primary: #1f2937; --text-secondary: #4b5563;
+            --card-bg: #ffffff; --header-bg: rgba(255, 255, 255, 0.7);
+            --overlay-bg: rgba(243, 244, 246, 0.95);
+            --card-hover-bg: #e5e7eb; /* gray-200 */
+            --accent-color: #8b5cf6; /* violet-500 */
+            --hero-text-primary: #111827; /* gray-900 */
+            --hero-text-secondary: #374151; /* gray-700 */
+        }
         body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #0c4a6e; /* Azul do Pica-Pau */
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
         }
-        /* Fonte especial para o título/logo */
-        .font-logo {
-            font-family: 'Luckiest Guy', cursive;
+        .hero-gradient-bottom { background-image: linear-gradient(to top, var(--background) 10%, rgba(12, 10, 9, 0) 100%); }
+        .hero-gradient-left { background-image: linear-gradient(to right, var(--background) 20%, transparent 100%); }
+        .carousel-container, .search-results { scrollbar-width: none; }
+        .carousel-container::-webkit-scrollbar, .search-results::-webkit-scrollbar { display: none; }
+        .modal { transition: opacity 0.3s, visibility 0.3s; visibility: hidden; opacity: 0; }
+        .modal.active { visibility: visible; opacity: 1; }
+        #mobile-nav, .mobile-overlay { transition: opacity 0.3s, visibility 0.3s; visibility: hidden; opacity: 0; }
+        #mobile-nav.active, .mobile-overlay.active { visibility: visible; opacity: 1; }
+        .hoverable-item:hover { background-color: var(--card-hover-bg); }
+        .mobile-nav-item { color: var(--text-secondary); }
+        .mobile-nav-item.active { color: var(--accent-color); }
+        select {
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.5em 1.5em; padding-right: 2.5rem;
         }
-        /* Gradiente para a seção de destaque */
-        .hero-gradient {
-            background: linear-gradient(to top, rgba(12, 74, 110, 1) 10%, rgba(12, 74, 110, 0.7) 40%, rgba(12, 74, 110, 0) 100%);
-        }
-        /* Esconde a barra de rolagem no modal */
-        .modal-open {
-            overflow: hidden;
-        }
+        .star-rating .lucide-star { cursor: pointer; transition: color 0.2s, fill 0.2s; }
+        
+        #main-app-content, #auth-screen { display: none; }
     </style>
 </head>
-<body class="bg-sky-900 text-gray-200">
+<body class="pb-20 md:pb-0">
 
-    <!-- Cabeçalho -->
-    <header class="fixed top-0 left-0 right-0 bg-sky-900 bg-opacity-70 backdrop-blur-sm z-40">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="font-logo text-4xl font-bold tracking-wider text-red-500" style="text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;">
-                Pica-Pau
-            </h1>
-            <nav class="hidden md:flex space-x-6 items-center">
-                <a href="#" class="text-gray-300 hover:text-white transition">Início</a>
-                <a href="#" class="text-white font-semibold">Desenhos</a>
-                <a href="#" class="text-gray-300 hover:text-white transition">Filmes</a>
-            </nav>
-            <img src="https://placehold.co/40x40/dc2626/ffffff?text=P" alt="Avatar do Usuário" class="rounded-full border-2 border-red-500">
-        </div>
-    </header>
+    <!-- Tela de Autenticação -->
+    <div id="auth-screen" class="fixed inset-0 z-[100] flex items-center justify-center p-4" style="background-color: var(--background);">
+        <div class="w-full max-w-md text-center">
+            <h1 class="text-4xl font-bold mb-2"><span class="text-blue-500">Cine</span><span class="text-purple-500">Verse</span></h1>
+            <p class="mb-8" style="color: var(--text-secondary);">Explore universos cinematográficos.</p>
 
-    <!-- Conteúdo Principal -->
-    <main>
-        <!-- Seção de Destaque (Hero) -->
-        <section class="relative h-[70vh] md:h-[80vh] flex items-end bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/0891b2/ffffff?text=Cena+do+Pica-Pau');">
-            <div class="absolute inset-0 hero-gradient"></div>
-            <div class="relative z-10 p-6 md:p-12 max-w-2xl">
-                <h2 class="text-4xl md:text-6xl font-extrabold text-yellow-300 mb-4">Pica-Pau Ataca Novamente</h2>
-                <p class="text-gray-200 mb-6 text-lg">
-                    Acompanhe as travessuras do Pica-Pau, o pássaro mais maluco da floresta, enquanto ele perturba seus vizinhos e se mete nas mais hilárias confusões.
-                </p>
-                <button class="play-video-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-xl transition-transform transform hover:scale-105 flex items-center space-x-2" data-video-url="https://files.catbox.moe/mj23l1.mp4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span>Assistir Agora</span>
+            <div id="login-view">
+                <form id="email-login-form" class="space-y-4">
+                    <input type="email" id="email-input" placeholder="E-mail" class="w-full p-3 rounded-md border-none text-lg" style="background-color: var(--card-bg); color: var(--text-primary);" required>
+                    <input type="password" id="password-input" placeholder="Senha" class="w-full p-3 rounded-md border-none text-lg" style="background-color: var(--card-bg); color: var(--text-primary);" required>
+                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition">Entrar / Cadastrar</button>
+                </form>
+                <div class="my-4 flex items-center">
+                    <hr class="flex-grow border-t" style="border-color: var(--card-bg);"><span class="mx-4 text-sm" style="color: var(--text-secondary);">OU</span><hr class="flex-grow border-t" style="border-color: var(--card-bg);">
+                </div>
+                <button id="google-login-btn" class="w-full flex items-center justify-center gap-3 bg-white text-black font-bold py-3 px-5 rounded-lg transition hover:bg-gray-200">
+                    <svg class="w-6 h-6" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.42-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg>
+                    Entrar com Google
                 </button>
+                <p id="auth-error" class="text-red-500 mt-4 text-sm h-4"></p>
             </div>
-        </section>
 
-        <!-- Galeria de Episódios -->
-        <section class="container mx-auto px-6 py-12">
-            <h3 class="text-2xl font-bold mb-6 text-gray-100">Episódios Clássicos</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                <!-- Card Episódio 1 -->
-                <div class="play-video-btn group cursor-pointer" data-video-url="https://files.catbox.moe/mj23l1.mp4">
-                    <div class="relative bg-sky-800 rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105">
-                        <img src="https://placehold.co/300x170/ef4444/ffffff?text=Episódio+1" alt="Thumbnail Episódio 1" class="w-full h-auto">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8.118v3.764a1 1 0 001.555.832l3.197-1.882a1 1 0 000-1.664l-3.197-1.882z" clip-rule="evenodd" /></svg>
-                        </div>
-                    </div>
-                    <h4 class="font-semibold text-gray-100 mt-2">Pica-Pau Ataca Novamente</h4>
-                </div>
-                <!-- Card Episódio 2 -->
-                <div class="group cursor-not-allowed">
-                    <div class="relative bg-sky-800 rounded-lg overflow-hidden shadow-lg">
-                        <img src="https://placehold.co/300x170/f97316/ffffff?text=Episódio+2" alt="Thumbnail Episódio 2" class="w-full h-auto filter grayscale">
-                    </div>
-                    <h4 class="font-semibold text-gray-500 mt-2">O Barbeiro de Sevilha</h4>
-                </div>
-                <!-- Card Episódio 3 -->
-                <div class="group cursor-not-allowed">
-                    <div class="relative bg-sky-800 rounded-lg overflow-hidden shadow-lg">
-                        <img src="https://placehold.co/300x170/eab308/ffffff?text=Episódio+3" alt="Thumbnail Episódio 3" class="w-full h-auto filter grayscale">
-                    </div>
-                    <h4 class="font-semibold text-gray-500 mt-2">Pica-Pau, o Rei do Gatilho</h4>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Rodapé -->
-    <footer class="border-t border-sky-800 mt-12">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-400">
-            <p>&copy; 2024 Pica-Pau. He-he-he-HÉ-he!</p>
-        </div>
-    </footer>
-
-    <!-- Modal do Player de Vídeo -->
-    <div id="videoModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4">
-        <div class="relative w-full max-w-4xl bg-black rounded-lg shadow-lg">
-            <button id="closeModalBtn" class="absolute -top-4 -right-4 text-white bg-red-600 rounded-full h-10 w-10 flex items-center justify-center text-2xl z-10">&times;</button>
-            <div class="aspect-w-16 aspect-h-9">
-                <video id="videoPlayer" class="w-full h-full rounded-lg" controls autoplay></video>
+            <div id="username-view" class="hidden">
+                 <p class="mb-4" style="color: var(--text-secondary);">Para começar, escolha um nome de usuário único.</p>
+                <form id="username-form" class="space-y-4">
+                    <input type="text" id="username-input" placeholder="Nome de usuário" class="w-full p-3 rounded-md border-none text-lg" style="background-color: var(--card-bg); color: var(--text-primary);" required>
+                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition">Salvar e Continuar</button>
+                </form>
+                 <p id="username-error" class="text-red-500 mt-4 text-sm h-4"></p>
             </div>
         </div>
     </div>
 
-    <script>
-        // Seleciona os elementos do DOM
-        const videoModal = document.getElementById('videoModal');
-        const videoPlayer = document.getElementById('videoPlayer');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const playButtons = document.querySelectorAll('.play-video-btn');
-        const body = document.body;
+    <!-- Conteúdo Principal da Aplicação -->
+    <div id="main-app-content">
+        <!-- Cabeçalho (Desktop) -->
+        <header class="fixed top-0 left-0 right-0 bg-opacity-70 backdrop-blur-md z-40" style="background-color: var(--header-bg);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center space-x-8">
+                        <a href="#" id="home-link" class="text-2xl font-bold"><span class="text-blue-500">Cine</span><span class="text-purple-500">Verse</span></a>
+                    </div>
+                    <div class="hidden lg:flex items-center space-x-4">
+                        <button id="desktop-search-button" class="p-2 rounded-md hoverable-item"><i data-lucide="search"></i></button>
+                        <button id="desktop-live-button" class="text-sm font-medium p-2 rounded-md hoverable-item">Ao Vivo</button>
+                        <button id="desktop-movies-button" class="text-sm font-medium p-2 rounded-md hoverable-item">Filmes</button>
+                        <button id="desktop-series-button" class="text-sm font-medium p-2 rounded-md hoverable-item">Séries</button>
+                        <button id="desktop-genres-button" class="text-sm font-medium p-2 rounded-md hoverable-item">Gêneros</button>
+                        <button id="desktop-list-button" class="text-sm font-medium p-2 rounded-md hoverable-item">Minha Lista</button>
+                        <div class="relative" id="profile-dropdown-container">
+                            <button id="profile-button" class="w-9 h-9 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full overflow-hidden" title="Perfil"><img id="profile-avatar" src="https://placehold.co/40x40/ffffff/333333?text=A" alt="Avatar do Utilizador" class="w-full h-full object-cover"></button>
+                            <div id="profile-menu" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 hidden" style="background-color: var(--card-bg)">
+                                <a href="#" id="account-btn" class="w-full text-left px-4 py-2 text-sm hoverable-item flex items-center gap-2"><i data-lucide="user-2" class="w-4 h-4"></i>Conta</a>
+                                <a href="#" id="desktop-settings-btn" class="w-full text-left px-4 py-2 text-sm hoverable-item flex items-center gap-2"><i data-lucide="settings" class="w-4 h-4"></i>Configurações</a>
+                                <a href="#" id="logout-btn" class="w-full text-left px-4 py-2 text-sm hoverable-item flex items-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i>Sair</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:hidden">
+                        <button id="hamburger-button"><i data-lucide="menu" class="w-7 h-7"></i></button>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-        // Função para abrir o modal
-        const openModal = (videoUrl) => {
-            if (videoUrl) {
-                videoPlayer.src = videoUrl;
-                videoModal.classList.remove('hidden');
-                body.classList.add('modal-open');
-                videoPlayer.play();
-            }
-        };
+        <!-- Painel de Navegação Mobile -->
+        <div id="mobile-nav" class="modal fixed top-0 left-0 h-full w-full z-50 lg:hidden" style="background-color: var(--background)">
+            <div class="p-4">
+                <div class="flex justify-between items-center mb-8">
+                    <a href="#" class="text-2xl font-bold"><span class="text-blue-500">Cine</span><span class="text-purple-500">Verse</span></a>
+                    <button id="close-mobile-nav"><i data-lucide="x" class="w-7 h-7"></i></button>
+                </div>
+                <nav id="mobile-sidebar-nav" class="flex flex-col space-y-4 text-lg">
+                    <a href="#" data-nav="home" class="p-2 rounded-md hoverable-item">Início</a>
+                    <a href="#" data-nav="live" class="p-2 rounded-md hoverable-item">Ao Vivo</a>
+                    <a href="#" data-nav="movies" class="p-2 rounded-md hoverable-item">Filmes</a>
+                    <a href="#" data-nav="series" class="p-2 rounded-md hoverable-item">Séries</a>
+                    <a href="#" data-nav="genres" class="p-2 rounded-md hoverable-item">Gêneros</a>
+                </nav>
+            </div>
+        </div>
 
-        // Função para fechar o modal
-        const closeModal = () => {
-            videoModal.classList.add('hidden');
-            body.classList.remove('modal-open');
-            videoPlayer.pause();
-            videoPlayer.src = ''; // Interrompe o carregamento do vídeo em segundo plano
-        };
+        <main class="overflow-x-hidden">
+            <section id="hero-section" class="relative min-h-[60vh] md:min-h-[90vh] flex items-center">
+                <!-- Conteúdo do Herói será populado por JS -->
+            </section>
 
-        // Adiciona evento de clique para todos os botões de play
-        playButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const videoUrl = button.dataset.videoUrl;
-                openModal(videoUrl);
+            <div id="content-container" class="py-8 md:py-12">
+                <!-- Carrosséis ou outras páginas serão populados aqui -->
+            </div>
+        </main>
+        
+        <!-- Barra de Navegação Inferior (Mobile) -->
+        <div class="fixed bottom-0 left-0 right-0 h-20 z-40 lg:hidden" style="background-color: var(--background); border-top: 1px solid var(--card-bg);">
+            <div id="mobile-nav-bar" class="flex justify-around items-center h-full">
+                <button data-nav="home" class="mobile-nav-item active flex flex-col items-center p-2"><i data-lucide="home" class="w-6 h-6 mb-1"></i><span class="text-sm">Início</span></button>
+                <button data-nav="search" class="mobile-nav-item flex flex-col items-center p-2"><i data-lucide="search" class="w-6 h-6 mb-1"></i><span class="text-sm">Buscar</span></button>
+                <button data-nav="live" class="mobile-nav-item flex flex-col items-center p-2"><i data-lucide="tv" class="w-6 h-6 mb-1"></i><span class="text-sm">Ao Vivo</span></button>
+                <button data-nav="list" class="mobile-nav-item flex flex-col items-center p-2"><i data-lucide="list-video" class="w-6 h-6 mb-1"></i><span class="text-sm">Minha Lista</span></button>
+                <button id="mobile-profile-button" class="mobile-nav-item flex flex-col items-center p-2"><i data-lucide="user-2" class="w-6 h-6 mb-1"></i><span class="text-sm">Perfil</span></button>
+            </div>
+        </div>
+        
+        <!-- Modal do Leitor de Vídeo -->
+        <div id="player-modal" class="modal fixed inset-0 bg-black z-[51] flex flex-col">
+            <div class="absolute top-0 left-0 z-10 p-4">
+                <button id="close-player-modal" class="p-2 bg-black/50 rounded-full hover:bg-black/70 transition"><i data-lucide="arrow-left" class="text-white"></i></button>
+            </div>
+            <div id="player-container" class="w-full h-full flex-1 relative"></div>
+        </div>
+        
+        <!-- Overlay de Perfil Mobile -->
+        <div id="mobile-profile-overlay" class="modal fixed inset-0 z-50 p-4" style="background-color: var(--overlay-bg);">
+            <div class="flex justify-end mb-4"><button id="close-profile-overlay"><i data-lucide="x" class="w-7 h-7"></i></button></div>
+            <div class="mt-8 flex flex-col items-center space-y-6">
+                <h2 class="text-2xl font-bold">Perfil</h2>
+                <div class="w-full max-w-xs space-y-4">
+                    <button id="mobile-account-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="user-2" class="w-5 h-5 mr-2"></i>Conta</button>
+                    <button id="mobile-settings-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="settings" class="w-5 h-5 mr-2"></i>Configurações</button>
+                    <button id="mobile-logout-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="log-out" class="w-5 h-5 mr-2"></i>Sair</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal de Busca -->
+        <div id="search-modal" class="modal fixed inset-0 z-50 p-4 pt-16" style="background-color: var(--overlay-bg);">
+            <div class="container mx-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <input type="text" id="search-input" placeholder="Buscar por filmes ou séries..." class="w-full p-3 rounded-md border-none text-lg" style="background-color: var(--card-bg); color: var(--text-primary);">
+                    <button id="close-search-modal" class="ml-2 p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
+                </div>
+                <div id="search-results" class="max-h-[80vh] overflow-y-auto"></div>
+            </div>
+        </div>
+
+        <!-- Modal de Configurações -->
+        <div id="settings-modal" class="modal fixed inset-0 z-50 p-4 pt-16" style="background-color: var(--overlay-bg);">
+            <div class="container mx-auto max-w-2xl">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold">Configurações</h2>
+                    <button id="close-settings-modal" class="ml-2 p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
+                </div>
+                <div class="space-y-6 p-6 rounded-lg" style="background-color: var(--card-bg);">
+                    <!-- Tema -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3"><i data-lucide="sun-moon"></i><span class="font-semibold">Tema</span></div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="theme-toggle-switch" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                        </label>
+                    </div>
+                    <!-- Qualidade de Vídeo -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3"><i data-lucide="video"></i><span class="font-semibold">Qualidade de Vídeo Padrão</span></div>
+                        <select id="video-quality-select" class="p-2 rounded-md font-semibold border-none cursor-pointer" style="background-color: var(--card-hover-bg); color: var(--text-primary);">
+                            <option value="auto">Automática</option>
+                            <option value="1080p">Full HD (1080p)</option>
+                            <option value="720p">HD (720p)</option>
+                            <option value="480p">SD (480p)</option>
+                        </select>
+                    </div>
+                    <!-- Limpar Histórico -->
+                     <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3"><i data-lucide="history"></i><span class="font-semibold">Histórico de Exibição</span></div>
+                        <button id="clear-history-btn" class="text-sm bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition">Limpar Histórico</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal da Conta -->
+        <div id="account-modal" class="modal fixed inset-0 z-50 p-4 pt-16" style="background-color: var(--overlay-bg);">
+            <div class="container mx-auto max-w-2xl">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold">Minha Conta</h2>
+                    <button id="close-account-modal" class="ml-2 p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
+                </div>
+                <div class="p-6 rounded-lg flex flex-col items-center gap-8" style="background-color: var(--card-bg);">
+                    <div class="flex flex-col md:flex-row items-center gap-6 w-full">
+                        <img id="account-modal-avatar" src="https://placehold.co/100x100/ffffff/333333?text=A" alt="Avatar do Utilizador" class="w-24 h-24 rounded-full object-cover">
+                        <div class="text-center md:text-left">
+                            <h3 id="account-modal-username" class="text-2xl font-bold"></h3>
+                            <p id="account-modal-email" class="text-lg" style="color: var(--text-secondary);"></p>
+                             <p id="account-modal-member-since" class="text-sm mt-1" style="color: var(--text-secondary);"></p>
+                        </div>
+                    </div>
+                    <button id="manage-subscription-btn" class="w-full max-w-sm bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition">Gerenciar Assinatura</button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Fim do #main-app-content -->
+
+    <div id="loading-spinner" class="fixed inset-0 flex justify-center items-center z-[101]" style="background-color: var(--background);"><div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div></div>
+
+    <script type="module">
+        // Importações do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            onAuthStateChanged, 
+            GoogleAuthProvider, 
+            signInWithPopup,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            getDoc, 
+            setDoc,
+            collection,
+            query,
+            where,
+            getDocs,
+            Timestamp,
+            writeBatch,
+            collectionGroup
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // --- CONFIGURAÇÃO DO FIREBASE ---
+            const firebaseConfig = {
+              apiKey: "AIzaSyB98-bStjweF82UALPiw2YiwKKn1IhZASE",
+              authDomain: "videochamada11.firebaseapp.com",
+              projectId: "videochamada11",
+              storageBucket: "videochamada11.firebasestorage.app",
+              messagingSenderId: "872635256324",
+              appId: "1:872635256324:web:12a6051efe8796730f2f51"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+            const googleProvider = new GoogleAuthProvider();
+
+            // --- BANCO DE DADOS E ESTADO DA APLICAÇÃO ---
+            const contentDb = {
+                movies: [
+                    { id: 5, title: "Orion e o Escuro", year: "2024", rating: 4.6, genres: ["Animação", "Aventura", "Fantasia"], director: "Sean Charmatz", cast: ["Jacob Tremblay", "Paul Walter Hauser"], synopsis: "Um garoto com uma imaginação ativa enfrenta seus medos numa jornada pela noite...", poster: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Orion_e_o_Escuro.jpg", backdrop: "https://occ-0-8407-92.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABXj5BLHAmSR-leac11zR8tVvyNTQSxhPr1j_kgD6kvXVCxwbeUZapd-BZywoz4WtVmP7heJQTd0AkuWLCtClHRPP3UBM1DgLaNnu.jpg?r=25c", playerType: 'video', url: "https://1a-1791.com/video/fww1/ae/s8/2/4/B/G/w/4BGwy.gaa.mp4", progress: 0, dateAdded: '2025-07-18' },
+                    { id: 13, title: "Ratatouille", year: "2007", rating: 4.8, genres: ["Animação", "Comédia", "Família"], director: "Brad Bird", cast: ["Patton Oswalt", "Ian Holm", "Lou Romano"], synopsis: "Um rato chamado Remy sonha em se tornar um grande chef francês...", poster: "https://upload.wikimedia.org/wikipedia/pt/8/82/Ratatouille_p%C3%B4ster.jpg", backdrop: "https://image.tmdb.org/t/p/original/uTSZLWiAIDxS6ELlmjHHtfNkTGP.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe2/fb/s8/2/2/X/V/S/2XVSx.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
+                    { id: 14, title: "Moana - Um Mar de Aventuras", year: "2016", rating: 4.7, genres: ["Animação", "Aventura", "Família"], director: "Ron Clements, John Musker", cast: ["Auli'i Cravalho", "Dwayne Johnson", "Rachel House"], synopsis: "Moana, uma jovem corajosa, parte em uma missão ousada para salvar seu povo.", poster: "https://br.web.img3.acsta.net/pictures/16/09/12/22/13/415370.jpg", backdrop: "https://image.tmdb.org/t/p/original/kNAANuEyhDu5g4c5p0gcMFLhV0k.jpg", playerType: 'video', url: "https://1a-1791.com/video/s8/2/K/T/8/c/KT8cv.gaa.mp4", progress: 0, dateAdded: '2025-07-16' },
+                    { id: 16, title: "Gato de Botas 2: O Último Pedido", year: "2022", rating: 4.9, genres: ["Animação", "Aventura", "Comédia"], director: "Joel Crawford", cast: ["Antonio Banderas", "Salma Hayek", "Harvey Guillén"], synopsis: "O Gato de Botas descobre que sua paixão pela aventura cobrou seu preço: ele queimou oito de suas nove vidas.", poster: "https://m.media-amazon.com/images/S/pv-target-images/af89ec33729d1d14d78507f10f3aa4e3be74093c22a149a90268a39435bc6a82.jpg", backdrop: "https://image.tmdb.org/t/p/original/u8XDx5S8RWc2UgCGc7HHwFWVE2a.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8c/s8/2/u/I/-/a/uI-ax.gaa.mp4", progress: 0, dateAdded: '2025-07-15' },
+                    { id: 17, title: "Como Treinar o Seu Dragão", year: "2010", rating: 4.8, genres: ["Animação", "Aventura", "Fantasia"], director: "Dean DeBlois, Chris Sanders", cast: ["Jay Baruchel", "Gerard Butler", "Craig Ferguson"], synopsis: "Um jovem Viking desafortunado que aspira a caçar dragões torna-se o amigo improvável de um jovem dragão...", poster: "https://upload.wikimedia.org/wikipedia/pt/e/ed/How_to_Train_Your_Dragon_%28filme_de_2010%29.jpg", backdrop: "https://image.tmdb.org/t/p/original/sUxsHQtSxfwmXkoqNlB7Uyl0kaN.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/b3/s8/2/b/4/9/-/b49-w.gaa.mp4", progress: 0, dateAdded: '2025-07-14' },
+                    { id: 3, title: "O Segredo dos Animais", year: "2006", rating: 4.1, genres: ["Comédia", "Animação"], director: "Steve Oedekerk", cast: ["Kevin James", "Courteney Cox"], synopsis: "Quando o fazendeiro está fora, todos os animais da fazenda cantam e dançam...", poster: "https://br.web.img3.acsta.net/medias/nmedia/18/94/12/17/20304560.jpg", backdrop: "https://http2.mlstatic.com/D_NQ_NP_751137-MLA73368651374_122023-B.webp", playerType: 'video', url: "https://1a-1791.com/video/fww1/ab/s8/2/o/e/2/s/oe2sy.gaa.mp4", progress: 50, dateAdded: '2025-07-13' },
+                    { id: 4, title: "A Nova Onda do Imperador", year: "2000", rating: 4.7, genres: ["Comédia", "Animação", "Aventura"], director: "Mark Dindal", cast: ["David Spade", "John Goodman"], synopsis: "O arrogante imperador Kuzco é transformado em uma lhama...", poster: "https://m.media-amazon.com/images/M/MV5BMjBkMWE4ZjUtZTgxYi00MjRlLWIyYWYtY2M2ZWQ2YzA3OTgyXkEyXkFqcGc@._V1_.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFDmG7HE_dd27sbKKLDzeZGzu95qaL2WUrTXspfaBNANTSJkTFvxbMcqqmto_MTH05C6XSW85CXpNIiyE8MQEzmG06xefmAiuale1SZaP5IMh17pRBS08vIdRDvxsz06ri6T2KToVw9Uk/s1000/a+nova+onda+do+imperador.png", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8b/s8/2/k/P/h/x/kPhxy.caa.mp4", progress: 0, dateAdded: '2025-07-12' },
+                    { id: 2, title: "Pica-Pau: O Filme", year: "2017", rating: 3.8, genres: ["Comédia", "Animação", "Aventura"], director: "Alex Zamm", cast: ["Timothy Omundson", "Thaila Ayala"], synopsis: "O Pica-Pau está metido em mais uma de suas brigas por território...", poster: "https://br.web.img2.acsta.net/pictures/17/08/25/19/04/419991.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg", playerType: 'iframe', url: "https://www.tokyvideo.com/embed/409976", progress: 0, dateAdded: '2025-07-11' },
+                    { id: 6, title: "Patos!", year: "2023", rating: 4.4, genres: ["Animação", "Aventura", "Comédia"], director: "Benjamin Renner", cast: ["Kumail Nanjiani", "Elizabeth Banks"], synopsis: "Uma família de patos tenta convencer seu pai a embarcar nas férias de suas vidas...", poster: "https://br.web.img2.acsta.net/pictures/23/12/07/19/08/2800297.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiHQEZwHPftCEbCl9A7Y0FDNCCyY63UzTzcw4jC9qsR78PsH_J5xely5IjIV9kr4KgBPMWRvdJXGL2pYnHIIKjDvDQnivL4esBc60uecHi4oZuP-SVyLw26sQ1ZaWF6zmZp89uSbjcGfTFD6-HLY6V1d-bBExjwMeZefxg-MH_6CdyNBYvawMcGUrQ9WMt/s1640/Patos%20cover.jpg", playerType: 'video', url: "https://1a-1791.com/video/fww1/26/s8/2/G/0/G/w/G0Gwy.gaa.mp4", progress: 20, dateAdded: '2025-07-10' },
+                    { id: 9, title: "Enrolados", year: "2010", rating: 4.8, genres: ["Animação", "Aventura", "Romance"], director: "Nathan Greno", cast: ["Mandy Moore", "Zachary Levi"], synopsis: "Rapunzel, com seu cabelo mágico, faz um acordo com o ladrão Flynn Rider...", poster: "https://upload.wikimedia.org/wikipedia/pt/9/99/Tangled_Disney.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEFR_J4w6veFIbYfEzl7Vgg_I4um9o0JUfNTWE8IiL1LrN_TNH6fD0MaTvg9yNV8fCZZAVhX9kLl_Cnphw8scYd5apRm62FhEg6x-jjwJX5peGv6mVJq8lGma_XzqAzrYkYVSgV81HTOk/s1000/enrolados.png", playerType: 'video', url: "https://1a-1791.com/video/fww1/5f/s8/2/g/J/K/t/gJKty.gaa.mp4", progress: 80, dateAdded: '2025-07-09' }
+                ],
+                series: [
+                    {
+                        id: "coracao-de-ferro", title: "Coração de Ferro", year: "2025", cover: "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg", backdrop: "https://image.tmdb.org/t/p/original/uW8fcacKbGEJKeUmmveSdzMWf1U.jpg",
+                        synopsis: "Riri Williams, uma estudante genial do MIT, cria a armadura mais avançada desde o Homem de Ferro.",
+                        genres: ["Ação", "Aventura", "Ficção Científica"], dateAdded: '2025-07-20',
+                        seasons: [
+                            { id: "ironheart-s1", title: "Temporada 1", episodes: [
+                                { videoUrl: "https://f005.backblazeb2.com/file/s7rave/serie%20cora%C3%A7ao%20de%20ferro/Cora%C3%A7%C3%A3o.De.Ferro.S01e01.1080P.X264.Web-Dl.Dual-Sf.mp4", title: "Episódio 1" },
+                                { videoUrl: "https://f005.backblazeb2.com/file/s7rave/serie%20cora%C3%A7ao%20de%20ferro/Cora%C3%A7%C3%A3o.De.Ferro.S01e02.1080P.X264.Web-Dl.Dual-Sf.mp4", title: "Episódio 2" },
+                                { videoUrl: "https://f005.backblazeb2.com/file/s7rave/serie%20cora%C3%A7ao%20de%20ferro/Cora%C3%A7%C3%A3o.De.Ferro.S01e03.1080P.X264.Web-Dl.Dual-Sf.mp4", title: "Episódio 3" }
+                            ] }
+                        ]
+                    },
+                    {
+                        id: "round-6", title: "Round 6", cover: "https://www.quadrorama.com.br/wp-content/uploads/2021/11/Round-6-Capa-bd86b0c3.png", backdrop: "https://travejante.com/wp-content/uploads/2021/10/squid-game.jpeg",
+                        synopsis: "Centenas de jogadores falidos aceitam um estranho convite para competir em jogos infantis. Dentro do jogo, um prêmio tentador os espera, mas as apostas são mortais.",
+                        genres: ["Suspense", "Drama", "Ação"], dateAdded: '2025-07-19',
+                        seasons: [
+                            { id: "round-6-s1", title: "Temporada 1", episodes: [ 
+                                { videoUrl: "https://1a-1791.com/video/fwe2/bc/s8/2/c/i/O/8/ciO8v.haa.mp4", title: "Episódio 1" }, 
+                                { videoUrl: "https://1a-1791.com/video/fwe2/0d/s8/2/O/K/O/8/OKO8v.haa.mp4", title: "Episódio 2" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/f3/s8/2/1/G/R/8/1GR8v.haa.mp4", title: "Episódio 3" },
+                                { videoUrl: "https://1a-1791.com/video/fwe1/ec/s8/2/G/h/S/8/GhS8v.haa.mp4", title: "Episódio 4" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/aa/s8/2/1/J/U/8/1JU8v.haa.mp4", title: "Episódio 5" },
+                                { videoUrl: "https://1a-1791.com/video/fwe1/84/s8/2/-/g/W/8/-gW8v.haa.mp4", title: "Episódio 6" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/f2/s8/2/0/E/0/8/0E08v.haa.mp4", title: "Episódio 7" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/23/s8/2/M/0/1/8/M018v.haa.mp4", title: "Episódio 8" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/63/s8/2/x/3/0/9/x309v.haa.mp4", title: "Episódio 9" }
+                            ] },
+                            { id: "round-6-s2", title: "Temporada 2", episodes: [
+                                { videoUrl: "https://1a-1791.com/video/fwe1/5b/s8/2/T/3/8/9/T389v.haa.mp4", title: "Episódio 1" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/25/s8/2/N/L/_/9/NL_9v.haa.mp4", title: "Episódio 2" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/3c/s8/2/J/t/0/_/Jt0_v.haa.mp4", title: "Episódio 3" },
+                                { videoUrl: "https://1a-1791.com/video/fwe1/b6/s8/2/2/z/f/a/2zfaw.haa.mp4", title: "Episódio 4" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/83/s8/2/R/a/l/a/Ralaw.haa.mp4", title: "Episódio 5" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/14/s8/2/K/U/z/b/KUzbw.haa.mp4", title: "Episódio 6" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/4f/s8/2/2/P/B/b/2PBbw.haa.mp4", title: "Episódio 7" }
+                            ] }
+                        ]
+                    },
+                    {
+                        id: "the-last-of-us", title: "The Last of Us", cover: "https://m.media-amazon.com/images/M/MV5BYWI3ODJlMzktY2U5NC00ZjdlLWE1MGItNWQxZDk3NWNjN2RhXkEyXkFqcGc@._V1_.jpg", backdrop: "https://image.tmdb.org/t/p/original/6NXVC0yzrD7M96PYwj5jr259Ptk.jpg",
+                        synopsis: "Vinte anos após a civilização moderna ter sido destruída, Joel, um sobrevivente endurecido, é contratado para contrabandear Ellie, uma menina de 14 anos, para fora de uma zona de quarentena opressiva.",
+                        genres: ["Drama", "Ação", "Aventura", "Ficção Científica"], dateAdded: '2025-07-18',
+                        seasons: [
+                            { id: "tlou-s1", title: "Temporada 1", episodes: [
+                                { videoUrl: "https://1a-1791.com/video/fwe2/91/s8/2/5/Z/f/w/5Zfww.haa.mp4", title: "Episódio 1" },
+                                { videoUrl: "https://1a-1791.com/video/fwe1/ae/s8/2/R/y/h/w/Ryhww.haa.mp4", title: "Episódio 2" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/18/s8/2/r/O/o/w/rOoww.haa.mp4", title: "Episódio 3" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/7d/s8/2/3/a/q/w/3aqww.haa.mp4", title: "Episódio 4" },
+                                { videoUrl: "https://1a-1791.com/video/fwe1/90/s8/2/E/K/r/w/EKrww.haa.mp4", title: "Episódio 5" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/81/s8/2/M/l/t/w/Mltww.haa.mp4", title: "Episódio 6" },
+                                { videoUrl: "https://1a-1791.com/video/fwe2/d0/s8/2/P/g/v/w/Pgvww.haa.mp4", title: "Episódio 7" },
+                                { videoUrl: "https://1a-1791.com/video/fwe1/70/s8/2/J/4/w/w/J4www.haa.mp4", title: "Episódio 8" },
+                                { videoUrl: "https://1a-1791.com/video/fwe1/4f/s8/2/H/8/x/w/H8xww.haa.mp4", title: "Episódio 9" }
+                            ] }
+                        ]
+                    },
+                    {
+                        id: "pica-pau", title: "Pica-Pau", cover: "https://media.themoviedb.org/t/p/w600_and_h900_bestv2/aXgyvCWLPkbZUCYR822KLsKZXgt.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg",
+                        synopsis: "As aventuras clássicas e hilárias do Pica-Pau, um pássaro icônico conhecido por sua risada contagiante e suas travessuras intermináveis contra seus adversários.",
+                        genres: ["Animação", "Comédia", "Família"], dateAdded: '2025-07-01',
+                        seasons: [
+                             {
+                                id: "season-1940",
+                                title: "Pica-Pau 1940",
+                                episodes: [
+                                    { videoUrl: "https://files.catbox.moe/mj23l1.mp4", title: "Pica-Pau Ataca Novamente" },
+                                    { videoUrl: "https://files.catbox.moe/1onuvg.mp4", title: "O Pica-Pau Biruta" },
+                                    { videoUrl: "https://files.catbox.moe/fm8er6.mp4", title: "O Biruta" },
+                                    { videoUrl: "https://files.catbox.moe/3vlf67.mp4", title: "Pânico na Cozinha" },
+                                    { videoUrl: "https://files.catbox.moe/opgp7j.mp4", title: "O Matador de Hollywood" },
+                                    { videoUrl: "https://files.catbox.moe/13r6tn.mp4", title: "Um Ás de Mais" },
+                                    { videoUrl: "https://files.catbox.moe/2tsdpm.mp4", title: "A Loja do Prego" },
+                                    { videoUrl: "https://files.catbox.moe/eg8s85.mp4", title: "Beisebol Maluco" },
+                                    { videoUrl: "https://files.catbox.moe/3lths3.mp4", title: "O Acrobata Maluco" },
+                                    { videoUrl: "https://files.catbox.moe/35fv2h.mp4", title: "O Afanador de Gasolina" }
+                                ]
+                            },
+                            {
+                                id: "season-1944",
+                                title: "Pica-Pau 1944",
+                                episodes: [
+                                    { videoUrl: "https://files.catbox.moe/04glch.mp4", title: "O Barbeiro de Sevilha" },
+                                    { videoUrl: "https://files.catbox.moe/0w74ed.mp4", title: "O Doido da Praia" },
+                                    { videoUrl: "https://files.catbox.moe/rxt33w.mp4", title: "Ski Para Dois" },
+                                    { videoUrl: "https://files.catbox.moe/2jn2cq.mp4", title: "Uma Dama Muito Fina" },
+                                    { videoUrl: "https://files.catbox.moe/ainphs.mp4", title: "O Pica-Pau Come Fora" },
+                                    { videoUrl: "https://files.catbox.moe/tj1f0o.mp4", title: "O Famoso Diplomata" },
+                                    { videoUrl: "https://files.catbox.moe/z9vbpa.mp4", title: "O Biruta à Solta" },
+                                    { videoUrl: "https://files.catbox.moe/ha4ilo.mp4", title: "Quem Cozinha Quem" },
+                                    { videoUrl: "https://files.catbox.moe/b79gdf.mp4", title: "A Hora do Banho" },
+                                    { videoUrl: "https://files.catbox.moe/6czmzf.mp4", title: "Motorista Desleixado" },
+                                    { videoUrl: "https://files.catbox.moe/5gw5jy.mp4", title: "Amigos Penosos" },
+                                    { videoUrl: "https://files.catbox.moe/47j4a8.mp4", title: "Trechos Musicais de Chopin" },
+                                    { videoUrl: "https://files.catbox.moe/m5u2wm.mp4", title: "Presuntos Defumados" },
+                                    { videoUrl: "https://files.catbox.moe/tno4cu.mp4", title: "O Passarinho do Relógio" },
+                                    { videoUrl: "https://files.catbox.moe/4poki7.mp4", title: "Roubando Gasolina" },
+                                    { videoUrl: "https://files.catbox.moe/65d55x.mp4", title: "O Ovo da Galinha" },
+                                    { videoUrl: "https://files.catbox.moe/jyjmtq.mp4", title: "Pica-Pau, o Mata Gigante" },
+                                    { videoUrl: "https://files.catbox.moe/77bu5q.mp4", title: "A Cartola" },
+                                    { videoUrl: "https://files.catbox.moe/sfi4xt.mp4", title: "O Fila Bóia" },
+                                    { videoUrl: "https://files.catbox.moe/u2xw9q.mp4", title: "Hora do Bebê" },
+                                    { videoUrl: "https://files.catbox.moe/fgn0jp.mp4", title: "Apólice Cobertor" },
+                                    { videoUrl: "https://files.catbox.moe/2e1dlr.mp4", title: "Pica-Pau Xerife" }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                liveChannels: [
+                    { id: 'sbt', title: 'SBT', embedUrl: 'https://embedmax.site/canais/sbtsp/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sbt.webp'},
+                    { id: 'globo', title: 'GLOBO', embedUrl: 'https://embedmax.site/canais/globosp1/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/globosp.webp'},
+                    { id: 'record', title: 'RECORD', embedUrl: 'https://embedmax.site/canais/recordsp/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/recordtv.webp'},
+                    { id: 'amc', title: 'AMC', embedUrl: 'https://embedmax.site/canais/amc/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/amc.webp'},
+                    { id: 'sportv', title: 'SPORT TV', embedUrl: 'https://embedmax.site/canais/sportv/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sportv.png'},
+                    { id: 'sportv3', title: 'SPORT TV 3', embedUrl: 'https://embedmax.site/canais/sportv3/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sportv.png'},
+                    { id: 'space', title: 'SPACE', embedUrl: 'https://embedmax.site/canais/space/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/space.webp'},
+                    { id: 'comedy-central', title: 'Comedy Central', embedUrl: 'https://embedmax.site/canais/comedycentral/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/comedycentral.png'},
+                    { id: 'premiere', title: 'PREMIERE', embedUrl: 'https://embedmax.site/canais/premiere/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
+                    { id: 'premiere-2', title: 'PREMIERE 2', embedUrl: 'https://embedmax.site/canais/premiere2/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
+                    { id: 'premiere-3', title: 'PREMIERE 3', embedUrl: 'https://embedmax.site/canais/premiere3/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
+                    { id: 'premiere-4', title: 'PREMIERE 4', embedUrl: 'https://embedmax.site/canais/premiere4/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
+                    { id: 'espn', title: 'ESPN', embedUrl: 'https://embedmax.site/canais/espn/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/espn.webp'},
+                    { id: 'espn-2', title: 'ESPN 2', embedUrl: 'https://embedmax.site/canais/espn2/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/espn.webp'},
+                    { id: 'band', title: 'BAND', embedUrl: 'https://embedmax.site/canais/band/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/band.webp'},
+                    { id: 'bis', title: 'BIS', embedUrl: 'https://embedmax.site/canais/bis/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/bis.png'},
+                    { id: 'national-geographic', title: 'NATIONAL GEOGRAPHIC', embedUrl: 'https://embedmax.site/canais/nationalgeographic/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/natgeo.png'},
+                ],
+                carousels: [
+                    { title: "Adicionados Recentemente", filter: (item) => true, sort: (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded) },
+                    { title: "Continuar a Assistir", filter: (m) => m.progress > 0 && m.progress < 100 },
+                    { title: "Populares na CineVerse", filter: (m) => m.rating >= 4.5 },
+                    { title: "Animações Imperdíveis", filter: (m) => m.genres.includes("Animação") },
+                    { title: "Comédias para Rir à Vontade", filter: (m) => m.genres.includes("Comédia") },
+                    { title: "Aventuras Épicas", filter: (m) => m.genres.includes("Aventura") }
+                ]
+            };
+            let myList = [];
+            let watchProgress = {};
+            let userProfile = null;
+
+            const DOMElements = {
+                html: document.documentElement, 
+                loadingSpinner: document.getElementById('loading-spinner'), 
+                mainAppContent: document.getElementById('main-app-content'),
+                authScreen: document.getElementById('auth-screen'),
+                loginView: document.getElementById('login-view'),
+                usernameView: document.getElementById('username-view'),
+                emailLoginForm: document.getElementById('email-login-form'),
+                emailInput: document.getElementById('email-input'),
+                passwordInput: document.getElementById('password-input'),
+                googleLoginBtn: document.getElementById('google-login-btn'),
+                authError: document.getElementById('auth-error'),
+                usernameForm: document.getElementById('username-form'),
+                usernameInput: document.getElementById('username-input'),
+                usernameError: document.getElementById('username-error'),
+                profileBtn: document.getElementById('profile-button'), 
+                profileMenu: document.getElementById('profile-menu'), 
+                profileDropdownContainer: document.getElementById('profile-dropdown-container'), 
+                profileAvatar: document.getElementById('profile-avatar'),
+                accountBtn: document.getElementById('account-btn'),
+                logoutBtn: document.getElementById('logout-btn'),
+                hamburgerBtn: document.getElementById('hamburger-button'), 
+                mobileNav: document.getElementById('mobile-nav'), 
+                closeMobileNav: document.getElementById('close-mobile-nav'), 
+                playerModal: { container: document.getElementById('player-modal'), closeBtn: document.getElementById('close-player-modal'), playerContainer: document.getElementById('player-container'), title: document.getElementById('player-title') }, 
+                contentContainer: document.getElementById('content-container'), 
+                heroSection: document.getElementById('hero-section'), 
+                mobileProfileBtn: document.getElementById('mobile-profile-button'), 
+                mobileProfileOverlay: document.getElementById('mobile-profile-overlay'), 
+                closeProfileOverlay: document.getElementById('close-profile-overlay'),
+                mobileAccountBtn: document.getElementById('mobile-account-btn'),
+                mobileLogoutBtn: document.getElementById('mobile-logout-btn'),
+                desktopSettingsBtn: document.getElementById('desktop-settings-btn'), 
+                mobileSettingsBtn: document.getElementById('mobile-settings-btn'), 
+                settingsModal: { container: document.getElementById('settings-modal'), closeBtn: document.getElementById('close-settings-modal'), themeToggle: document.getElementById('theme-toggle-switch'), videoQualitySelect: document.getElementById('video-quality-select'), clearHistoryBtn: document.getElementById('clear-history-btn') }, 
+                accountModal: { container: document.getElementById('account-modal'), closeBtn: document.getElementById('close-account-modal'), avatar: document.getElementById('account-modal-avatar'), username: document.getElementById('account-modal-username'), email: document.getElementById('account-modal-email'), memberSince: document.getElementById('account-modal-member-since') },
+                homeLink: document.getElementById('home-link'), 
+                mobileNavBar: document.getElementById('mobile-nav-bar'), 
+                desktopListBtn: document.getElementById('desktop-list-button'), 
+                desktopMoviesBtn: document.getElementById('desktop-movies-button'), 
+                desktopSeriesBtn: document.getElementById('desktop-series-button'), 
+                desktopGenresBtn: document.getElementById('desktop-genres-button'), 
+                desktopSearchBtn: document.getElementById('desktop-search-button'), 
+                desktopLiveBtn: document.getElementById('desktop-live-button'), 
+                searchModal: { container: document.getElementById('search-modal'), input: document.getElementById('search-input'), results: document.getElementById('search-results'), closeBtn: document.getElementById('close-search-modal') }
+            };
+
+            // --- LÓGICA DE AUTENTICAÇÃO E DADOS ---
+
+            const showAuthError = (msg) => { DOMElements.authError.textContent = msg; };
+            const showUsernameError = (msg) => { DOMElements.usernameError.textContent = msg; };
+            
+            const handleLogout = async () => {
+                try {
+                    await signOut(auth);
+                    // onAuthStateChanged irá lidar com a redefinição do estado da UI
+                } catch (error) {
+                    console.error("Erro ao sair:", error);
+                }
+            };
+
+            const saveUserData = async () => {
+                if (!userProfile) return;
+                const dataToSave = {
+                    myList: myList,
+                    watchProgress: watchProgress,
+                    settings: {
+                        theme: DOMElements.html.classList.contains('dark') ? 'dark' : 'light',
+                        videoQuality: DOMElements.settingsModal.videoQualitySelect.value
+                    }
+                };
+                const userAppDataRef = doc(db, `users/${userProfile.uid}/appData`, "data");
+                try {
+                    await setDoc(userAppDataRef, dataToSave, { merge: true });
+                } catch (error) {
+                    console.error("Erro ao salvar dados do usuário:", error);
+                }
+            };
+
+            const loadUserAndStartApp = async (user) => {
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+
+                if (userDoc.exists()) {
+                    userProfile = { uid: user.uid, ...userDoc.data() };
+                    
+                    const userAppDataRef = doc(db, `users/${user.uid}/appData`, "data");
+                    const appDataDoc = await getDoc(userAppDataRef);
+                    if (appDataDoc.exists()) {
+                        const data = appDataDoc.data();
+                        myList = data.myList || [];
+                        watchProgress = data.watchProgress || {};
+                        // Aplicar configurações salvas
+                        const settings = data.settings || {};
+                        if (settings.theme && !DOMElements.html.classList.contains(settings.theme)) {
+                            toggleTheme();
+                        }
+                        DOMElements.settingsModal.videoQualitySelect.value = settings.videoQuality || 'auto';
+                    }
+                    startApp();
+                } else {
+                    showUsernameScreen();
+                }
+            };
+            
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    await loadUserAndStartApp(user);
+                } else {
+                    userProfile = null;
+                    myList = [];
+                    watchProgress = {};
+                    showLoginScreen();
+                }
             });
-        });
 
-        // Adiciona evento de clique para o botão de fechar
-        closeModalBtn.addEventListener('click', closeModal);
+            DOMElements.googleLoginBtn.onclick = async () => {
+                showAuthError('');
+                try {
+                    await signInWithPopup(auth, googleProvider);
+                } catch (error) {
+                    console.error("Erro no login com Google:", error);
+                    showAuthError("Não foi possível fazer login com o Google.");
+                }
+            };
+            
+            DOMElements.emailLoginForm.onsubmit = async (e) => {
+                e.preventDefault();
+                showAuthError('');
+                const email = DOMElements.emailInput.value;
+                const password = DOMElements.passwordInput.value;
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } catch (error) {
+                    if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+                        try {
+                            await createUserWithEmailAndPassword(auth, email, password);
+                        } catch (createError) {
+                            showAuthError("Erro ao criar conta: " + createError.message);
+                        }
+                    } else {
+                         showAuthError("E-mail ou senha inválidos.");
+                    }
+                }
+            };
 
-        // Fecha o modal se o usuário clicar fora da área do vídeo
-        videoModal.addEventListener('click', (event) => {
-            if (event.target === videoModal) {
-                closeModal();
+            DOMElements.usernameForm.onsubmit = async (e) => {
+                e.preventDefault();
+                showUsernameError('');
+                const username = DOMElements.usernameInput.value.trim().toLowerCase();
+                const user = auth.currentUser;
+
+                if (!user) return;
+                if (username.length < 3 || !/^[a-z0-9_]+$/.test(username)) {
+                    showUsernameError("Usuário deve ter min. 3 caracteres, letras minúsculas, números e '_' apenas.");
+                    return;
+                }
+
+                const usernamesCol = collection(db, "usernames");
+                const q = query(usernamesCol, where("username", "==", username));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    showUsernameError("Este nome de usuário já está em uso.");
+                    return;
+                }
+
+                try {
+                    const userDocRef = doc(db, "users", user.uid);
+                    await setDoc(userDocRef, {
+                        username: username,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                        createdAt: Timestamp.now()
+                    });
+                    const usernameDocRef = doc(db, "usernames", username);
+                    await setDoc(usernameDocRef, { uid: user.uid });
+                    
+                    await loadUserAndStartApp(user);
+                } catch (error) {
+                    showUsernameError("Não foi possível salvar o nome de usuário.");
+                }
+            };
+
+            const showLoginScreen = () => {
+                DOMElements.loadingSpinner.style.display = 'none';
+                DOMElements.mainAppContent.style.display = 'none';
+                DOMElements.authScreen.style.display = 'flex';
+                DOMElements.loginView.style.display = 'block';
+                DOMElements.usernameView.style.display = 'none';
+            };
+
+            const showUsernameScreen = () => {
+                DOMElements.loadingSpinner.style.display = 'none';
+                DOMElements.mainAppContent.style.display = 'none';
+                DOMElements.authScreen.style.display = 'flex';
+                DOMElements.loginView.style.display = 'none';
+                DOMElements.usernameView.style.display = 'block';
+            };
+            
+            const startApp = () => {
+                if (!userProfile) {
+                    showLoginScreen();
+                    return;
+                }
+                DOMElements.authScreen.style.display = 'none';
+                DOMElements.mainAppContent.style.display = 'block';
+                DOMElements.loadingSpinner.style.display = 'none';
+                
+                updateUIAfterLogin();
+                initAppLogic();
+            };
+            
+            const updateUIAfterLogin = () => {
+                if (!userProfile) return;
+                const avatarUrl = userProfile.photoURL || `https://placehold.co/40x40/ffffff/333333?text=${userProfile.username.charAt(0).toUpperCase()}`;
+                DOMElements.profileAvatar.src = avatarUrl;
+                DOMElements.accountModal.avatar.src = avatarUrl.replace('40x40', '100x100');
+                DOMElements.accountModal.username.textContent = userProfile.username;
+                DOMElements.accountModal.email.textContent = userProfile.email;
+                if (userProfile.createdAt) {
+                    const date = userProfile.createdAt.toDate();
+                    DOMElements.accountModal.memberSince.textContent = `Membro desde: ${date.toLocaleDateString('pt-BR')}`;
+                }
+            };
+
+            // --- FUNÇÕES DE RENDERIZAÇÃO (sem alterações significativas, apenas usando contentDb) ---
+            function renderHomePage() {
+                window.scrollTo(0, 0);
+                DOMElements.contentContainer.className = 'py-8 md:py-12';
+                DOMElements.heroSection.style.display = 'flex';
+                renderHero();
+                renderAllCarousels();
+                updateActiveNav('home');
+            }
+
+            function renderHero() {
+                const heroItem = contentDb.series[0];
+                const isMovie = !!heroItem.director;
+                DOMElements.heroSection.innerHTML = `
+                    <div class="absolute inset-0"><img src="${heroItem.backdrop}" alt="${heroItem.title}" class="w-full h-full object-cover"><div class="absolute inset-0 hero-gradient-left"></div><div class="absolute inset-0 hero-gradient-bottom"></div></div>
+                    <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="max-w-xl">
+                            <h1 class="text-4xl md:text-6xl font-extrabold my-3" style="color: var(--hero-text-primary);">${heroItem.title}</h1>
+                            <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--hero-text-secondary);">${heroItem.synopsis}</p>
+                            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                                <button class="${isMovie ? 'details-btn' : 'series-card'} flex items-center justify-center bg-white text-black font-bold py-3.5 px-8 rounded-md transition hover:bg-gray-300" data-${isMovie ? 'movie' : 'series'}-id="${heroItem.id}"><i data-lucide="info" class="mr-2"></i>Mais Informações</button>
+                                ${isMovie ? `<button class="add-to-list-btn flex items-center justify-center bg-gray-500 bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm font-bold py-3.5 px-8 rounded-full transition duration-300" style="color: var(--hero-text-primary);" data-movie-id="${heroItem.id}"></button>` : ''}
+                            </div>
+                        </div>
+                    </div>`;
+                if (isMovie) {
+                    updateAddToListButton(DOMElements.heroSection.querySelector('.add-to-list-btn'));
+                }
+                 lucide.createIcons();
+            }
+
+            function renderAllCarousels() {
+                DOMElements.contentContainer.innerHTML = '<div class="space-y-12 md:space-y-16"></div>';
+                const carouselWrapper = DOMElements.contentContainer.firstChild;
+                const allContent = [...contentDb.movies, ...contentDb.series];
+
+                contentDb.carousels.forEach(carouselConfig => {
+                    let items;
+                    if (carouselConfig.title === "Continuar a Assistir") {
+                        items = Object.keys(watchProgress).map(contentId => {
+                            const progress = watchProgress[contentId];
+                            if (!progress || !progress.duration || progress.time / progress.duration >= 0.98) return null;
+                            const [type, id] = contentId.split(/-(.+)/);
+                            if (type === 'movie') return contentDb.movies.find(m => m.id == id);
+                            if (type === 'series') return contentDb.series.find(s => s.id === id);
+                            return null;
+                        }).filter(Boolean)
+                          .sort((a,b) => (watchProgress[b.id]?.lastPlayed || 0) - (watchProgress[a.id]?.lastPlayed || 0));
+                    } else {
+                        items = allContent.filter(carouselConfig.filter);
+                    }
+
+                    if (carouselConfig.sort) items.sort(carouselConfig.sort);
+                    if (carouselConfig.title === "Adicionados Recentemente") items = items.slice(0, 8);
+                    
+                    if (items.length > 0) {
+                        carouselWrapper.innerHTML += createCarouselHTML(carouselConfig.title, items);
+                    }
+                });
+                setupCarouselNavigation();
+                lucide.createIcons();
+            }
+
+            function createCarouselHTML(title, items) {
+                return `
+                    <section class="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-4">${title}</h2>
+                        <div class="relative group">
+                            <div class="carousel-container flex overflow-x-auto space-x-4 py-4 -mx-4 px-4 scroll-smooth">${items.map(item => createItemCardHTML(item, title)).join('')}</div>
+                            <button class="carousel-prev absolute top-1/2 -translate-y-1/2 left-2 w-12 h-12 bg-black/40 text-white rounded-full z-10 hover:bg-black/70 transition-opacity opacity-0 group-hover:opacity-100 disabled:opacity-0 disabled:cursor-not-allowed lg:flex items-center justify-center hidden"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
+                            <button class="carousel-next absolute top-1/2 -translate-y-1/2 right-2 w-12 h-12 bg-black/40 text-white rounded-full z-10 hover:bg-black/70 transition-opacity opacity-0 group-hover:opacity-100 disabled:opacity-0 disabled:cursor-not-allowed lg:flex items-center justify-center hidden"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
+                        </div>
+                    </section>`;
+            }
+
+            function createItemCardHTML(item, carouselTitle) {
+                const isMovie = !!item.director;
+                return isMovie ? createCarouselMovieCardHTML(item, carouselTitle) : createCarouselSeriesCardHTML(item, carouselTitle);
+            }
+
+            function createCarouselMovieCardHTML(movie, carouselTitle) {
+                let progressHTML = '';
+                if (carouselTitle === "Continuar a Assistir") {
+                    const progress = watchProgress[`movie-${movie.id}`];
+                    if (progress && progress.duration) {
+                        const percentage = (progress.time / progress.duration) * 100;
+                        progressHTML = `<div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-500/50"><div class="h-full bg-purple-600" style="width: ${percentage}%;"></div></div>`;
+                    }
+                }
+                return `<div class="details-btn flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6 rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-movie-id="${movie.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${movie.poster}" alt="Pôster de ${movie.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">${progressHTML}</div></div>`;
+            }
+
+            function createGridMovieCardHTML(movie) {
+                return `<div class="details-btn rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-movie-id="${movie.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${movie.poster}" alt="Pôster de ${movie.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';"></div></div>`;
+            }
+            
+            function renderMyListPage() {
+                DOMElements.contentContainer.className = 'py-8 md:py-12';
+                DOMElements.heroSection.style.display = 'none';
+                updateActiveNav('list');
+                const listMovies = contentDb.movies.filter(m => myList.includes(m.id));
+                let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">Minha Lista</h2>`;
+                if (listMovies.length > 0) {
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${listMovies.map(createGridMovieCardHTML).join('')}</div>`;
+                } else {
+                    contentHTML += `<div class="text-center py-16" style="color: var(--text-secondary);"><i data-lucide="list-x" class="w-16 h-16 mx-auto mb-4"></i><h3 class="text-xl font-semibold">Sua lista está vazia</h3><p class="mt-2">Adicione filmes e séries para vê-los aqui.</p></div>`;
+                }
+                contentHTML += '</div>';
+                DOMElements.contentContainer.innerHTML = contentHTML;
+                lucide.createIcons();
+            }
+
+            function renderCategoryPage(pageTitle, items, emptyMessage, cardRenderer) {
+                DOMElements.contentContainer.className = 'py-8 md:py-12';
+                DOMElements.heroSection.style.display = 'none';
+                updateActiveNav('');
+                let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">${pageTitle}</h2>`;
+                if (items.length > 0) {
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${items.map(cardRenderer).join('')}</div>`;
+                } else {
+                    contentHTML += `<div class="text-center py-16" style="color: var(--text-secondary);"><i data-lucide="tv-2" class="w-16 h-16 mx-auto mb-4"></i><h3 class="text-xl font-semibold">${emptyMessage.title}</h3><p class="mt-2">${emptyMessage.subtitle}</p></div>`;
+                }
+                contentHTML += '</div>';
+                DOMElements.contentContainer.innerHTML = contentHTML;
+                lucide.createIcons();
+            }
+
+            function renderMovieDetailsPage(movieId) {
+                const movie = contentDb.movies.find(m => m.id == movieId);
+                if (!movie) return;
+                DOMElements.heroSection.style.display = 'none';
+                DOMElements.contentContainer.className = '';
+                updateActiveNav('');
+                const castUrl = `wvc-x-callback://open?url=${encodeURIComponent(movie.url)}&title=${encodeURIComponent(movie.title)}`;
+                DOMElements.contentContainer.innerHTML = `
+                    <div class="relative w-full h-[40vh] md:h-[60vh]">
+                        <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition"><i data-lucide="arrow-left"></i></button>
+                        <img src="${movie.backdrop}" alt="${movie.title}" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4 md:p-8 container mx-auto">
+                            <h2 class="text-3xl md:text-5xl font-bold" style="color: var(--hero-text-primary); text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">${movie.title} (${movie.year})</h2>
+                            <p class="max-w-2xl mt-2 text-sm" style="color: var(--hero-text-secondary); text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">${movie.synopsis}</p>
+                        </div>
+                    </div>
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+                        <div class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
+                            <div class="flex items-center text-yellow-400">${'★'.repeat(Math.round(movie.rating))}${'☆'.repeat(5 - Math.round(movie.rating))} <span class="ml-2" style="color: var(--text-primary);">${movie.rating}</span></div>
+                            <span>${movie.genres.join(', ')}</span>
+                        </div>
+                        <div class="text-sm space-y-1 mt-4">
+                            <p><strong style="color: var(--text-primary)">Diretor:</strong> ${movie.director}</p>
+                            <p><strong style="color: var(--text-primary)">Elenco:</strong> ${movie.cast.join(', ')}</p>
+                        </div>
+                         <div class="flex flex-wrap gap-3 mt-6">
+                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition" data-movie-id="${movie.id}"><i data-lucide="play" class="mr-2"></i>Assistir</button>
+                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-movie-id="${movie.id}"></button>
+                            <a href="${castUrl}" class="p-3 flex items-center justify-center border rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" title="Transmitir"><i data-lucide="cast"></i></a>
+                            <a href="${movie.url}" download="${movie.title}" class="p-3 flex items-center justify-center border rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" title="Baixar"><i data-lucide="download"></i></a>
+                        </div>
+                        <div class="mt-8 border-t pt-6" style="border-color: var(--card-hover-bg);">
+                            <h3 class="text-xl font-bold mb-4">Avalie e Comente</h3>
+                            <div class="star-rating mb-4 flex items-center gap-1" data-id="movie-${movie.id}">
+                                ${[1,2,3,4,5].map(i => `<i data-lucide="star" data-value="${i}" class="w-7 h-7"></i>`).join('')}
+                            </div>
+                            <form class="comment-form" data-id="movie-${movie.id}">
+                                <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
+                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
+                            </form>
+                            <div class="comments-section mt-4 space-y-3"></div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('back-button').onclick = renderHomePage;
+                updateAddToListButton(DOMElements.contentContainer.querySelector('.add-to-list-btn'));
+                lucide.createIcons();
+                setupRatingAndComments(`movie-${movie.id}`);
+                window.scrollTo(0, 0);
+            }
+            
+            function openPlayerModal(movieId) {
+                const movie = contentDb.movies.find(m => m.id == movieId);
+                if (!movie) return;
+                const contentId = `movie-${movie.id}`;
+                const video = document.createElement('video');
+                video.className = 'w-full h-full';
+                video.src = movie.url;
+                video.controls = true;
+                video.autoplay = true;
+
+                video.addEventListener('loadedmetadata', () => {
+                    const progress = watchProgress[contentId];
+                    if (progress && progress.time) video.currentTime = progress.time;
+                });
+
+                let lastUpdateTime = 0;
+                video.addEventListener('timeupdate', () => {
+                    const now = Date.now();
+                    if (now - lastUpdateTime > 5000) {
+                        if (video.duration) {
+                            watchProgress[contentId] = { time: video.currentTime, duration: video.duration, lastPlayed: Date.now() };
+                            saveUserData();
+                        }
+                        lastUpdateTime = now;
+                    }
+                });
+
+                DOMElements.playerModal.playerContainer.innerHTML = '';
+                DOMElements.playerModal.playerContainer.appendChild(video);
+                DOMElements.playerModal.container.classList.add('active');
+            }
+
+            function openLivePlayerModal(channelId) {
+                const channel = contentDb.liveChannels.find(c => c.id === channelId);
+                if (!channel) return;
+                DOMElements.playerModal.playerContainer.innerHTML = `<iframe class="w-full h-full" src="${channel.embedUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                DOMElements.playerModal.container.classList.add('active');
+            }
+
+            function openPlayerModalForEpisode(seriesId, seasonId, episodeIndex) {
+                const series = contentDb.series.find(s => s.id === seriesId);
+                const season = series?.seasons.find(s => s.id === seasonId);
+                if (!series || !season) return;
+
+                const playEpisode = (index) => {
+                    const episode = season.episodes[index];
+                    if (!episode) {
+                        closePlayerModal();
+                        return;
+                    }
+                    const contentId = `series-${seriesId}-${seasonId}-${index}`;
+                    DOMElements.playerModal.playerContainer.innerHTML = `
+                        <video id="player-video" class="w-full h-full" src="${episode.videoUrl}" controls autoplay></video>
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between z-20">
+                            <button id="prev-episode-btn" class="p-3 bg-black/50 rounded-full hover:bg-black/70 transition disabled:opacity-50 disabled:cursor-not-allowed"><i data-lucide="skip-back"></i></button>
+                            <button id="next-episode-btn" class="p-3 bg-black/50 rounded-full hover:bg-black/70 transition disabled:opacity-50 disabled:cursor-not-allowed"><i data-lucide="skip-forward"></i></button>
+                        </div>`;
+
+                    const video = document.getElementById('player-video');
+                    const prevBtn = document.getElementById('prev-episode-btn');
+                    const nextBtn = document.getElementById('next-episode-btn');
+
+                    video.addEventListener('loadedmetadata', () => {
+                        const progress = watchProgress[contentId];
+                        if (progress && progress.time) video.currentTime = progress.time;
+                    });
+
+                    let lastUpdateTime = 0;
+                    video.addEventListener('timeupdate', () => {
+                        const now = Date.now();
+                        if (now - lastUpdateTime > 5000) {
+                            if (video.duration) {
+                                watchProgress[contentId] = { time: video.currentTime, duration: video.duration, lastPlayed: Date.now() };
+                                saveUserData();
+                            }
+                            lastUpdateTime = now;
+                        }
+                    });
+
+                    video.onended = () => { if (index < season.episodes.length - 1) playEpisode(index + 1); else closePlayerModal(); };
+                    prevBtn.disabled = index === 0;
+                    nextBtn.disabled = index >= season.episodes.length - 1;
+                    prevBtn.onclick = () => playEpisode(index - 1);
+                    nextBtn.onclick = () => playEpisode(index + 1);
+                    lucide.createIcons();
+                };
+
+                playEpisode(episodeIndex);
+                DOMElements.playerModal.container.classList.add('active');
+            }
+
+            function closePlayerModal() {
+                DOMElements.playerModal.playerContainer.innerHTML = '';
+                DOMElements.playerModal.container.classList.remove('active');
+                if (document.fullscreenElement) document.exitFullscreen();
+                saveUserData();
+            }
+            
+            function createCarouselSeriesCardHTML(series, carouselTitle) {
+                 let progressHTML = '';
+                if (carouselTitle === "Continuar a Assistir") {
+                    const seriesProgressKeys = Object.keys(watchProgress).filter(k => k.startsWith(`series-${series.id}`));
+                    if (seriesProgressKeys.length > 0) {
+                        const lastWatchedKey = seriesProgressKeys.reduce((a, b) => (watchProgress[a].lastPlayed || 0) > (watchProgress[b].lastPlayed || 0) ? a : b);
+                        const progress = watchProgress[lastWatchedKey];
+                         if (progress && progress.duration) {
+                            const percentage = (progress.time / progress.duration) * 100;
+                            progressHTML = `<div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-500/50"><div class="h-full bg-purple-600" style="width: ${percentage}%;"></div></div>`;
+                        }
+                    }
+                }
+                return `<div class="series-card flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6 rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-series-id="${series.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${series.cover}" alt="Capa de ${series.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">${progressHTML}</div></div>`;
+            }
+
+            function createGridSeriesCardHTML(series) {
+                return `<div class="series-card rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-series-id="${series.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${series.cover}" alt="Capa de ${series.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';"></div></div>`;
+            }
+
+            function renderSeriesDetailsPage(seriesId) {
+                const series = contentDb.series.find(s => s.id === seriesId);
+                if (!series) return;
+                DOMElements.heroSection.style.display = 'none';
+                DOMElements.contentContainer.className = '';
+                updateActiveNav('');
+                const seasonOptionsHTML = series.seasons.map(season => `<option value="${season.id}">${season.title}</option>`).join('');
+                DOMElements.contentContainer.innerHTML = `
+                    <div class="relative w-full h-[40vh] md:h-[60vh]">
+                         <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition"><i data-lucide="arrow-left"></i></button>
+                        <img src="${series.backdrop}" alt="${series.title}" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4 md:p-8 container mx-auto">
+                            <h2 class="text-3xl md:text-5xl font-bold" style="color: var(--hero-text-primary); text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">${series.title} ${series.year ? `(${series.year})` : ''}</h2>
+                            <p class="max-w-2xl mt-2 text-sm" style="color: var(--hero-text-secondary); text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">${series.synopsis || ''}</p>
+                        </div>
+                    </div>
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+                        <div class="mb-6">
+                            <select id="season-selector" class="w-full sm:w-auto p-3 rounded-md font-semibold border-none cursor-pointer" style="background-color: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-hover-bg);">${seasonOptionsHTML}</select>
+                        </div>
+                        <div id="episodes-list" class="mt-6 space-y-3"></div>
+                        <div class="mt-8 border-t pt-6" style="border-color: var(--card-hover-bg);">
+                            <h3 class="text-xl font-bold mb-4">Avalie e Comente</h3>
+                            <div class="star-rating mb-4 flex items-center gap-1" data-id="series-${series.id}">${[1,2,3,4,5].map(i => `<i data-lucide="star" data-value="${i}" class="w-7 h-7"></i>`).join('')}</div>
+                            <form class="comment-form" data-id="series-${series.id}">
+                                <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
+                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
+                            </form>
+                            <div class="comments-section mt-4 space-y-3"></div>
+                        </div>
+                    </div>`;
+                document.getElementById('back-button').onclick = renderHomePage;
+                const renderEpisodes = (seasonId) => {
+                    const season = series.seasons.find(s => s.id === seasonId);
+                    if (!season) return;
+                    document.getElementById('episodes-list').innerHTML = season.episodes.map((ep, index) => {
+                        const castUrl = `wvc-x-callback://open?url=${encodeURIComponent(ep.videoUrl)}&title=${encodeURIComponent(ep.title)}`;
+                        return `<div class="w-full text-left p-3 rounded-lg hoverable-item flex items-center gap-4">
+                            <span class="text-lg font-semibold" style="color: var(--text-secondary);">${index + 1}</span>
+                            <div class="flex-1"><p class="font-semibold">${ep.title}</p></div>
+                            <div class="flex items-center gap-2">
+                                <a href="${castUrl}" class="p-2 rounded-full hover:bg-[var(--card-hover-bg)]" title="Transmitir"><i data-lucide="cast" class="w-5 h-5"></i></a>
+                                <a href="${ep.videoUrl}" download="${ep.title}" class="p-2 rounded-full hover:bg-[var(--card-hover-bg)]" title="Baixar"><i data-lucide="download" class="w-5 h-5"></i></a>
+                                <button class="episode-item p-2 rounded-full hover:bg-[var(--card-hover-bg)]" data-series-id="${series.id}" data-season-id="${season.id}" data-episode-index="${index}" title="Assistir"><i data-lucide="play-circle" class="w-6 h-6"></i></button>
+                            </div>
+                        </div>`
+                    }).join('');
+                    lucide.createIcons();
+                };
+                const seasonSelector = document.getElementById('season-selector');
+                seasonSelector.addEventListener('change', (e) => renderEpisodes(e.target.value));
+                if (series.seasons.length > 0) renderEpisodes(series.seasons[0].id);
+                lucide.createIcons();
+                setupRatingAndComments(`series-${series.id}`);
+                window.scrollTo(0, 0);
+            }
+
+            function renderGenresPage() {
+                DOMElements.contentContainer.className = 'py-8 md:py-12';
+                DOMElements.heroSection.style.display = 'none';
+                updateActiveNav('');
+                const allGenres = [...new Set([...contentDb.movies, ...contentDb.series].flatMap(item => item.genres))].sort();
+                let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">Gêneros</h2>`;
+                contentHTML += `<div class="flex flex-wrap gap-4">${allGenres.map(genre => `<button class="genre-btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition" data-genre="${genre}">${genre}</button>`).join('')}</div><div id="genre-results" class="mt-12"></div></div>`;
+                DOMElements.contentContainer.innerHTML = contentHTML;
+            }
+
+            function renderGenreResults(genre) {
+                const resultsContainer = document.getElementById('genre-results');
+                const filteredItems = [...contentDb.movies, ...contentDb.series].filter(item => item.genres.includes(genre));
+                let contentHTML = `<h3 class="text-xl md:text-2xl font-bold mb-6">Resultados para "${genre}"</h3>`;
+                if (filteredItems.length > 0) {
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${filteredItems.map(item => item.director ? createGridMovieCardHTML(item) : createGridSeriesCardHTML(item)).join('')}</div>`;
+                } else {
+                    contentHTML += `<p style="color: var(--text-secondary);">Nenhum item encontrado para este gênero.</p>`;
+                }
+                resultsContainer.innerHTML = contentHTML;
+                lucide.createIcons();
+            }
+
+            function renderLiveTvPage() {
+                DOMElements.contentContainer.className = 'py-8 md:py-12';
+                DOMElements.heroSection.style.display = 'none';
+                updateActiveNav('live');
+                let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">TV Ao Vivo</h2>`;
+                if (contentDb.liveChannels.length > 0) {
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">${contentDb.liveChannels.map(createLiveChannelCardHTML).join('')}</div>`;
+                } else {
+                    contentHTML += `<div class="text-center py-16" style="color: var(--text-secondary);"><i data-lucide="tv-2" class="w-16 h-16 mx-auto mb-4"></i><h3 class="text-xl font-semibold">Nenhum canal ao vivo disponível.</h3></div>`;
+                }
+                contentHTML += '</div>';
+                DOMElements.contentContainer.innerHTML = contentHTML;
+                lucide.createIcons();
+            }
+
+            function createLiveChannelCardHTML(channel) {
+                return `<div class="live-channel-card rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-channel-id="${channel.id}"><div class="relative rounded-lg overflow-hidden aspect-square flex items-center justify-center p-4" style="background-color: var(--card-bg);"><img loading="lazy" src="${channel.logo}" alt="Logo de ${channel.title}" class="max-h-full max-w-full object-contain"></div><h3 class="text-center font-semibold mt-2">${channel.title}</h3></div>`;
+            }
+
+            function setupCarouselNavigation() {
+                document.querySelectorAll('.relative.group').forEach(container => {
+                    const prevBtn = container.querySelector('.carousel-prev');
+                    const nextBtn = container.querySelector('.carousel-next');
+                    const carousel = container.querySelector('.carousel-container');
+                    if (!prevBtn || !nextBtn || !carousel) return;
+                    const updateButtonsState = () => {
+                        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+                        if (maxScrollLeft <= 1) {
+                            prevBtn.classList.add('hidden');
+                            nextBtn.classList.add('hidden');
+                            return;
+                        }
+                        prevBtn.classList.remove('hidden');
+                        nextBtn.classList.remove('hidden');
+                        prevBtn.disabled = carousel.scrollLeft <= 0;
+                        nextBtn.disabled = carousel.scrollLeft >= maxScrollLeft - 1;
+                    };
+                    nextBtn.addEventListener('click', () => carousel.scrollBy({ left: carousel.clientWidth * 0.9, behavior: 'smooth' }));
+                    prevBtn.addEventListener('click', () => carousel.scrollBy({ left: -carousel.clientWidth * 0.9, behavior: 'smooth' }));
+                    carousel.addEventListener('scroll', () => requestAnimationFrame(updateButtonsState));
+                    const observer = new ResizeObserver(updateButtonsState);
+                    observer.observe(carousel);
+                    setTimeout(updateButtonsState, 300);
+                });
+            }
+            
+            function toggleMovieInList(movieId) {
+                const id = parseInt(movieId);
+                const index = myList.indexOf(id);
+                if (index > -1) myList.splice(index, 1); else myList.push(id);
+                saveUserData();
+                document.querySelectorAll(`.add-to-list-btn[data-movie-id="${id}"]`).forEach(updateAddToListButton);
+            }
+
+            function updateAddToListButton(button) {
+                if (!button) return;
+                const movieId = parseInt(button.dataset.movieId);
+                const isInList = myList.includes(movieId);
+                button.innerHTML = `<i data-lucide="${isInList ? 'check' : 'plus'}" class="mr-2"></i>${isInList ? 'Na Minha Lista' : 'Minha Lista'}`;
+                lucide.createIcons();
+            }
+
+            function updateActiveNav(activeItem) {
+                DOMElements.mobileNavBar.querySelectorAll('.mobile-nav-item').forEach(item => item.classList.toggle('active', item.dataset.nav === activeItem));
+            }
+
+            function toggleTheme() {
+                DOMElements.html.classList.toggle('light');
+                DOMElements.html.classList.toggle('dark');
+                DOMElements.settingsModal.themeToggle.checked = DOMElements.html.classList.contains('light');
+                saveUserData();
+            }
+            
+            function performSearch() {
+                const query = DOMElements.searchModal.input.value.toLowerCase().trim();
+                if (query.length < 2) {
+                    DOMElements.searchModal.results.innerHTML = '<p class="text-center p-4" style="color: var(--text-secondary);">Digite pelo menos 2 caracteres para buscar.</p>';
+                    return;
+                }
+                const movieResults = contentDb.movies.filter(m => m.title.toLowerCase().includes(query));
+                const seriesResults = contentDb.series.filter(s => s.title.toLowerCase().includes(query));
+                let resultsHTML = '';
+                if (movieResults.length > 0) resultsHTML += `<h3 class="text-xl font-bold p-4">Filmes</h3><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 p-4">${movieResults.map(createGridMovieCardHTML).join('')}</div>`;
+                if (seriesResults.length > 0) resultsHTML += `<h3 class="text-xl font-bold p-4">Séries</h3><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 p-4">${seriesResults.map(createGridSeriesCardHTML).join('')}</div>`;
+                DOMElements.searchModal.results.innerHTML = resultsHTML === '' ? '<p class="text-center p-4" style="color: var(--text-secondary);">Nenhum resultado encontrado.</p>' : resultsHTML;
+                lucide.createIcons();
+            }
+
+            async function setupRatingAndComments(contentId) {
+                if (!userProfile) return;
+                const ratingContainer = document.querySelector(`.star-rating[data-id="${contentId}"]`);
+                if (!ratingContainer) return;
+                const commentForm = document.querySelector(`.comment-form[data-id="${contentId}"]`);
+                const commentsSection = document.querySelector(`.comment-form[data-id="${contentId}"] + .comments-section`);
+                const stars = ratingContainer.querySelectorAll('.lucide-star');
+                const ratingDocRef = doc(db, `content_feedback/${contentId}/ratings`, userProfile.uid);
+                const commentsColRef = collection(db, `content_feedback/${contentId}/comments`);
+
+                let userRating = 0;
+                const ratingDoc = await getDoc(ratingDocRef);
+                if (ratingDoc.exists()) userRating = ratingDoc.data().rating;
+
+                const displayStars = (rating) => {
+                    stars.forEach(star => {
+                        const starValue = parseInt(star.dataset.value);
+                        star.style.fill = starValue <= rating ? 'var(--star-color)' : 'none';
+                        star.style.color = starValue <= rating ? 'var(--star-color)' : 'currentColor';
+                    });
+                };
+
+                const displayComments = async () => {
+                    const commentsSnapshot = await getDocs(query(commentsColRef));
+                    commentsSection.innerHTML = commentsSnapshot.docs.map(doc => {
+                        const comment = doc.data();
+                        return `<div class="p-3 rounded-md" style="background-color: var(--card-hover-bg);">
+                                    <p class="font-bold text-sm">${comment.username || 'Anônimo'}</p>
+                                    <p class="whitespace-pre-wrap break-words">${comment.text}</p>
+                                    <p class="text-xs mt-1" style="color: var(--text-secondary);">${comment.createdAt.toDate().toLocaleString('pt-BR')}</p>
+                                </div>`
+                    }).join('');
+                };
+
+                displayStars(userRating);
+                await displayComments();
+
+                stars.forEach(star => {
+                    star.addEventListener('mouseover', () => displayStars(star.dataset.value));
+                    star.addEventListener('click', async () => {
+                        userRating = star.dataset.value;
+                        await setDoc(ratingDocRef, { rating: parseInt(userRating) });
+                        displayStars(userRating);
+                    });
+                });
+
+                ratingContainer.addEventListener('mouseleave', () => displayStars(userRating));
+
+                commentForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const textarea = e.target.querySelector('textarea');
+                    const commentText = textarea.value.trim();
+                    if (commentText) {
+                        await addDoc(commentsColRef, {
+                            uid: userProfile.uid,
+                            username: userProfile.username,
+                            text: commentText,
+                            createdAt: Timestamp.now()
+                        });
+                        await displayComments();
+                        textarea.value = '';
+                    }
+                });
+            }
+
+            function setupEventListeners() {
+                DOMElements.profileBtn.onclick = (e) => { e.stopPropagation(); DOMElements.profileMenu.classList.toggle('hidden'); };
+                DOMElements.hamburgerBtn.onclick = () => DOMElements.mobileNav.classList.add('active');
+                DOMElements.closeMobileNav.onclick = () => DOMElements.mobileNav.classList.remove('active');
+                DOMElements.mobileProfileBtn.onclick = () => DOMElements.mobileProfileOverlay.classList.add('active');
+                DOMElements.closeProfileOverlay.onclick = () => DOMElements.mobileProfileOverlay.classList.remove('active');
+                
+                const openSettings = () => {
+                    DOMElements.settingsModal.container.classList.add('active');
+                    DOMElements.mobileProfileOverlay.classList.remove('active');
+                };
+                DOMElements.desktopSettingsBtn.onclick = openSettings;
+                DOMElements.mobileSettingsBtn.onclick = openSettings;
+                DOMElements.settingsModal.closeBtn.onclick = () => DOMElements.settingsModal.container.classList.remove('active');
+                DOMElements.settingsModal.themeToggle.onchange = toggleTheme;
+                DOMElements.settingsModal.videoQualitySelect.onchange = saveUserData;
+                DOMElements.settingsModal.clearHistoryBtn.onclick = async () => {
+                    if (confirm("Tem certeza que deseja limpar todo o seu histórico de exibição? Esta ação não pode ser desfeita.")) {
+                        watchProgress = {};
+                        await saveUserData();
+                        renderAllCarousels();
+                    }
+                };
+
+                const openAccountModal = () => {
+                    DOMElements.accountModal.container.classList.add('active');
+                    DOMElements.mobileProfileOverlay.classList.remove('active');
+                };
+                DOMElements.accountBtn.onclick = openAccountModal;
+                DOMElements.mobileAccountBtn.onclick = openAccountModal;
+                DOMElements.accountModal.closeBtn.onclick = () => DOMElements.accountModal.container.classList.remove('active');
+                
+                DOMElements.logoutBtn.onclick = handleLogout;
+                DOMElements.mobileLogoutBtn.onclick = handleLogout;
+
+                DOMElements.homeLink.onclick = (e) => { e.preventDefault(); renderHomePage(); };
+                DOMElements.desktopListBtn.onclick = renderMyListPage;
+                DOMElements.desktopLiveBtn.onclick = renderLiveTvPage;
+                DOMElements.desktopMoviesBtn.onclick = () => renderCategoryPage('Filmes', contentDb.movies, { title: 'Nenhum filme encontrado', subtitle: 'Não há filmes para exibir no momento.' }, createGridMovieCardHTML);
+                DOMElements.desktopSeriesBtn.onclick = () => renderCategoryPage('Séries', contentDb.series, { title: 'Nenhuma série encontrada', subtitle: 'Volte mais tarde!' }, createGridSeriesCardHTML);
+                DOMElements.desktopGenresBtn.onclick = renderGenresPage;
+
+                const openSearch = () => DOMElements.searchModal.container.classList.add('active');
+                DOMElements.desktopSearchBtn.onclick = openSearch;
+                DOMElements.mobileNavBar.querySelector('[data-nav="search"]').onclick = openSearch;
+                DOMElements.searchModal.closeBtn.onclick = () => DOMElements.searchModal.container.classList.remove('active');
+                DOMElements.searchModal.input.addEventListener('input', performSearch);
+
+                DOMElements.mobileNavBar.addEventListener('click', (e) => {
+                    const navBtn = e.target.closest('.mobile-nav-item');
+                    if (!navBtn || !navBtn.dataset.nav) return;
+                    if (navBtn.dataset.nav === 'home') renderHomePage();
+                    if (navBtn.dataset.nav === 'list') renderMyListPage();
+                    if (navBtn.dataset.nav === 'live') renderLiveTvPage();
+                });
+
+                document.getElementById('mobile-sidebar-nav').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const navLink = e.target.closest('a');
+                    if (!navLink || !navLink.dataset.nav) return;
+                    const navTarget = navLink.dataset.nav;
+                    switch(navTarget) {
+                        case 'home': renderHomePage(); break;
+                        case 'live': renderLiveTvPage(); break;
+                        case 'movies': renderCategoryPage('Filmes', contentDb.movies, { title: 'Nenhum filme encontrado', subtitle: 'Não há filmes para exibir no momento.' }, createGridMovieCardHTML); break;
+                        case 'series': renderCategoryPage('Séries', contentDb.series, { title: 'Nenhuma série encontrada', subtitle: 'Volte mais tarde!' }, createGridSeriesCardHTML); break;
+                        case 'genres': renderGenresPage(); break;
+                    }
+                    DOMElements.mobileNav.classList.remove('active');
+                });
+
+                document.addEventListener('click', (e) => {
+                    const target = e.target;
+                    const detailsBtn = target.closest('.details-btn');
+                    if (detailsBtn) { DOMElements.searchModal.container.classList.remove('active'); return renderMovieDetailsPage(detailsBtn.dataset.movieId); }
+                    const watchBtn = target.closest('.watch-btn');
+                    if (watchBtn) return openPlayerModal(watchBtn.dataset.movieId);
+                    const listBtn = target.closest('.add-to-list-btn');
+                    if (listBtn) return toggleMovieInList(listBtn.dataset.movieId);
+                    const seriesCard = target.closest('.series-card');
+                    if (seriesCard) { DOMElements.searchModal.container.classList.remove('active'); return renderSeriesDetailsPage(seriesCard.dataset.seriesId); }
+                    const episodeItem = target.closest('.episode-item');
+                    if (episodeItem) { const { seriesId, seasonId, episodeIndex } = episodeItem.dataset; return openPlayerModalForEpisode(seriesId, seasonId, parseInt(episodeIndex)); }
+                    const genreBtn = target.closest('.genre-btn');
+                    if (genreBtn) return renderGenreResults(genreBtn.dataset.genre);
+                    const liveChannelCard = target.closest('.live-channel-card');
+                    if (liveChannelCard) return openLivePlayerModal(liveChannelCard.dataset.channelId);
+                    if (!DOMElements.profileDropdownContainer.contains(target)) DOMElements.profileMenu.classList.add('hidden');
+                });
+
+                DOMElements.playerModal.closeBtn.onclick = closePlayerModal;
+            }
+            
+            function initAppLogic() {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                if (savedTheme === 'light') {
+                    DOMElements.html.classList.replace('dark', 'light');
+                }
+                DOMElements.settingsModal.themeToggle.checked = savedTheme === 'light';
+                renderHomePage();
+                setupEventListeners();
+                lucide.createIcons();
             }
         });
     </script>
-
 </body>
 </html>
