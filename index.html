@@ -142,8 +142,8 @@
             </div>
         </div>
 
-        <main class="overflow-x-hidden">
-            <section id="hero-section" class="relative min-h-[60vh] md:min-h-[90vh] flex items-center">
+        <main class="overflow-x-hidden pt-16">
+            <section id="hero-section" class="relative min-h-[60vh] md:min-h-[90vh] flex items-center -mt-16">
                 <!-- Conteúdo do Herói será populado por JS -->
             </section>
 
@@ -277,7 +277,8 @@
             getDocs,
             Timestamp,
             writeBatch,
-            collectionGroup
+            collectionGroup,
+            addDoc
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         document.addEventListener('DOMContentLoaded', async function() {
@@ -547,7 +548,7 @@
                         // Aplicar configurações salvas
                         const settings = data.settings || {};
                         if (settings.theme && !DOMElements.html.classList.contains(settings.theme)) {
-                            toggleTheme();
+                            toggleTheme(false); // Não salvar novamente ao carregar
                         }
                         DOMElements.settingsModal.videoQualitySelect.value = settings.videoQuality || 'auto';
                     }
@@ -683,6 +684,7 @@
                 window.scrollTo(0, 0);
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'flex';
+                DOMElements.heroSection.classList.remove('-mt-16');
                 renderHero();
                 renderAllCarousels();
                 updateActiveNav('home');
@@ -777,6 +779,7 @@
             function renderMyListPage() {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
+                DOMElements.heroSection.classList.add('-mt-16');
                 updateActiveNav('list');
                 const listMovies = contentDb.movies.filter(m => myList.includes(m.id));
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">Minha Lista</h2>`;
@@ -793,6 +796,7 @@
             function renderCategoryPage(pageTitle, items, emptyMessage, cardRenderer) {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
+                DOMElements.heroSection.classList.add('-mt-16');
                 updateActiveNav('');
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">${pageTitle}</h2>`;
                 if (items.length > 0) {
@@ -809,6 +813,7 @@
                 const movie = contentDb.movies.find(m => m.id == movieId);
                 if (!movie) return;
                 DOMElements.heroSection.style.display = 'none';
+                DOMElements.heroSection.classList.add('-mt-16');
                 DOMElements.contentContainer.className = '';
                 updateActiveNav('');
                 const castUrl = `wvc-x-callback://open?url=${encodeURIComponent(movie.url)}&title=${encodeURIComponent(movie.title)}`;
@@ -979,6 +984,7 @@
                 const series = contentDb.series.find(s => s.id === seriesId);
                 if (!series) return;
                 DOMElements.heroSection.style.display = 'none';
+                DOMElements.heroSection.classList.add('-mt-16');
                 DOMElements.contentContainer.className = '';
                 updateActiveNav('');
                 const seasonOptionsHTML = series.seasons.map(season => `<option value="${season.id}">${season.title}</option>`).join('');
@@ -1036,6 +1042,7 @@
             function renderGenresPage() {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
+                DOMElements.heroSection.classList.add('-mt-16');
                 updateActiveNav('');
                 const allGenres = [...new Set([...contentDb.movies, ...contentDb.series].flatMap(item => item.genres))].sort();
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">Gêneros</h2>`;
@@ -1059,6 +1066,7 @@
             function renderLiveTvPage() {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
+                DOMElements.heroSection.classList.add('-mt-16');
                 updateActiveNav('live');
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">TV Ao Vivo</h2>`;
                 if (contentDb.liveChannels.length > 0) {
@@ -1122,11 +1130,11 @@
                 DOMElements.mobileNavBar.querySelectorAll('.mobile-nav-item').forEach(item => item.classList.toggle('active', item.dataset.nav === activeItem));
             }
 
-            function toggleTheme() {
+            function toggleTheme(save = true) {
                 DOMElements.html.classList.toggle('light');
                 DOMElements.html.classList.toggle('dark');
                 DOMElements.settingsModal.themeToggle.checked = DOMElements.html.classList.contains('light');
-                saveUserData();
+                if (save) saveUserData();
             }
             
             function performSearch() {
@@ -1223,14 +1231,13 @@
                 DOMElements.desktopSettingsBtn.onclick = openSettings;
                 DOMElements.mobileSettingsBtn.onclick = openSettings;
                 DOMElements.settingsModal.closeBtn.onclick = () => DOMElements.settingsModal.container.classList.remove('active');
-                DOMElements.settingsModal.themeToggle.onchange = toggleTheme;
+                DOMElements.settingsModal.themeToggle.onchange = () => toggleTheme(true);
                 DOMElements.settingsModal.videoQualitySelect.onchange = saveUserData;
                 DOMElements.settingsModal.clearHistoryBtn.onclick = async () => {
-                    if (confirm("Tem certeza que deseja limpar todo o seu histórico de exibição? Esta ação não pode ser desfeita.")) {
-                        watchProgress = {};
-                        await saveUserData();
-                        renderAllCarousels();
-                    }
+                    // Usar um modal customizado em vez de confirm()
+                    watchProgress = {};
+                    await saveUserData();
+                    renderAllCarousels();
                 };
 
                 const openAccountModal = () => {
@@ -1303,11 +1310,6 @@
             }
             
             function initAppLogic() {
-                const savedTheme = localStorage.getItem('theme') || 'dark';
-                if (savedTheme === 'light') {
-                    DOMElements.html.classList.replace('dark', 'light');
-                }
-                DOMElements.settingsModal.themeToggle.checked = savedTheme === 'light';
                 renderHomePage();
                 setupEventListeners();
                 lucide.createIcons();
