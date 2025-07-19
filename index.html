@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
@@ -37,123 +38,27 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--background);
             color: var(--text-primary);
-            transition: background-color 0.5s, color 0.5s;
+            transition: background-color 0.3s, color 0.3s;
         }
         .hero-gradient-bottom { background-image: linear-gradient(to top, var(--background) 10%, rgba(12, 10, 9, 0) 100%); }
         .hero-gradient-left { background-image: linear-gradient(to right, var(--background) 20%, transparent 100%); }
         .carousel-container, .search-results { scrollbar-width: none; }
         .carousel-container::-webkit-scrollbar, .search-results::-webkit-scrollbar { display: none; }
-        
-        /* --- ANIMAÇÕES E TRANSIÇÕES --- */
-
-        /* Animação de fade-in para elementos que aparecem */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Animação de fade-out para elementos que desaparecem */
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(10px); }
-        }
-        
-        /* Animação de slide-in para o menu mobile */
-        @keyframes slideInLeft {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideOutLeft {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(-100%); opacity: 0; }
-        }
-
-        /* Transições suaves para todos os elementos interativos */
-        button, a, select, input, .hoverable-item, .details-btn {
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Efeito de zoom sutil em botões e links */
-        button:hover, a:hover {
-            transform: scale(1.03);
-        }
-        .details-btn:hover {
-             transform: translateY(-8px) scale(1.05);
-        }
-
-        /* Transições para Modais */
-        .modal { 
-            transition: opacity 0.4s ease, visibility 0.4s ease; 
-            visibility: hidden; 
-            opacity: 0; 
-        }
-        .modal.active { 
-            visibility: visible; 
-            opacity: 1; 
-        }
-        .modal > div {
-            transition: transform 0.4s ease, opacity 0.4s ease;
-            transform: scale(0.95) translateY(20px);
-            opacity: 0;
-        }
-        .modal.active > div {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
-
-        /* Transições para o Menu Mobile */
-        #mobile-nav {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        #mobile-nav.active {
-            visibility: visible;
-            opacity: 1;
-            animation: slideInLeft 0.4s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        #mobile-nav.inactive {
-             animation: slideOutLeft 0.4s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        #mobile-profile-overlay {
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-
+        .modal { transition: opacity 0.3s, visibility 0.3s; visibility: hidden; opacity: 0; }
+        .modal.active { visibility: visible; opacity: 1; }
+        #mobile-nav, .mobile-overlay { transition: opacity 0.3s, visibility 0.3s; visibility: hidden; opacity: 0; }
+        #mobile-nav.active, .mobile-overlay.active { visibility: visible; opacity: 1; }
         .hoverable-item:hover { background-color: var(--card-hover-bg); }
         .mobile-nav-item { color: var(--text-secondary); }
-        .mobile-nav-item.active { color: var(--accent-color); transform: scale(1.1); }
-        
+        .mobile-nav-item.active { color: var(--accent-color); }
         select {
             -webkit-appearance: none; -moz-appearance: none; appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.5em 1.5em; padding-right: 2.5rem;
         }
-        .star-rating .lucide-star { cursor: pointer; transition: color 0.2s, fill 0.2s, transform 0.2s; }
-        .star-rating .lucide-star:hover { transform: scale(1.2); }
+        .star-rating .lucide-star { cursor: pointer; transition: color 0.2s, fill 0.2s; }
         
         #main-app-content, #auth-screen { display: none; }
-        
-        /* Animação para o conteúdo principal aparecer */
-        #main-app-content.fade-in {
-            animation: fadeIn 0.8s forwards ease-in-out;
-        }
-
-        /* Animação para o dropdown do perfil */
-        #profile-menu {
-            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
-            transform-origin: top right;
-            transform: scale(0.95);
-            opacity: 0;
-            visibility: hidden;
-        }
-        #profile-menu.show {
-            transform: scale(1);
-            opacity: 1;
-            visibility: visible;
-        }
-
     </style>
 </head>
 <body class="pb-20 md:pb-0">
@@ -168,12 +73,12 @@
                 <form id="email-login-form" class="space-y-4">
                     <input type="email" id="email-input" placeholder="E-mail" class="w-full p-3 rounded-md border-none text-lg" style="background-color: var(--card-bg); color: var(--text-primary);" required>
                     <input type="password" id="password-input" placeholder="Senha" class="w-full p-3 rounded-md border-none text-lg" style="background-color: var(--card-bg); color: var(--text-primary);" required>
-                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg">Entrar / Cadastrar</button>
+                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition">Entrar / Cadastrar</button>
                 </form>
                 <div class="my-4 flex items-center">
                     <hr class="flex-grow border-t" style="border-color: var(--card-bg);"><span class="mx-4 text-sm" style="color: var(--text-secondary);">OU</span><hr class="flex-grow border-t" style="border-color: var(--card-bg);">
                 </div>
-                <button id="google-login-btn" class="w-full flex items-center justify-center gap-3 bg-white text-black font-bold py-3 px-5 rounded-lg hover:bg-gray-200">
+                <button id="google-login-btn" class="w-full flex items-center justify-center gap-3 bg-white text-black font-bold py-3 px-5 rounded-lg transition hover:bg-gray-200">
                     <svg class="w-6 h-6" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.42-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg>
                     Entrar com Google
                 </button>
@@ -184,7 +89,7 @@
                  <p class="mb-4" style="color: var(--text-secondary);">Para começar, escolha um nome de usuário único.</p>
                 <form id="username-form" class="space-y-4">
                     <input type="text" id="username-input" placeholder="Nome de usuário" class="w-full p-3 rounded-md border-none text-lg" style="background-color: var(--card-bg); color: var(--text-primary);" required>
-                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg">Salvar e Continuar</button>
+                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition">Salvar e Continuar</button>
                 </form>
                  <p id="username-error" class="text-red-500 mt-4 text-sm h-4"></p>
             </div>
@@ -209,7 +114,7 @@
                         <button id="desktop-list-button" class="text-sm font-medium p-2 rounded-md hoverable-item">Minha Lista</button>
                         <div class="relative" id="profile-dropdown-container">
                             <button id="profile-button" class="w-9 h-9 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full overflow-hidden" title="Perfil"><img id="profile-avatar" src="https://placehold.co/40x40/ffffff/333333?text=A" alt="Avatar do Utilizador" class="w-full h-full object-cover"></button>
-                            <div id="profile-menu" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1" style="background-color: var(--card-bg)">
+                            <div id="profile-menu" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 hidden" style="background-color: var(--card-bg)">
                                 <a href="#" id="account-btn" class="w-full text-left px-4 py-2 text-sm hoverable-item flex items-center gap-2"><i data-lucide="user-2" class="w-4 h-4"></i>Conta</a>
                                 <a href="#" id="desktop-settings-btn" class="w-full text-left px-4 py-2 text-sm hoverable-item flex items-center gap-2"><i data-lucide="settings" class="w-4 h-4"></i>Configurações</a>
                                 <a href="#" id="logout-btn" class="w-full text-left px-4 py-2 text-sm hoverable-item flex items-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i>Sair</a>
@@ -224,7 +129,7 @@
         </header>
 
         <!-- Painel de Navegação Mobile -->
-        <div id="mobile-nav" class="fixed top-0 left-0 h-full w-full z-50 lg:hidden" style="background-color: var(--background)">
+        <div id="mobile-nav" class="modal fixed top-0 left-0 h-full w-full z-50 lg:hidden" style="background-color: var(--background)">
             <div class="p-4">
                 <div class="flex justify-between items-center mb-8">
                     <a href="#" class="text-2xl font-bold"><span class="text-blue-500">Cine</span><span class="text-purple-500">Verse</span></a>
@@ -264,22 +169,20 @@
         <!-- Modal do Leitor de Vídeo -->
         <div id="player-modal" class="modal fixed inset-0 bg-black z-[51] flex flex-col">
             <div class="absolute top-0 left-0 z-10 p-4">
-                <button id="close-player-modal" class="p-2 bg-black/50 rounded-full hover:bg-black/70"><i data-lucide="arrow-left" class="text-white"></i></button>
+                <button id="close-player-modal" class="p-2 bg-black/50 rounded-full hover:bg-black/70 transition"><i data-lucide="arrow-left" class="text-white"></i></button>
             </div>
             <div id="player-container" class="w-full h-full flex-1 relative"></div>
         </div>
         
         <!-- Overlay de Perfil Mobile -->
         <div id="mobile-profile-overlay" class="modal fixed inset-0 z-50 p-4" style="background-color: var(--overlay-bg);">
-            <div>
-                <div class="flex justify-end mb-4"><button id="close-profile-overlay"><i data-lucide="x" class="w-7 h-7"></i></button></div>
-                <div class="mt-8 flex flex-col items-center space-y-6">
-                    <h2 class="text-2xl font-bold">Perfil</h2>
-                    <div class="w-full max-w-xs space-y-4">
-                        <button id="mobile-account-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="user-2" class="w-5 h-5 mr-2"></i>Conta</button>
-                        <button id="mobile-settings-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="settings" class="w-5 h-5 mr-2"></i>Configurações</button>
-                        <button id="mobile-logout-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="log-out" class="w-5 h-5 mr-2"></i>Sair</button>
-                    </div>
+            <div class="flex justify-end mb-4"><button id="close-profile-overlay"><i data-lucide="x" class="w-7 h-7"></i></button></div>
+            <div class="mt-8 flex flex-col items-center space-y-6">
+                <h2 class="text-2xl font-bold">Perfil</h2>
+                <div class="w-full max-w-xs space-y-4">
+                    <button id="mobile-account-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="user-2" class="w-5 h-5 mr-2"></i>Conta</button>
+                    <button id="mobile-settings-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="settings" class="w-5 h-5 mr-2"></i>Configurações</button>
+                    <button id="mobile-logout-btn" class="p-4 rounded-md text-lg flex items-center justify-center hoverable-item w-full"><i data-lucide="log-out" class="w-5 h-5 mr-2"></i>Sair</button>
                 </div>
             </div>
         </div>
@@ -324,7 +227,7 @@
                     <!-- Limpar Histórico -->
                      <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3"><i data-lucide="history"></i><span class="font-semibold">Histórico de Exibição</span></div>
-                        <button id="clear-history-btn" class="text-sm bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Limpar Histórico</button>
+                        <button id="clear-history-btn" class="text-sm bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition">Limpar Histórico</button>
                     </div>
                 </div>
             </div>
@@ -346,7 +249,7 @@
                              <p id="account-modal-member-since" class="text-sm mt-1" style="color: var(--text-secondary);"></p>
                         </div>
                     </div>
-                    <button id="manage-subscription-btn" class="w-full max-w-sm bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg">Gerenciar Assinatura</button>
+                    <button id="manage-subscription-btn" class="w-full max-w-sm bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition">Gerenciar Assinatura</button>
                 </div>
             </div>
         </div>
@@ -387,12 +290,12 @@
         document.addEventListener('DOMContentLoaded', async function() {
             // --- CONFIGURAÇÃO DO FIREBASE ---
             const firebaseConfig = {
-                apiKey: "AIzaSyB98-bStjweF82UALPiw2YiwKKn1IhZASE",
-                authDomain: "videochamada11.firebaseapp.com",
-                projectId: "videochamada11",
-                storageBucket: "videochamada11.firebasestorage.app",
-                messagingSenderId: "872635256324",
-                appId: "1:872635256324:web:12a6051efe8796730f2f51"
+              apiKey: "AIzaSyB98-bStjweF82UALPiw2YiwKKn1IhZASE",
+              authDomain: "videochamada11.firebaseapp.com",
+              projectId: "videochamada11",
+              storageBucket: "videochamada11.firebasestorage.app",
+              messagingSenderId: "872635256324",
+              appId: "1:872635256324:web:12a6051efe8796730f2f51"
             };
 
             const app = initializeApp(firebaseConfig);
@@ -429,10 +332,10 @@
                     { id: 40, type: 'movie', title: "𝐏𝐚𝐧𝐢𝐜𝐨 𝐧𝐚 𝐅𝐥𝐨𝐫𝐞𝐬𝐭𝐚 𝟔", year: "𝟐𝟎𝟏𝟒", genres: ["Terror"], director: "Valeri Milev", cast: ["Anthony Ilott", "Aqueela Zoll"], synopsis: "Um herdeiro misterioso leva seus amigos para um resort abandonado, onde eles encontram a família canibal.", poster: "https://br.web.img3.acsta.net/c_310_420/pictures/15/11/17/19/17/452173.jpg", backdrop: "https://image.tmdb.org/t/p/original/sUxV7r5PXlid0467BJBE7EaXMoQ.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/31/s8/2/X/1/u/s/X1usx.gaa.mp4", progress: 0, dateAdded: '2025-07-19' },
                     { id: 41, type: 'movie', title: "𝐏𝐚𝐧𝐢𝐜𝐨 𝐧𝐚 𝐅𝐥𝐨𝐫𝐞𝐬𝐭𝐚: 𝐀 𝐅𝐮𝐧𝐝𝐚çã𝐨", year: "𝟐𝟎𝟐𝟏", genres: ["Terror"], director: "Mike P. Nelson", cast: ["Charlotte Vega", "Matthew Modine"], synopsis: "Um grupo de amigos caminhando pela Trilha dos Apalaches encontra uma comunidade isolada que vive nas montanhas há centenas de anos.", poster: "https://leiturafilmica.com.br/wp-content/uploads/2022/01/panico-na-floresta-a-fundacao-poster.jpg", backdrop: "https://image.tmdb.org/t/p/original/1J0ffYeemASvJ8DJAPaZHkxC145.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe2/48/s8/2/f/t/q/t/ftqtx.gaa.mp4", progress: 0, dateAdded: '2025-07-19' },
                     { id: 42, type: 'movie', title: "𝐓𝐢𝐭𝐚𝐧𝐢𝐜", year: "𝟏𝟗𝟗𝟕", genres: ["Romance", "Drama"], director: "James Cameron", cast: ["Leonardo DiCaprio", "Kate Winslet"], synopsis: "Um romance épico entre um artista pobre e uma jovem rica a bordo do malfadado R.M.S. Titanic.", poster: "https://m.media-amazon.com/images/M/MV5BYzYyN2FiZmUtYWYzMy00MzViLWJkZTMtOGY1ZjgzNWMwN2YxXkEyXkFqcGc@._V1_.jpg", backdrop: "https://image.tmdb.org/t/p/original/vIAm7UDNjGztvUYtDuS0in1VAXg.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe2/5c/s8/2/P/H/1/-/PH1-w.caa.mp4", progress: 0, dateAdded: '2025-07-18' },
-                    { id: 43, type: 'movie', title: "Triplo X", year: "2002", genres: ["Ação", "Aventura", "Suspense"], director: "Rob Cohen", cast: ["Vin Diesel", "Asia Argento"], synopsis: "Um atleta de esportes radicais é recrutado pelo governo para uma missão perigosa para se infiltrar em uma organização criminosa russa.", poster: "https://br.web.img3.acsta.net/medias/nmedia/18/92/15/34/20183462.jpg", backdrop: "https://image.tmdb.org/t/p/original/j6dQf05Mw318Wpyxs8kjvGUR0a8W.jpg", playerType: 'video', url: "https://filmes-act08.s3.us-east-005.backblazeb2.com/Triplo%20X%202002_7451.mp4", progress: 0, dateAdded: '2025-07-18' },
+                    { id: 43, type: 'movie', title: "Triplo X", year: "2002", genres: ["Ação", "Aventura", "Suspense"], director: "Rob Cohen", cast: ["Vin Diesel", "Asia Argento"], synopsis: "Um atleta de esportes radicais é recrutado pelo governo para uma missão perigosa para se infiltrar em uma organização criminosa russa.", poster: "https://br.web.img3.acsta.net/medias/nmedia/18/92/15/34/20183462.jpg", backdrop: "https://image.tmdb.org/t/p/original/j6dQf05Mw318Wkxs8kjvGUR0a8W.jpg", playerType: 'video', url: "https://filmes-act08.s3.us-east-005.backblazeb2.com/Triplo%20X%202002_7451.mp4", progress: 0, dateAdded: '2025-07-18' },
                     { id: 44, type: 'movie', title: "𝐊𝐮𝐧𝐠 𝐅𝐮 𝐏𝐚𝐧𝐝𝐚 𝟒", year: "𝟐𝟎𝟐𝟒", genres: ["Animação", "Ação", "Comédia"], director: "Mike Mitchell", cast: ["Jack Black", "Awkwafina"], synopsis: "Po deve treinar um novo Guerreiro Dragão para assumir seu lugar, enquanto enfrenta uma nova vilã, a Camaleoa.", poster: "https://m.media-amazon.com/images/M/MV5BZGI1N2IxN2ItZWJmNC00ZDZjLWJlYzQtNTZhNzYzM2MwMDNhXkEyXkFqcGc@._V1_.jpg", backdrop: "https://i.ibb.co/VS2rmL0/p-Kcjq-Eisnl-Zy-Qu0b-Qr-CSFS9-Rl-XA.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/6b/s8/2/u/c/y/1/ucy1w.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
                     { id: 45, type: 'movie', title: "𝐊𝐮𝐧𝐠 𝐅𝐮 𝐏𝐚𝐧𝐝𝐚 𝟑", year: "𝟐𝟎𝟏𝟔", genres: ["Animação", "Ação", "Comédia"], director: "Jennifer Yuh Nelson, Alessandro Carloni", cast: ["Jack Black", "Bryan Cranston"], synopsis: "Po se reúne com seu pai biológico e viaja para uma vila secreta de pandas, onde deve treinar um exército para lutar contra um vilão sobrenatural.", poster: "https://br.web.img3.acsta.net/pictures/16/02/14/13/01/233818.jpg", backdrop: "https://i.ibb.co/fSpTF1s/tf-Ev-P0-Pnkj2-AOpw-Loexap6u7f-WW.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/65/s8/2/1/H/I/8/1HI8w.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
-                    { id: 46, type: 'movie', title: "𝐊𝐮𝐧𝐠 𝐅𝐮 𝐏𝐚𝐧𝐝𝐚 𝟐", year: "𝟐𝟎𝟏𝟏", genres: ["Animação", "Ação", "Comédia"], director: "Jennifer Yuh Nelson", cast: ["Jack Black", "Angelina Jolie"], synopsis: "Po e os Cinco Furiosos lutam para proteger o Vale da Paz de um pavão vilão que planeja usar uma arma secreta para conquistar a China.", poster: "https://upload.wikimedia.org/wikipedia/pt/thumb/b/b1/Kung_Fu_Panda_2_Poster.jpg/250px-Kung_Fu_Panda_2_Poster.jpg", backdrop: "https://image.tmdb.org/t/p/original/mD7SXDFQMMENfLKwKLgMiF1a9TaSXwaUrO32.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/17/s8/2/1/4/G/8/14G8w.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
+                    { id: 46, type: 'movie', title: "𝐊𝐮𝐧𝐠 𝐅𝐮 𝐏𝐚𝐧𝐝𝐚 𝟐", year: "𝟐𝟎𝟏𝟏", genres: ["Animação", "Ação", "Comédia"], director: "Jennifer Yuh Nelson", cast: ["Jack Black", "Angelina Jolie"], synopsis: "Po e os Cinco Furiosos lutam para proteger o Vale da Paz de um pavão vilão que planeja usar uma arma secreta para conquistar a China.", poster: "https://upload.wikimedia.org/wikipedia/pt/thumb/b/b1/Kung_Fu_Panda_2_Poster.jpg/250px-Kung_Fu_Panda_2_Poster.jpg", backdrop: "https://image.tmdb.org/t/p/original/mD7SXDFQMMENfLKw9ejW8pvmjC7.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/17/s8/2/1/4/G/8/14G8w.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
                     { id: 47, type: 'movie', title: "𝐊𝐮𝐧𝐠 𝐅𝐮 𝐏𝐚𝐧𝐝𝐚", year: "𝟐𝟎𝟎𝟖", genres: ["Animação", "Ação", "Comédia"], director: "Mark Osborne, John Stevenson", cast: ["Jack Black", "Dustin Hoffman"], synopsis: "Um panda desajeitado e fã de kung fu é escolhido para se tornar o Guerreiro Dragão e proteger o Vale da Paz do leopardo da neve Tai Lung.", poster: "https://upload.wikimedia.org/wikipedia/pt/thumb/7/76/Kungfupanda.jpg/250px-Kungfupanda.jpg", backdrop: "https://image.tmdb.org/t/p/original/1ZPecxsJGPGLey9Y93QKPgUBngM.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/44/s8/2/r/p/l/7/rpl7w.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
                     { id: 48, type: 'movie', title: "𝐎𝐬 𝐒𝐞𝐦-𝐅𝐥𝐨𝐫𝐞𝐬𝐭𝐚", year: "𝟐𝟎𝟎𝟔", genres: ["Animação", "Comédia", "Família"], director: "Tim Johnson, Karey Kirkpatrick", cast: ["Bruce Willis", "Garry Shandling"], synopsis: "Um grupo de animais da floresta acorda da hibernação e descobre que uma cerca viva apareceu em seu habitat, forçando-os a aprender a viver com os humanos.", poster: "https://br.web.img2.acsta.net/medias/nmedia/18/90/87/54/20117157.jpg", backdrop: "https://i.ibb.co/4dXmF1H/4-Bm-ZXt8-Yty7-F2-He4-KE05jq-Gid-Ez.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/c2/s8/2/Y/d/0/8/Yd08w.gaa.mp4", progress: 0, dateAdded: '2025-07-16' },
                     { id: 49, type: 'movie', title: "Operação Panda", year: "2024", genres: ["Animação", "Aventura", "Comédia"], director: "Vasiliy Rovenskiy", cast: ["Pauly Shore"], synopsis: "Um jovem panda corajoso embarca em uma missão perigosa para resgatar seu amigo que foi sequestrado.", poster: "https://m.media-amazon.com/images/M/MV5BYmY0N2Y5MDAtYmI0OS00ZTEwLTlkNDEtODA2ZjQ5OWRmMzE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", backdrop: "https://image.tmdb.org/t/p/original/7CmGXYwKLgMiF1a9TaSXwaUrO32.jpg", playerType: 'video', url: "https://f005.backblazeb2.com/file/s7rave/Opera%C3%A7%C3%A3o.Panda.Miss%C3%A3o.Resgate.2024.1080P.X264.Web-Dl.Dual.5.1-Sf.mp4", progress: 0, dateAdded: '2025-07-16' },
@@ -826,7 +729,6 @@
                 }
                 DOMElements.authScreen.style.display = 'none';
                 DOMElements.mainAppContent.style.display = 'block';
-                DOMElements.mainAppContent.classList.add('fade-in'); // Adiciona a animação
                 DOMElements.loadingSpinner.style.display = 'none';
                 
                 updateUIAfterLogin();
@@ -868,8 +770,8 @@
                             <h1 class="text-4xl md:text-6xl font-extrabold my-3" style="color: var(--hero-text-primary);">${heroItem.title}</h1>
                             <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--hero-text-secondary);">${heroItem.synopsis}</p>
                             <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                                <button class="details-btn flex items-center justify-center bg-white text-black font-bold py-3.5 px-8 rounded-md hover:bg-gray-300" data-content-id="${contentId}"><i data-lucide="info" class="mr-2"></i>Mais Informações</button>
-                                <button class="add-to-list-btn flex items-center justify-center bg-gray-500 bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm font-bold py-3.5 px-8 rounded-full duration-300" style="color: var(--hero-text-primary);" data-content-id="${contentId}"></button>
+                                <button class="details-btn flex items-center justify-center bg-white text-black font-bold py-3.5 px-8 rounded-md transition hover:bg-gray-300" data-content-id="${contentId}"><i data-lucide="info" class="mr-2"></i>Mais Informações</button>
+                                <button class="add-to-list-btn flex items-center justify-center bg-gray-500 bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm font-bold py-3.5 px-8 rounded-full transition duration-300" style="color: var(--hero-text-primary);" data-content-id="${contentId}"></button>
                             </div>
                         </div>
                     </div>`;
@@ -937,13 +839,13 @@
                 const ratingHTML = await getAverageRatingStarsHTML(contentId, 'sm');
                 const poster = item.poster || item.cover;
 
-                return `<div class="details-btn flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6 rounded-lg cursor-pointer group" data-content-id="${contentId}">
+                return `<div class="details-btn flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6 rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-content-id="${contentId}">
                             <div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);">
                                 <img loading="lazy" src="${poster}" alt="Pôster de ${item.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">
                                 <div class="absolute top-2 right-2 bg-black/50 p-1 rounded-md">${ratingHTML}</div>
                                 ${progressHTML}
                             </div>
-                       </div>`;
+                         </div>`;
             }
 
             async function createGridCardHTML(item) {
@@ -953,7 +855,7 @@
                 const aspect = item.type === 'live' ? 'aspect-square' : 'aspect-[2/3]';
                 const objectFit = item.type === 'live' ? 'object-contain p-4' : 'object-cover';
 
-                return `<div class="details-btn rounded-lg cursor-pointer group" data-content-id="${contentId}">
+                return `<div class="details-btn rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-content-id="${contentId}">
                             <div class="relative rounded-lg overflow-hidden ${aspect}" style="background-color: var(--card-bg);">
                                 <img loading="lazy" src="${poster}" alt="Pôster de ${item.title}" class="w-full h-full ${objectFit}" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">
                                 <div class="absolute top-2 right-2 bg-black/50 p-1 rounded-md">${ratingHTML}</div>
@@ -1025,7 +927,7 @@
                 const castUrl = `wvc-x-callback://open?url=${encodeURIComponent(movie.url)}&title=${encodeURIComponent(movie.title)}`;
                 DOMElements.contentContainer.innerHTML = `
                     <div class="relative w-full h-[40vh] md:h-[60vh]">
-                        <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70"><i data-lucide="arrow-left"></i></button>
+                        <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition"><i data-lucide="arrow-left"></i></button>
                         <img src="${movie.backdrop}" alt="${movie.title}" class="absolute inset-0 w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-4 md:p-8 container mx-auto">
@@ -1043,10 +945,10 @@
                             <p><strong style="color: var(--text-primary)">Elenco:</strong> ${movie.cast.join(', ')}</p>
                         </div>
                          <div class="flex flex-wrap gap-3 mt-6">
-                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg" data-content-id="${contentId}"><i data-lucide="play" class="mr-2"></i>Assistir</button>
-                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
-                            <a href="${castUrl}" class="p-3 flex items-center justify-center border rounded-lg hoverable-item" style="border-color: var(--text-secondary);" title="Transmitir"><i data-lucide="cast"></i></a>
-                            <a href="${movie.url}" download="${movie.title}" class="p-3 flex items-center justify-center border rounded-lg hoverable-item" style="border-color: var(--text-secondary);" title="Baixar"><i data-lucide="download"></i></a>
+                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition" data-content-id="${contentId}"><i data-lucide="play" class="mr-2"></i>Assistir</button>
+                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
+                            <a href="${castUrl}" class="p-3 flex items-center justify-center border rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" title="Transmitir"><i data-lucide="cast"></i></a>
+                            <a href="${movie.url}" download="${movie.title}" class="p-3 flex items-center justify-center border rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" title="Baixar"><i data-lucide="download"></i></a>
                         </div>
                         <div class="mt-8 border-t pt-6" style="border-color: var(--card-hover-bg);">
                             <h3 class="text-xl font-bold mb-4">Avalie e Comente</h3>
@@ -1055,7 +957,7 @@
                             </div>
                             <form class="comment-form" data-id="${contentId}">
                                 <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
-                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">Enviar</button>
+                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
                             </form>
                             <div class="comments-section mt-4 space-y-3"></div>
                         </div>
@@ -1076,7 +978,7 @@
                 updateActiveNav('live');
                 DOMElements.contentContainer.innerHTML = `
                     <div class="relative w-full h-[40vh] md:h-[60vh] bg-black">
-                        <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70"><i data-lucide="arrow-left"></i></button>
+                        <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition"><i data-lucide="arrow-left"></i></button>
                         <div class="w-full h-full flex items-center justify-center">
                             <img src="${channel.logo}" alt="${channel.title}" class="max-h-[50%] max-w-[80%] object-contain">
                         </div>
@@ -1090,8 +992,8 @@
                             <div id="details-rating-display"></div>
                         </div>
                          <div class="flex flex-wrap gap-3 mt-6">
-                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg" data-content-id="${contentId}"><i data-lucide="play" class="mr-2"></i>Assistir Ao Vivo</button>
-                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
+                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition" data-content-id="${contentId}"><i data-lucide="play" class="mr-2"></i>Assistir Ao Vivo</button>
+                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
                          </div>
                          <div class="mt-8 border-t pt-6" style="border-color: var(--card-hover-bg);">
                             <h3 class="text-xl font-bold mb-4">Avalie e Comente</h3>
@@ -1100,7 +1002,7 @@
                             </div>
                             <form class="comment-form" data-id="${contentId}">
                                 <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
-                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">Enviar</button>
+                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
                             </form>
                             <div class="comments-section mt-4 space-y-3"></div>
                         </div>
@@ -1168,8 +1070,8 @@
                     DOMElements.playerModal.playerContainer.innerHTML = `
                         <video id="player-video" class="w-full h-full" src="${episode.videoUrl}" controls autoplay></video>
                         <div class="absolute bottom-4 left-4 right-4 flex justify-between z-20">
-                            <button id="prev-episode-btn" class="p-3 bg-black/50 rounded-full hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed"><i data-lucide="skip-back"></i></button>
-                            <button id="next-episode-btn" class="p-3 bg-black/50 rounded-full hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed"><i data-lucide="skip-forward"></i></button>
+                            <button id="prev-episode-btn" class="p-3 bg-black/50 rounded-full hover:bg-black/70 transition disabled:opacity-50 disabled:cursor-not-allowed"><i data-lucide="skip-back"></i></button>
+                            <button id="next-episode-btn" class="p-3 bg-black/50 rounded-full hover:bg-black/70 transition disabled:opacity-50 disabled:cursor-not-allowed"><i data-lucide="skip-forward"></i></button>
                         </div>`;
 
                     const video = document.getElementById('player-video');
@@ -1222,7 +1124,7 @@
                 const seasonOptionsHTML = series.seasons.map(season => `<option value="${season.id}">${season.title}</option>`).join('');
                 DOMElements.contentContainer.innerHTML = `
                     <div class="relative w-full h-[40vh] md:h-[60vh]">
-                         <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70"><i data-lucide="arrow-left"></i></button>
+                         <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition"><i data-lucide="arrow-left"></i></button>
                         <img src="${series.backdrop}" alt="${series.title}" class="absolute inset-0 w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-4 md:p-8 container mx-auto">
@@ -1236,7 +1138,7 @@
                            <span id="details-genres">${series.genres.join(', ')}</span>
                         </div>
                         <div class="flex flex-wrap gap-3 mt-6">
-                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
+                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
                         </div>
                         <div class="my-6">
                             <select id="season-selector" class="w-full sm:w-auto p-3 rounded-md font-semibold border-none cursor-pointer" style="background-color: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-hover-bg);">${seasonOptionsHTML}</select>
@@ -1247,7 +1149,7 @@
                             <div class="star-rating mb-4 flex items-center gap-1" data-id="${contentId}">${[1,2,3,4,5].map(i => `<i data-lucide="star" data-value="${i}" class="w-7 h-7"></i>`).join('')}</div>
                             <form class="comment-form" data-id="${contentId}">
                                 <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
-                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">Enviar</button>
+                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
                             </form>
                             <div class="comments-section mt-4 space-y-3"></div>
                         </div>
@@ -1287,7 +1189,7 @@
                 updateActiveNav('');
                 const allGenres = [...new Set([...contentDb.movies, ...contentDb.series].flatMap(item => item.genres))].sort();
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">Gêneros</h2>`;
-                contentHTML += `<div class="flex flex-wrap gap-4">${allGenres.map(genre => `<button class="genre-btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg" data-genre="${genre}">${genre}</button>`).join('')}</div><div id="genre-results" class="mt-12"></div></div>`;
+                contentHTML += `<div class="flex flex-wrap gap-4">${allGenres.map(genre => `<button class="genre-btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition" data-genre="${genre}">${genre}</button>`).join('')}</div><div id="genre-results" class="mt-12"></div></div>`;
                 DOMElements.contentContainer.innerHTML = contentHTML;
             }
 
@@ -1549,14 +1451,9 @@
             }
 
             function setupEventListeners() {
-                DOMElements.profileBtn.onclick = (e) => { e.stopPropagation(); DOMElements.profileMenu.classList.toggle('show'); };
-                DOMElements.hamburgerBtn.onclick = () => {
-                    DOMElements.mobileNav.classList.remove('inactive');
-                    DOMElements.mobileNav.classList.add('active');
-                };
-                DOMElements.closeMobileNav.onclick = () => {
-                    DOMElements.mobileNav.classList.add('inactive');
-                };
+                DOMElements.profileBtn.onclick = (e) => { e.stopPropagation(); DOMElements.profileMenu.classList.toggle('hidden'); };
+                DOMElements.hamburgerBtn.onclick = () => DOMElements.mobileNav.classList.add('active');
+                DOMElements.closeMobileNav.onclick = () => DOMElements.mobileNav.classList.remove('active');
                 DOMElements.mobileProfileBtn.onclick = () => DOMElements.mobileProfileOverlay.classList.add('active');
                 DOMElements.closeProfileOverlay.onclick = () => DOMElements.mobileProfileOverlay.classList.remove('active');
                 
@@ -1619,7 +1516,7 @@
                         case 'series': renderCategoryPage('Séries', contentDb.series, { title: 'Nenhuma série encontrada', subtitle: 'Volte mais tarde!' }, createGridCardHTML); break;
                         case 'genres': renderGenresPage(); break;
                     }
-                    DOMElements.mobileNav.classList.add('inactive');
+                    DOMElements.mobileNav.classList.remove('active');
                 });
 
                 document.addEventListener('click', (e) => {
@@ -1639,7 +1536,7 @@
                     const genreBtn = target.closest('.genre-btn');
                     if (genreBtn) return renderGenreResults(genreBtn.dataset.genre);
                     
-                    if (!DOMElements.profileDropdownContainer.contains(target)) DOMElements.profileMenu.classList.remove('show');
+                    if (!DOMElements.profileDropdownContainer.contains(target)) DOMElements.profileMenu.classList.add('hidden');
                 });
 
                 DOMElements.playerModal.closeBtn.onclick = closePlayerModal;
