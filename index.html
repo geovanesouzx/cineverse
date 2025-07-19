@@ -924,14 +924,29 @@
                         </div>
                     </div>
                     <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+                        <div class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
+                            <div id="details-rating-display"></div>
+                        </div>
                          <div class="flex flex-wrap gap-3 mt-6">
                             <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition" data-content-id="${contentId}"><i data-lucide="play" class="mr-2"></i>Assistir Ao Vivo</button>
                             <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
                          </div>
+                         <div class="mt-8 border-t pt-6" style="border-color: var(--card-hover-bg);">
+                            <h3 class="text-xl font-bold mb-4">Avalie e Comente</h3>
+                            <div class="star-rating mb-4 flex items-center gap-1" data-id="${contentId}">
+                                ${[1,2,3,4,5].map(i => `<i data-lucide="star" data-value="${i}" class="w-7 h-7"></i>`).join('')}
+                            </div>
+                            <form class="comment-form" data-id="${contentId}">
+                                <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
+                                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
+                            </form>
+                            <div class="comments-section mt-4 space-y-3"></div>
+                        </div>
                     </div>`;
                 document.getElementById('back-button').onclick = renderLiveTvPage;
                 updateAddToListButton(DOMElements.contentContainer.querySelector('.add-to-list-btn'));
                 lucide.createIcons();
+                setupRatingAndComments(contentId);
                 window.scrollTo(0, 0);
             }
             
