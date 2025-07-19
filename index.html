@@ -305,20 +305,20 @@
             // --- BANCO DE DADOS E ESTADO DA APLICAÇÃO ---
             const contentDb = {
                 movies: [
-                    { id: 5, title: "Orion e o Escuro", year: "2024", genres: ["Animação", "Aventura", "Fantasia"], director: "Sean Charmatz", cast: ["Jacob Tremblay", "Paul Walter Hauser"], synopsis: "Um garoto com uma imaginação ativa enfrenta seus medos numa jornada pela noite...", poster: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Orion_e_o_Escuro.jpg", backdrop: "https://occ-0-8407-92.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABXj5BLHAmSR-leac11zR8tVvyNTQSxhPr1j_kgD6kvXVCxwbeUZapd-BZywoz4WtVmP7heJQTd0AkuWLCtClHRPP3UBM1DgLaNnu.jpg?r=25c", playerType: 'video', url: "https://1a-1791.com/video/fww1/ae/s8/2/4/B/G/w/4BGwy.gaa.mp4", progress: 0, dateAdded: '2025-07-18' },
-                    { id: 13, title: "Ratatouille", year: "2007", genres: ["Animação", "Comédia", "Família"], director: "Brad Bird", cast: ["Patton Oswalt", "Ian Holm", "Lou Romano"], synopsis: "Um rato chamado Remy sonha em se tornar um grande chef francês...", poster: "https://upload.wikimedia.org/wikipedia/pt/8/82/Ratatouille_p%C3%B4ster.jpg", backdrop: "https://image.tmdb.org/t/p/original/uTSZLWiAIDxS6ELlmjHHtfNkTGP.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe2/fb/s8/2/2/X/V/S/2XVSx.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
-                    { id: 14, title: "Moana - Um Mar de Aventuras", year: "2016", genres: ["Animação", "Aventura", "Família"], director: "Ron Clements, John Musker", cast: ["Auli'i Cravalho", "Dwayne Johnson", "Rachel House"], synopsis: "Moana, uma jovem corajosa, parte em uma missão ousada para salvar seu povo.", poster: "https://br.web.img3.acsta.net/pictures/16/09/12/22/13/415370.jpg", backdrop: "https://image.tmdb.org/t/p/original/kNAANuEyhDu5g4c5p0gcMFLhV0k.jpg", playerType: 'video', url: "https://1a-1791.com/video/s8/2/K/T/8/c/KT8cv.gaa.mp4", progress: 0, dateAdded: '2025-07-16' },
-                    { id: 16, title: "Gato de Botas 2: O Último Pedido", year: "2022", genres: ["Animação", "Aventura", "Comédia"], director: "Joel Crawford", cast: ["Antonio Banderas", "Salma Hayek", "Harvey Guillén"], synopsis: "O Gato de Botas descobre que sua paixão pela aventura cobrou seu preço: ele queimou oito de suas nove vidas.", poster: "https://m.media-amazon.com/images/S/pv-target-images/af89ec33729d1d14d78507f10f3aa4e3be74093c22a149a90268a39435bc6a82.jpg", backdrop: "https://image.tmdb.org/t/p/original/u8XDx5S8RWc2UgCGc7HHwFWVE2a.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8c/s8/2/u/I/-/a/uI-ax.gaa.mp4", progress: 0, dateAdded: '2025-07-15' },
-                    { id: 17, title: "Como Treinar o Seu Dragão", year: "2010", genres: ["Animação", "Aventura", "Fantasia"], director: "Dean DeBlois, Chris Sanders", cast: ["Jay Baruchel", "Gerard Butler", "Craig Ferguson"], synopsis: "Um jovem Viking desafortunado que aspira a caçar dragões torna-se o amigo improvável de um jovem dragão...", poster: "https://upload.wikimedia.org/wikipedia/pt/e/ed/How_to_Train_Your_Dragon_%28filme_de_2010%29.jpg", backdrop: "https://image.tmdb.org/t/p/original/sUxsHQtSxfwmXkoqNlB7Uyl0kaN.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/b3/s8/2/b/4/9/-/b49-w.gaa.mp4", progress: 0, dateAdded: '2025-07-14' },
-                    { id: 3, title: "O Segredo dos Animais", year: "2006", genres: ["Comédia", "Animação"], director: "Steve Oedekerk", cast: ["Kevin James", "Courteney Cox"], synopsis: "Quando o fazendeiro está fora, todos os animais da fazenda cantam e dançam...", poster: "https://br.web.img3.acsta.net/medias/nmedia/18/94/12/17/20304560.jpg", backdrop: "https://http2.mlstatic.com/D_NQ_NP_751137-MLA73368651374_122023-B.webp", playerType: 'video', url: "https://1a-1791.com/video/fww1/ab/s8/2/o/e/2/s/oe2sy.gaa.mp4", progress: 50, dateAdded: '2025-07-13' },
-                    { id: 4, title: "A Nova Onda do Imperador", year: "2000", genres: ["Comédia", "Animação", "Aventura"], director: "Mark Dindal", cast: ["David Spade", "John Goodman"], synopsis: "O arrogante imperador Kuzco é transformado em uma lhama...", poster: "https://m.media-amazon.com/images/M/MV5BMjBkMWE4ZjUtZTgxYi00MjRlLWIyYWYtY2M2ZWQ2YzA3OTgyXkEyXkFqcGc@._V1_.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFDmG7HE_dd27sbKKLDzeZGzu95qaL2WUrTXspfaBNANTSJkTFvxbMcqqmto_MTH05C6XSW85CXpNIiyE8MQEzmG06xefmAiuale1SZaP5IMh17pRBS08vIdRDvxsz06ri6T2KToVw9Uk/s1000/a+nova+onda+do+imperador.png", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8b/s8/2/k/P/h/x/kPhxy.caa.mp4", progress: 0, dateAdded: '2025-07-12' },
-                    { id: 2, title: "Pica-Pau: O Filme", year: "2017", genres: ["Comédia", "Animação", "Aventura"], director: "Alex Zamm", cast: ["Timothy Omundson", "Thaila Ayala"], synopsis: "O Pica-Pau está metido em mais uma de suas brigas por território...", poster: "https://br.web.img2.acsta.net/pictures/17/08/25/19/04/419991.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg", playerType: 'iframe', url: "https://www.tokyvideo.com/embed/409976", progress: 0, dateAdded: '2025-07-11' },
-                    { id: 6, title: "Patos!", year: "2023", genres: ["Animação", "Aventura", "Comédia"], director: "Benjamin Renner", cast: ["Kumail Nanjiani", "Elizabeth Banks"], synopsis: "Uma família de patos tenta convencer seu pai a embarcar nas férias de suas vidas...", poster: "https://br.web.img2.acsta.net/pictures/23/12/07/19/08/2800297.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiHQEZwHPftCEbCl9A7Y0FDNCCyY63UzTzcw4jC9qsR78PsH_J5xely5IjIV9kr4KgBPMWRvdJXGL2pYnHIIKjDvDQnivL4esBc60uecHi4oZuP-SVyLw26sQ1ZaWF6zmZp89uSbjcGfTFD6-HLY6V1d-bBExjwMeZefxg-MH_6CdyNBYvawMcGUrQ9WMt/s1640/Patos%20cover.jpg", playerType: 'video', url: "https://1a-1791.com/video/fww1/26/s8/2/G/0/G/w/G0Gwy.gaa.mp4", progress: 20, dateAdded: '2025-07-10' },
-                    { id: 9, title: "Enrolados", year: "2010", genres: ["Animação", "Aventura", "Romance"], director: "Nathan Greno", cast: ["Mandy Moore", "Zachary Levi"], synopsis: "Rapunzel, com seu cabelo mágico, faz um acordo com o ladrão Flynn Rider...", poster: "https://upload.wikimedia.org/wikipedia/pt/9/99/Tangled_Disney.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEFR_J4w6veFIbYfEzl7Vgg_I4um9o0JUfNTWE8IiL1LrN_TNH6fD0MaTvg9yNV8fCZZAVhX9kLl_Cnphw8scYd5apRm62FhEg6x-jjwJX5peGv6mVJq8lGma_XzqAzrYkYVSgV81HTOk/s1000/enrolados.png", playerType: 'video', url: "https://1a-1791.com/video/fww1/5f/s8/2/g/J/K/t/gJKty.gaa.mp4", progress: 80, dateAdded: '2025-07-09' }
+                    { id: 5, type: 'movie', title: "Orion e o Escuro", year: "2024", genres: ["Animação", "Aventura", "Fantasia"], director: "Sean Charmatz", cast: ["Jacob Tremblay", "Paul Walter Hauser"], synopsis: "Um garoto com uma imaginação ativa enfrenta seus medos numa jornada pela noite...", poster: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Orion_e_o_Escuro.jpg", backdrop: "https://occ-0-8407-92.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABXj5BLHAmSR-leac11zR8tVvyNTQSxhPr1j_kgD6kvXVCxwbeUZapd-BZywoz4WtVmP7heJQTd0AkuWLCtClHRPP3UBM1DgLaNnu.jpg?r=25c", playerType: 'video', url: "https://1a-1791.com/video/fww1/ae/s8/2/4/B/G/w/4BGwy.gaa.mp4", progress: 0, dateAdded: '2025-07-18' },
+                    { id: 13, type: 'movie', title: "Ratatouille", year: "2007", genres: ["Animação", "Comédia", "Família"], director: "Brad Bird", cast: ["Patton Oswalt", "Ian Holm", "Lou Romano"], synopsis: "Um rato chamado Remy sonha em se tornar um grande chef francês...", poster: "https://upload.wikimedia.org/wikipedia/pt/8/82/Ratatouille_p%C3%B4ster.jpg", backdrop: "https://image.tmdb.org/t/p/original/uTSZLWiAIDxS6ELlmjHHtfNkTGP.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe2/fb/s8/2/2/X/V/S/2XVSx.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
+                    { id: 14, type: 'movie', title: "Moana - Um Mar de Aventuras", year: "2016", genres: ["Animação", "Aventura", "Família"], director: "Ron Clements, John Musker", cast: ["Auli'i Cravalho", "Dwayne Johnson", "Rachel House"], synopsis: "Moana, uma jovem corajosa, parte em uma missão ousada para salvar seu povo.", poster: "https://br.web.img3.acsta.net/pictures/16/09/12/22/13/415370.jpg", backdrop: "https://image.tmdb.org/t/p/original/kNAANuEyhDu5g4c5p0gcMFLhV0k.jpg", playerType: 'video', url: "https://1a-1791.com/video/s8/2/K/T/8/c/KT8cv.gaa.mp4", progress: 0, dateAdded: '2025-07-16' },
+                    { id: 16, type: 'movie', title: "Gato de Botas 2: O Último Pedido", year: "2022", genres: ["Animação", "Aventura", "Comédia"], director: "Joel Crawford", cast: ["Antonio Banderas", "Salma Hayek", "Harvey Guillén"], synopsis: "O Gato de Botas descobre que sua paixão pela aventura cobrou seu preço: ele queimou oito de suas nove vidas.", poster: "https://m.media-amazon.com/images/S/pv-target-images/af89ec33729d1d14d78507f10f3aa4e3be74093c22a149a90268a39435bc6a82.jpg", backdrop: "https://image.tmdb.org/t/p/original/u8XDx5S8RWc2UgCGc7HHwFWVE2a.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8c/s8/2/u/I/-/a/uI-ax.gaa.mp4", progress: 0, dateAdded: '2025-07-15' },
+                    { id: 17, type: 'movie', title: "Como Treinar o Seu Dragão", year: "2010", genres: ["Animação", "Aventura", "Fantasia"], director: "Dean DeBlois, Chris Sanders", cast: ["Jay Baruchel", "Gerard Butler", "Craig Ferguson"], synopsis: "Um jovem Viking desafortunado que aspira a caçar dragões torna-se o amigo improvável de um jovem dragão...", poster: "https://upload.wikimedia.org/wikipedia/pt/e/ed/How_to_Train_Your_Dragon_%28filme_de_2010%29.jpg", backdrop: "https://image.tmdb.org/t/p/original/sUxsHQtSxfwmXkoqNlB7Uyl0kaN.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/b3/s8/2/b/4/9/-/b49-w.gaa.mp4", progress: 0, dateAdded: '2025-07-14' },
+                    { id: 3, type: 'movie', title: "O Segredo dos Animais", year: "2006", genres: ["Comédia", "Animação"], director: "Steve Oedekerk", cast: ["Kevin James", "Courteney Cox"], synopsis: "Quando o fazendeiro está fora, todos os animais da fazenda cantam e dançam...", poster: "https://br.web.img3.acsta.net/medias/nmedia/18/94/12/17/20304560.jpg", backdrop: "https://http2.mlstatic.com/D_NQ_NP_751137-MLA73368651374_122023-B.webp", playerType: 'video', url: "https://1a-1791.com/video/fww1/ab/s8/2/o/e/2/s/oe2sy.gaa.mp4", progress: 50, dateAdded: '2025-07-13' },
+                    { id: 4, type: 'movie', title: "A Nova Onda do Imperador", year: "2000", genres: ["Comédia", "Animação", "Aventura"], director: "Mark Dindal", cast: ["David Spade", "John Goodman"], synopsis: "O arrogante imperador Kuzco é transformado em uma lhama...", poster: "https://m.media-amazon.com/images/M/MV5BMjBkMWE4ZjUtZTgxYi00MjRlLWIyYWYtY2M2ZWQ2YzA3OTgyXkEyXkFqcGc@._V1_.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFDmG7HE_dd27sbKKLDzeZGzu95qaL2WUrTXspfaBNANTSJkTFvxbMcqqmto_MTH05C6XSW85CXpNIiyE8MQEzmG06xefmAiuale1SZaP5IMh17pRBS08vIdRDvxsz06ri6T2KToVw9Uk/s1000/a+nova+onda+do+imperador.png", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8b/s8/2/k/P/h/x/kPhxy.caa.mp4", progress: 0, dateAdded: '2025-07-12' },
+                    { id: 2, type: 'movie', title: "Pica-Pau: O Filme", year: "2017", genres: ["Comédia", "Animação", "Aventura"], director: "Alex Zamm", cast: ["Timothy Omundson", "Thaila Ayala"], synopsis: "O Pica-Pau está metido em mais uma de suas brigas por território...", poster: "https://br.web.img2.acsta.net/pictures/17/08/25/19/04/419991.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg", playerType: 'iframe', url: "https://www.tokyvideo.com/embed/409976", progress: 0, dateAdded: '2025-07-11' },
+                    { id: 6, type: 'movie', title: "Patos!", year: "2023", genres: ["Animação", "Aventura", "Comédia"], director: "Benjamin Renner", cast: ["Kumail Nanjiani", "Elizabeth Banks"], synopsis: "Uma família de patos tenta convencer seu pai a embarcar nas férias de suas vidas...", poster: "https://br.web.img2.acsta.net/pictures/23/12/07/19/08/2800297.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiHQEZwHPftCEbCl9A7Y0FDNCCyY63UzTzcw4jC9qsR78PsH_J5xely5IjIV9kr4KgBPMWRvdJXGL2pYnHIIKjDvDQnivL4esBc60uecHi4oZuP-SVyLw26sQ1ZaWF6zmZp89uSbjcGfTFD6-HLY6V1d-bBExjwMeZefxg-MH_6CdyNBYvawMcGUrQ9WMt/s1640/Patos%20cover.jpg", playerType: 'video', url: "https://1a-1791.com/video/fww1/26/s8/2/G/0/G/w/G0Gwy.gaa.mp4", progress: 20, dateAdded: '2025-07-10' },
+                    { id: 9, type: 'movie', title: "Enrolados", year: "2010", genres: ["Animação", "Aventura", "Romance"], director: "Nathan Greno", cast: ["Mandy Moore", "Zachary Levi"], synopsis: "Rapunzel, com seu cabelo mágico, faz um acordo com o ladrão Flynn Rider...", poster: "https://upload.wikimedia.org/wikipedia/pt/9/99/Tangled_Disney.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEFR_J4w6veFIbYfEzl7Vgg_I4um9o0JUfNTWE8IiL1LrN_TNH6fD0MaTvg9yNV8fCZZAVhX9kLl_Cnphw8scYd5apRm62FhEg6x-jjwJX5peGv6mVJq8lGma_XzqAzrYkYVSgV81HTOk/s1000/enrolados.png", playerType: 'video', url: "https://1a-1791.com/video/fww1/5f/s8/2/g/J/K/t/gJKty.gaa.mp4", progress: 80, dateAdded: '2025-07-09' }
                 ],
                 series: [
                     {
-                        id: "coracao-de-ferro", title: "Coração de Ferro", year: "2025", cover: "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg", backdrop: "https://image.tmdb.org/t/p/original/uW8fcacKbGEJKeUmmveSdzMWf1U.jpg",
+                        id: "coracao-de-ferro", type: 'series', title: "Coração de Ferro", year: "2025", cover: "https://m.media-amazon.com/images/M/MV5BN2EzMGZhOTktYjVhZi00NmIwLWIxZDEtNWUxZTQyNjhkYWQ4XkEyXkFqcGc@._V1_.jpg", backdrop: "https://image.tmdb.org/t/p/original/uW8fcacKbGEJKeUmmveSdzMWf1U.jpg",
                         synopsis: "Riri Williams, uma estudante genial do MIT, cria a armadura mais avançada desde o Homem de Ferro.",
                         genres: ["Ação", "Aventura", "Ficção Científica"], dateAdded: '2025-07-20',
                         seasons: [
@@ -330,7 +330,7 @@
                         ]
                     },
                     {
-                        id: "round-6", title: "Round 6", cover: "https://www.quadrorama.com.br/wp-content/uploads/2021/11/Round-6-Capa-bd86b0c3.png", backdrop: "https://travejante.com/wp-content/uploads/2021/10/squid-game.jpeg",
+                        id: "round-6", type: 'series', title: "Round 6", cover: "https://www.quadrorama.com.br/wp-content/uploads/2021/11/Round-6-Capa-bd86b0c3.png", backdrop: "https://travejante.com/wp-content/uploads/2021/10/squid-game.jpeg",
                         synopsis: "Centenas de jogadores falidos aceitam um estranho convite para competir em jogos infantis. Dentro do jogo, um prêmio tentador os espera, mas as apostas são mortais.",
                         genres: ["Suspense", "Drama", "Ação"], dateAdded: '2025-07-19',
                         seasons: [
@@ -357,7 +357,7 @@
                         ]
                     },
                     {
-                        id: "the-last-of-us", title: "The Last of Us", cover: "https://m.media-amazon.com/images/M/MV5BYWI3ODJlMzktY2U5NC00ZjdlLWE1MGItNWQxZDk3NWNjN2RhXkEyXkFqcGc@._V1_.jpg", backdrop: "https://image.tmdb.org/t/p/original/6NXVC0yzrD7M96PYwj5jr259Ptk.jpg",
+                        id: "the-last-of-us", type: 'series', title: "The Last of Us", cover: "https://m.media-amazon.com/images/M/MV5BYWI3ODJlMzktY2U5NC00ZjdlLWE1MGItNWQxZDk3NWNjN2RhXkEyXkFqcGc@._V1_.jpg", backdrop: "https://image.tmdb.org/t/p/original/6NXVC0yzrD7M96PYwj5jr259Ptk.jpg",
                         synopsis: "Vinte anos após a civilização moderna ter sido destruída, Joel, um sobrevivente endurecido, é contratado para contrabandear Ellie, uma menina de 14 anos, para fora de uma zona de quarentena opressiva.",
                         genres: ["Drama", "Ação", "Aventura", "Ficção Científica"], dateAdded: '2025-07-18',
                         seasons: [
@@ -375,7 +375,7 @@
                         ]
                     },
                     {
-                        id: "pica-pau", title: "Pica-Pau", cover: "https://media.themoviedb.org/t/p/w600_and_h900_bestv2/aXgyvCWLPkbZUCYR822KLsKZXgt.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg",
+                        id: "pica-pau", type: 'series', title: "Pica-Pau", cover: "https://media.themoviedb.org/t/p/w600_and_h900_bestv2/aXgyvCWLPkbZUCYR822KLsKZXgt.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg",
                         synopsis: "As aventuras clássicas e hilárias do Pica-Pau, um pássaro icônico conhecido por sua risada contagiante e suas travessuras intermináveis contra seus adversários.",
                         genres: ["Animação", "Comédia", "Família"], dateAdded: '2025-07-01',
                         seasons: [
@@ -427,23 +427,23 @@
                     }
                 ],
                 liveChannels: [
-                    { id: 'sbt', title: 'SBT', embedUrl: 'https://embedmax.site/canais/sbtsp/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sbt.webp'},
-                    { id: 'globo', title: 'GLOBO', embedUrl: 'https://embedmax.site/canais/globosp1/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/globosp.webp'},
-                    { id: 'record', title: 'RECORD', embedUrl: 'https://embedmax.site/canais/recordsp/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/recordtv.webp'},
-                    { id: 'amc', title: 'AMC', embedUrl: 'https://embedmax.site/canais/amc/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/amc.webp'},
-                    { id: 'sportv', title: 'SPORT TV', embedUrl: 'https://embedmax.site/canais/sportv/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sportv.png'},
-                    { id: 'sportv3', title: 'SPORT TV 3', embedUrl: 'https://embedmax.site/canais/sportv3/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sportv.png'},
-                    { id: 'space', title: 'SPACE', embedUrl: 'https://embedmax.site/canais/space/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/space.webp'},
-                    { id: 'comedy-central', title: 'Comedy Central', embedUrl: 'https://embedmax.site/canais/comedycentral/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/comedycentral.png'},
-                    { id: 'premiere', title: 'PREMIERE', embedUrl: 'https://embedmax.site/canais/premiere/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
-                    { id: 'premiere-2', title: 'PREMIERE 2', embedUrl: 'https://embedmax.site/canais/premiere2/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
-                    { id: 'premiere-3', title: 'PREMIERE 3', embedUrl: 'https://embedmax.site/canais/premiere3/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
-                    { id: 'premiere-4', title: 'PREMIERE 4', embedUrl: 'https://embedmax.site/canais/premiere4/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png'},
-                    { id: 'espn', title: 'ESPN', embedUrl: 'https://embedmax.site/canais/espn/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/espn.webp'},
-                    { id: 'espn-2', title: 'ESPN 2', embedUrl: 'https://embedmax.site/canais/espn2/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/espn.webp'},
-                    { id: 'band', title: 'BAND', embedUrl: 'https://embedmax.site/canais/band/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/band.webp'},
-                    { id: 'bis', title: 'BIS', embedUrl: 'https://embedmax.site/canais/bis/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/bis.png'},
-                    { id: 'national-geographic', title: 'NATIONAL GEOGRAPHIC', embedUrl: 'https://embedmax.site/canais/nationalgeographic/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/natgeo.png'},
+                    { id: 'sbt', type: 'live', title: 'SBT', embedUrl: 'https://embedmax.site/canais/sbtsp/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sbt.webp', genres: ["Ao Vivo"]},
+                    { id: 'globo', type: 'live', title: 'GLOBO', embedUrl: 'https://embedmax.site/canais/globosp1/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/globosp.webp', genres: ["Ao Vivo"]},
+                    { id: 'record', type: 'live', title: 'RECORD', embedUrl: 'https://embedmax.site/canais/recordsp/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/recordtv.webp', genres: ["Ao Vivo"]},
+                    { id: 'amc', type: 'live', title: 'AMC', embedUrl: 'https://embedmax.site/canais/amc/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/amc.webp', genres: ["Ao Vivo"]},
+                    { id: 'sportv', type: 'live', title: 'SPORT TV', embedUrl: 'https://embedmax.site/canais/sportv/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sportv.png', genres: ["Ao Vivo"]},
+                    { id: 'sportv3', type: 'live', title: 'SPORT TV 3', embedUrl: 'https://embedmax.site/canais/sportv3/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/sportv.png', genres: ["Ao Vivo"]},
+                    { id: 'space', type: 'live', title: 'SPACE', embedUrl: 'https://embedmax.site/canais/space/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/space.webp', genres: ["Ao Vivo"]},
+                    { id: 'comedy-central', type: 'live', title: 'Comedy Central', embedUrl: 'https://embedmax.site/canais/comedycentral/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/comedycentral.png', genres: ["Ao Vivo"]},
+                    { id: 'premiere', type: 'live', title: 'PREMIERE', embedUrl: 'https://embedmax.site/canais/premiere/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png', genres: ["Ao Vivo"]},
+                    { id: 'premiere-2', type: 'live', title: 'PREMIERE 2', embedUrl: 'https://embedmax.site/canais/premiere2/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png', genres: ["Ao Vivo"]},
+                    { id: 'premiere-3', type: 'live', title: 'PREMIERE 3', embedUrl: 'https://embedmax.site/canais/premiere3/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png', genres: ["Ao Vivo"]},
+                    { id: 'premiere-4', type: 'live', title: 'PREMIERE 4', embedUrl: 'https://embedmax.site/canais/premiere4/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/premiere.png', genres: ["Ao Vivo"]},
+                    { id: 'espn', type: 'live', title: 'ESPN', embedUrl: 'https://embedmax.site/canais/espn/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/espn.webp', genres: ["Ao Vivo"]},
+                    { id: 'espn-2', type: 'live', title: 'ESPN 2', embedUrl: 'https://embedmax.site/canais/espn2/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/espn.webp', genres: ["Ao Vivo"]},
+                    { id: 'band', type: 'live', title: 'BAND', embedUrl: 'https://embedmax.site/canais/band/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/band.webp', genres: ["Ao Vivo"]},
+                    { id: 'bis', type: 'live', title: 'BIS', embedUrl: 'https://embedmax.site/canais/bis/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/bis.png', genres: ["Ao Vivo"]},
+                    { id: 'national-geographic', type: 'live', title: 'NATIONAL GEOGRAPHIC', embedUrl: 'https://embedmax.site/canais/nationalgeographic/', logo: 'https://embedmax.site/wp-content/uploads/2025/06/natgeo.png', genres: ["Ao Vivo"]},
                 ],
                 carousels: [
                     { title: "Adicionados Recentemente", filter: (item) => true, sort: (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded) },
@@ -454,7 +454,7 @@
                     { title: "Aventuras Épicas", filter: (m) => m.genres.includes("Aventura") }
                 ]
             };
-            let myList = [];
+            let myList = []; // Armazenará objetos {id, type}
             let watchProgress = {};
             let userProfile = null;
 
@@ -696,8 +696,9 @@
             }
 
             function renderHero() {
-                const heroItem = contentDb.series[0];
-                const isMovie = !!heroItem.director;
+                const heroItem = contentDb.series[0]; // Pode ser filme ou série
+                const isMovie = heroItem.type === 'movie';
+                const contentId = `${heroItem.type}-${heroItem.id}`;
                 DOMElements.heroSection.innerHTML = `
                     <div class="absolute inset-0"><img src="${heroItem.backdrop}" alt="${heroItem.title}" class="w-full h-full object-cover"><div class="absolute inset-0 hero-gradient-left"></div><div class="absolute inset-0 hero-gradient-bottom"></div></div>
                     <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
@@ -705,23 +706,21 @@
                             <h1 class="text-4xl md:text-6xl font-extrabold my-3" style="color: var(--hero-text-primary);">${heroItem.title}</h1>
                             <p class="text-lg md:text-xl mb-6 leading-relaxed" style="color: var(--hero-text-secondary);">${heroItem.synopsis}</p>
                             <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                                <button class="${isMovie ? 'details-btn' : 'series-card'} flex items-center justify-center bg-white text-black font-bold py-3.5 px-8 rounded-md transition hover:bg-gray-300" data-${isMovie ? 'movie' : 'series'}-id="${heroItem.id}"><i data-lucide="info" class="mr-2"></i>Mais Informações</button>
-                                ${isMovie ? `<button class="add-to-list-btn flex items-center justify-center bg-gray-500 bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm font-bold py-3.5 px-8 rounded-full transition duration-300" style="color: var(--hero-text-primary);" data-movie-id="${heroItem.id}"></button>` : ''}
+                                <button class="details-btn flex items-center justify-center bg-white text-black font-bold py-3.5 px-8 rounded-md transition hover:bg-gray-300" data-content-id="${contentId}"><i data-lucide="info" class="mr-2"></i>Mais Informações</button>
+                                <button class="add-to-list-btn flex items-center justify-center bg-gray-500 bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm font-bold py-3.5 px-8 rounded-full transition duration-300" style="color: var(--hero-text-primary);" data-content-id="${contentId}"></button>
                             </div>
                         </div>
                     </div>`;
-                if (isMovie) {
-                    updateAddToListButton(DOMElements.heroSection.querySelector('.add-to-list-btn'));
-                }
-                 lucide.createIcons();
+                updateAddToListButton(DOMElements.heroSection.querySelector('.add-to-list-btn'));
+                lucide.createIcons();
             }
 
-            function renderAllCarousels() {
+            async function renderAllCarousels() {
                 DOMElements.contentContainer.innerHTML = '<div class="space-y-12 md:space-y-16"></div>';
                 const carouselWrapper = DOMElements.contentContainer.firstChild;
                 const allContent = [...contentDb.movies, ...contentDb.series];
 
-                contentDb.carousels.forEach(carouselConfig => {
+                for (const carouselConfig of contentDb.carousels) {
                     let items;
                     if (carouselConfig.title === "Continuar a Assistir") {
                         items = Object.keys(watchProgress).map(contentId => {
@@ -732,7 +731,7 @@
                             if (type === 'series') return contentDb.series.find(s => s.id === id);
                             return null;
                         }).filter(Boolean)
-                          .sort((a,b) => (watchProgress[b.id]?.lastPlayed || 0) - (watchProgress[a.id]?.lastPlayed || 0));
+                          .sort((a,b) => (watchProgress[`${b.type}-${b.id}`]?.lastPlayed || 0) - (watchProgress[`${a.type}-${a.id}`]?.lastPlayed || 0));
                     } else {
                         items = allContent.filter(item => item.genres && carouselConfig.filter(item));
                     }
@@ -741,71 +740,98 @@
                     if (carouselConfig.title === "Adicionados Recentemente") items = items.slice(0, 8);
                     
                     if (items.length > 0) {
-                        carouselWrapper.innerHTML += createCarouselHTML(carouselConfig.title, items);
+                        const carouselHTML = await createCarouselHTML(carouselConfig.title, items);
+                        carouselWrapper.innerHTML += carouselHTML;
                     }
-                });
+                }
                 setupCarouselNavigation();
                 lucide.createIcons();
             }
 
-            function createCarouselHTML(title, items) {
+            async function createCarouselHTML(title, items) {
+                const itemCardsHTML = await Promise.all(items.map(item => createItemCardHTML(item, title)));
                 return `
                     <section class="container mx-auto px-4 sm:px-6 lg:px-8">
                         <h2 class="text-2xl md:text-3xl font-bold mb-4">${title}</h2>
                         <div class="relative group">
-                            <div class="carousel-container flex overflow-x-auto space-x-4 py-4 -mx-4 px-4 scroll-smooth">${items.map(item => createItemCardHTML(item, title)).join('')}</div>
+                            <div class="carousel-container flex overflow-x-auto space-x-4 py-4 -mx-4 px-4 scroll-smooth">${itemCardsHTML.join('')}</div>
                             <button class="carousel-prev absolute top-1/2 -translate-y-1/2 left-2 w-12 h-12 bg-black/40 text-white rounded-full z-10 hover:bg-black/70 transition-opacity opacity-0 group-hover:opacity-100 disabled:opacity-0 disabled:cursor-not-allowed lg:flex items-center justify-center hidden"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
                             <button class="carousel-next absolute top-1/2 -translate-y-1/2 right-2 w-12 h-12 bg-black/40 text-white rounded-full z-10 hover:bg-black/70 transition-opacity opacity-0 group-hover:opacity-100 disabled:opacity-0 disabled:cursor-not-allowed lg:flex items-center justify-center hidden"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
                         </div>
                     </section>`;
             }
 
-            function createItemCardHTML(item, carouselTitle) {
-                const isMovie = !!item.director;
-                return isMovie ? createCarouselMovieCardHTML(item, carouselTitle) : createCarouselSeriesCardHTML(item, carouselTitle);
-            }
-
-            function createCarouselMovieCardHTML(movie, carouselTitle) {
+            async function createItemCardHTML(item, carouselTitle) {
+                const contentId = `${item.type}-${item.id}`;
                 let progressHTML = '';
                 if (carouselTitle === "Continuar a Assistir") {
-                    const progress = watchProgress[`movie-${movie.id}`];
+                    const progress = watchProgress[contentId];
                     if (progress && progress.duration) {
                         const percentage = (progress.time / progress.duration) * 100;
                         progressHTML = `<div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-500/50"><div class="h-full bg-purple-600" style="width: ${percentage}%;"></div></div>`;
                     }
                 }
-                return `<div class="details-btn flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6 rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-movie-id="${movie.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${movie.poster}" alt="Pôster de ${movie.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">${progressHTML}</div></div>`;
+                
+                const ratingHTML = await getAverageRatingStarsHTML(contentId, 'sm');
+                const poster = item.poster || item.cover;
+
+                return `<div class="details-btn flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6 rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-content-id="${contentId}">
+                            <div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);">
+                                <img loading="lazy" src="${poster}" alt="Pôster de ${item.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">
+                                <div class="absolute top-2 right-2 bg-black/50 p-1 rounded-md">${ratingHTML}</div>
+                                ${progressHTML}
+                            </div>
+                         </div>`;
             }
 
-            function createGridMovieCardHTML(movie) {
-                return `<div class="details-btn rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-movie-id="${movie.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${movie.poster}" alt="Pôster de ${movie.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';"></div></div>`;
+            async function createGridCardHTML(item) {
+                const contentId = `${item.type}-${item.id}`;
+                const ratingHTML = await getAverageRatingStarsHTML(contentId, 'sm');
+                const poster = item.poster || item.cover || item.logo;
+                const aspect = item.type === 'live' ? 'aspect-square' : 'aspect-[2/3]';
+                const objectFit = item.type === 'live' ? 'object-contain p-4' : 'object-cover';
+
+                return `<div class="details-btn rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-content-id="${contentId}">
+                            <div class="relative rounded-lg overflow-hidden ${aspect}" style="background-color: var(--card-bg);">
+                                <img loading="lazy" src="${poster}" alt="Pôster de ${item.title}" class="w-full h-full ${objectFit}" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">
+                                <div class="absolute top-2 right-2 bg-black/50 p-1 rounded-md">${ratingHTML}</div>
+                            </div>
+                            ${item.type === 'live' ? `<h3 class="text-center font-semibold mt-2">${item.title}</h3>` : ''}
+                        </div>`;
             }
             
-            function renderMyListPage() {
+            async function renderMyListPage() {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
                 updateActiveNav('list');
-                const listMovies = contentDb.movies.filter(m => myList.includes(m.id));
+                
+                const allContent = [...contentDb.movies, ...contentDb.series, ...contentDb.liveChannels];
+                const listItems = myList.map(itemRef => {
+                    return allContent.find(content => content.id == itemRef.id && content.type === itemRef.type);
+                }).filter(Boolean);
+
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">Minha Lista</h2>`;
-                if (listMovies.length > 0) {
-                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${listMovies.map(createGridMovieCardHTML).join('')}</div>`;
+                if (listItems.length > 0) {
+                    const cardsHTML = await Promise.all(listItems.map(createGridCardHTML));
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${cardsHTML.join('')}</div>`;
                 } else {
-                    contentHTML += `<div class="text-center py-16" style="color: var(--text-secondary);"><i data-lucide="list-x" class="w-16 h-16 mx-auto mb-4"></i><h3 class="text-xl font-semibold">Sua lista está vazia</h3><p class="mt-2">Adicione filmes e séries para vê-los aqui.</p></div>`;
+                    contentHTML += `<div class="text-center py-16" style="color: var(--text-secondary);"><i data-lucide="list-x" class="w-16 h-16 mx-auto mb-4"></i><h3 class="text-xl font-semibold">Sua lista está vazia</h3><p class="mt-2">Adicione filmes, séries e canais para vê-los aqui.</p></div>`;
                 }
                 contentHTML += '</div>';
                 DOMElements.contentContainer.innerHTML = contentHTML;
                 lucide.createIcons();
             }
 
-            function renderCategoryPage(pageTitle, items, emptyMessage, cardRenderer) {
+            async function renderCategoryPage(pageTitle, items, emptyMessage, cardRenderer) {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
                 updateActiveNav('');
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">${pageTitle}</h2>`;
                 if (items.length > 0) {
-                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${items.map(cardRenderer).join('')}</div>`;
+                    const cardsHTML = await Promise.all(items.map(cardRenderer));
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${cardsHTML.join('')}</div>`;
                 } else {
                     contentHTML += `<div class="text-center py-16" style="color: var(--text-secondary);"><i data-lucide="tv-2" class="w-16 h-16 mx-auto mb-4"></i><h3 class="text-xl font-semibold">${emptyMessage.title}</h3><p class="mt-2">${emptyMessage.subtitle}</p></div>`;
                 }
@@ -814,9 +840,21 @@
                 lucide.createIcons();
             }
 
-            function renderMovieDetailsPage(movieId) {
-                const movie = contentDb.movies.find(m => m.id == movieId);
-                if (!movie) return;
+            async function renderDetailsPage(contentId) {
+                const [type, id] = contentId.split(/-(.+)/);
+                let item;
+                if (type === 'movie') item = contentDb.movies.find(m => m.id == id);
+                else if (type === 'series') item = contentDb.series.find(s => s.id === id);
+                else if (type === 'live') item = contentDb.liveChannels.find(c => c.id === id);
+
+                if (!item) return;
+
+                if (type === 'movie') renderMovieDetailsPage(item);
+                else if (type === 'series') renderSeriesDetailsPage(item);
+                else if (type === 'live') renderLiveChannelDetailsPage(item);
+            }
+
+            async function renderMovieDetailsPage(movie) {
                 const contentId = `movie-${movie.id}`;
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
@@ -843,8 +881,8 @@
                             <p><strong style="color: var(--text-primary)">Elenco:</strong> ${movie.cast.join(', ')}</p>
                         </div>
                          <div class="flex flex-wrap gap-3 mt-6">
-                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition" data-movie-id="${movie.id}"><i data-lucide="play" class="mr-2"></i>Assistir</button>
-                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-movie-id="${movie.id}"></button>
+                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition" data-content-id="${contentId}"><i data-lucide="play" class="mr-2"></i>Assistir</button>
+                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
                             <a href="${castUrl}" class="p-3 flex items-center justify-center border rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" title="Transmitir"><i data-lucide="cast"></i></a>
                             <a href="${movie.url}" download="${movie.title}" class="p-3 flex items-center justify-center border rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" title="Baixar"><i data-lucide="download"></i></a>
                         </div>
@@ -867,43 +905,72 @@
                 setupRatingAndComments(contentId);
                 window.scrollTo(0, 0);
             }
-            
-            function openPlayerModal(movieId) {
-                const movie = contentDb.movies.find(m => m.id == movieId);
-                if (!movie) return;
-                const contentId = `movie-${movie.id}`;
-                const video = document.createElement('video');
-                video.className = 'w-full h-full';
-                video.src = movie.url;
-                video.controls = true;
-                video.autoplay = true;
 
-                video.addEventListener('loadedmetadata', () => {
-                    const progress = watchProgress[contentId];
-                    if (progress && progress.time) video.currentTime = progress.time;
-                });
-
-                let lastUpdateTime = 0;
-                video.addEventListener('timeupdate', () => {
-                    const now = Date.now();
-                    if (now - lastUpdateTime > 5000) {
-                        if (video.duration) {
-                            watchProgress[contentId] = { time: video.currentTime, duration: video.duration, lastPlayed: Date.now() };
-                            saveUserData();
-                        }
-                        lastUpdateTime = now;
-                    }
-                });
-
-                DOMElements.playerModal.playerContainer.innerHTML = '';
-                DOMElements.playerModal.playerContainer.appendChild(video);
-                DOMElements.playerModal.container.classList.add('active');
+            async function renderLiveChannelDetailsPage(channel) {
+                const contentId = `live-${channel.id}`;
+                DOMElements.heroSection.style.display = 'none';
+                DOMElements.heroSection.classList.add('-mt-16');
+                DOMElements.contentContainer.className = '';
+                updateActiveNav('live');
+                DOMElements.contentContainer.innerHTML = `
+                    <div class="relative w-full h-[40vh] md:h-[60vh] bg-black">
+                        <button id="back-button" class="absolute top-4 left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition"><i data-lucide="arrow-left"></i></button>
+                        <div class="w-full h-full flex items-center justify-center">
+                            <img src="${channel.logo}" alt="${channel.title}" class="max-h-[50%] max-w-[80%] object-contain">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4 md:p-8 container mx-auto">
+                            <h2 class="text-3xl md:text-5xl font-bold" style="color: var(--hero-text-primary); text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">${channel.title}</h2>
+                        </div>
+                    </div>
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+                         <div class="flex flex-wrap gap-3 mt-6">
+                            <button class="watch-btn flex-grow flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg transition" data-content-id="${contentId}"><i data-lucide="play" class="mr-2"></i>Assistir Ao Vivo</button>
+                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
+                         </div>
+                    </div>`;
+                document.getElementById('back-button').onclick = renderLiveTvPage;
+                updateAddToListButton(DOMElements.contentContainer.querySelector('.add-to-list-btn'));
+                lucide.createIcons();
+                window.scrollTo(0, 0);
             }
+            
+            function openPlayerModal(contentId) {
+                const [type, id] = contentId.split(/-(.+)/);
+                let item;
+                if (type === 'movie') item = contentDb.movies.find(m => m.id == id);
+                else if (type === 'live') item = contentDb.liveChannels.find(c => c.id === id);
+                
+                if (!item) return;
 
-            function openLivePlayerModal(channelId) {
-                const channel = contentDb.liveChannels.find(c => c.id === channelId);
-                if (!channel) return;
-                DOMElements.playerModal.playerContainer.innerHTML = `<iframe class="w-full h-full" src="${channel.embedUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                if (type === 'live') {
+                    DOMElements.playerModal.playerContainer.innerHTML = `<iframe class="w-full h-full" src="${item.embedUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                } else {
+                    const video = document.createElement('video');
+                    video.className = 'w-full h-full';
+                    video.src = item.url;
+                    video.controls = true;
+                    video.autoplay = true;
+
+                    video.addEventListener('loadedmetadata', () => {
+                        const progress = watchProgress[contentId];
+                        if (progress && progress.time) video.currentTime = progress.time;
+                    });
+
+                    let lastUpdateTime = 0;
+                    video.addEventListener('timeupdate', () => {
+                        const now = Date.now();
+                        if (now - lastUpdateTime > 5000) {
+                            if (video.duration) {
+                                watchProgress[contentId] = { time: video.currentTime, duration: video.duration, lastPlayed: Date.now() };
+                                saveUserData();
+                            }
+                            lastUpdateTime = now;
+                        }
+                    });
+                    DOMElements.playerModal.playerContainer.innerHTML = '';
+                    DOMElements.playerModal.playerContainer.appendChild(video);
+                }
                 DOMElements.playerModal.container.classList.add('active');
             }
 
@@ -941,6 +1008,7 @@
                         if (now - lastUpdateTime > 5000) {
                             if (video.duration) {
                                 watchProgress[contentId] = { time: video.currentTime, duration: video.duration, lastPlayed: Date.now() };
+                                watchProgress[`series-${seriesId}`] = { lastPlayed: Date.now() }; // Update series last played
                                 saveUserData();
                             }
                             lastUpdateTime = now;
@@ -966,29 +1034,7 @@
                 saveUserData();
             }
             
-            function createCarouselSeriesCardHTML(series, carouselTitle) {
-                 let progressHTML = '';
-                if (carouselTitle === "Continuar a Assistir") {
-                    const seriesProgressKeys = Object.keys(watchProgress).filter(k => k.startsWith(`series-${series.id}`));
-                    if (seriesProgressKeys.length > 0) {
-                        const lastWatchedKey = seriesProgressKeys.reduce((a, b) => (watchProgress[a].lastPlayed || 0) > (watchProgress[b].lastPlayed || 0) ? a : b);
-                        const progress = watchProgress[lastWatchedKey];
-                         if (progress && progress.duration) {
-                            const percentage = (progress.time / progress.duration) * 100;
-                            progressHTML = `<div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-500/50"><div class="h-full bg-purple-600" style="width: ${percentage}%;"></div></div>`;
-                        }
-                    }
-                }
-                return `<div class="series-card flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6 rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-series-id="${series.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${series.cover}" alt="Capa de ${series.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';">${progressHTML}</div></div>`;
-            }
-
-            function createGridSeriesCardHTML(series) {
-                return `<div class="series-card rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-series-id="${series.id}"><div class="relative rounded-lg overflow-hidden aspect-[2/3]" style="background-color: var(--card-bg);"><img loading="lazy" src="${series.cover}" alt="Capa de ${series.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x450/1f2937/e5e7eb?text=Imagem+Indisponível';"></div></div>`;
-            }
-
-            function renderSeriesDetailsPage(seriesId) {
-                const series = contentDb.series.find(s => s.id === seriesId);
-                if (!series) return;
+            async function renderSeriesDetailsPage(series) {
                 const contentId = `series-${series.id}`;
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
@@ -1010,7 +1056,10 @@
                             <div id="details-rating-display"></div>
                            <span id="details-genres">${series.genres.join(', ')}</span>
                         </div>
-                        <div class="mb-6">
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <button class="add-to-list-btn flex-grow flex items-center justify-center border font-bold py-3 px-5 rounded-lg transition hoverable-item" style="border-color: var(--text-secondary);" data-content-id="${contentId}"></button>
+                        </div>
+                        <div class="my-6">
                             <select id="season-selector" class="w-full sm:w-auto p-3 rounded-md font-semibold border-none cursor-pointer" style="background-color: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-hover-bg);">${seasonOptionsHTML}</select>
                         </div>
                         <div id="episodes-list" class="mt-6 space-y-3"></div>
@@ -1045,12 +1094,13 @@
                 const seasonSelector = document.getElementById('season-selector');
                 seasonSelector.addEventListener('change', (e) => renderEpisodes(e.target.value));
                 if (series.seasons.length > 0) renderEpisodes(series.seasons[0].id);
+                updateAddToListButton(DOMElements.contentContainer.querySelector('.add-to-list-btn'));
                 lucide.createIcons();
                 setupRatingAndComments(contentId);
                 window.scrollTo(0, 0);
             }
 
-            function renderGenresPage() {
+            async function renderGenresPage() {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
@@ -1061,12 +1111,13 @@
                 DOMElements.contentContainer.innerHTML = contentHTML;
             }
 
-            function renderGenreResults(genre) {
+            async function renderGenreResults(genre) {
                 const resultsContainer = document.getElementById('genre-results');
                 const filteredItems = [...contentDb.movies, ...contentDb.series].filter(item => item.genres.includes(genre));
                 let contentHTML = `<h3 class="text-xl md:text-2xl font-bold mb-6">Resultados para "${genre}"</h3>`;
                 if (filteredItems.length > 0) {
-                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${filteredItems.map(item => item.director ? createGridMovieCardHTML(item) : createGridSeriesCardHTML(item)).join('')}</div>`;
+                    const cardsHTML = await Promise.all(filteredItems.map(createGridCardHTML));
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">${cardsHTML.join('')}</div>`;
                 } else {
                     contentHTML += `<p style="color: var(--text-secondary);">Nenhum item encontrado para este gênero.</p>`;
                 }
@@ -1074,24 +1125,21 @@
                 lucide.createIcons();
             }
 
-            function renderLiveTvPage() {
+            async function renderLiveTvPage() {
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
                 updateActiveNav('live');
                 let contentHTML = `<div class="container mx-auto px-4 sm:px-6 lg:px-8"><h2 class="text-2xl md:text-3xl font-bold mb-8">TV Ao Vivo</h2>`;
                 if (contentDb.liveChannels.length > 0) {
-                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">${contentDb.liveChannels.map(createLiveChannelCardHTML).join('')}</div>`;
+                    const cardsHTML = await Promise.all(contentDb.liveChannels.map(createGridCardHTML));
+                    contentHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">${cardsHTML.join('')}</div>`;
                 } else {
                     contentHTML += `<div class="text-center py-16" style="color: var(--text-secondary);"><i data-lucide="tv-2" class="w-16 h-16 mx-auto mb-4"></i><h3 class="text-xl font-semibold">Nenhum canal ao vivo disponível.</h3></div>`;
                 }
                 contentHTML += '</div>';
                 DOMElements.contentContainer.innerHTML = contentHTML;
                 lucide.createIcons();
-            }
-
-            function createLiveChannelCardHTML(channel) {
-                return `<div class="live-channel-card rounded-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group" data-channel-id="${channel.id}"><div class="relative rounded-lg overflow-hidden aspect-square flex items-center justify-center p-4" style="background-color: var(--card-bg);"><img loading="lazy" src="${channel.logo}" alt="Logo de ${channel.title}" class="max-h-full max-w-full object-contain"></div><h3 class="text-center font-semibold mt-2">${channel.title}</h3></div>`;
             }
 
             function setupCarouselNavigation() {
@@ -1121,18 +1169,23 @@
                 });
             }
             
-            function toggleMovieInList(movieId) {
-                const id = parseInt(movieId);
-                const index = myList.indexOf(id);
-                if (index > -1) myList.splice(index, 1); else myList.push(id);
+            function toggleItemInList(contentId) {
+                const [type, id] = contentId.split(/-(.+)/);
+                const index = myList.findIndex(item => item.id == id && item.type === type);
+                if (index > -1) {
+                    myList.splice(index, 1);
+                } else {
+                    myList.push({ id, type });
+                }
                 saveUserData();
-                document.querySelectorAll(`.add-to-list-btn[data-movie-id="${id}"]`).forEach(updateAddToListButton);
+                document.querySelectorAll(`.add-to-list-btn[data-content-id="${contentId}"]`).forEach(updateAddToListButton);
             }
 
             function updateAddToListButton(button) {
                 if (!button) return;
-                const movieId = parseInt(button.dataset.movieId);
-                const isInList = myList.includes(movieId);
+                const contentId = button.dataset.contentId;
+                const [type, id] = contentId.split(/-(.+)/);
+                const isInList = myList.some(item => item.id == id && item.type === type);
                 button.innerHTML = `<i data-lucide="${isInList ? 'check' : 'plus'}" class="mr-2"></i>${isInList ? 'Na Minha Lista' : 'Minha Lista'}`;
                 lucide.createIcons();
             }
@@ -1148,19 +1201,50 @@
                 if (save) saveUserData();
             }
             
-            function performSearch() {
+            async function performSearch() {
                 const query = DOMElements.searchModal.input.value.toLowerCase().trim();
                 if (query.length < 2) {
                     DOMElements.searchModal.results.innerHTML = '<p class="text-center p-4" style="color: var(--text-secondary);">Digite pelo menos 2 caracteres para buscar.</p>';
                     return;
                 }
-                const movieResults = contentDb.movies.filter(m => m.title.toLowerCase().includes(query));
-                const seriesResults = contentDb.series.filter(s => s.title.toLowerCase().includes(query));
+                const allContent = [...contentDb.movies, ...contentDb.series, ...contentDb.liveChannels];
+                const results = allContent.filter(c => c.title.toLowerCase().includes(query));
+                
                 let resultsHTML = '';
-                if (movieResults.length > 0) resultsHTML += `<h3 class="text-xl font-bold p-4">Filmes</h3><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 p-4">${movieResults.map(createGridMovieCardHTML).join('')}</div>`;
-                if (seriesResults.length > 0) resultsHTML += `<h3 class="text-xl font-bold p-4">Séries</h3><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 p-4">${seriesResults.map(createGridSeriesCardHTML).join('')}</div>`;
+                if (results.length > 0) {
+                    const cardsHTML = await Promise.all(results.map(createGridCardHTML));
+                    resultsHTML += `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 p-4">${cardsHTML.join('')}</div>`;
+                }
+                
                 DOMElements.searchModal.results.innerHTML = resultsHTML === '' ? '<p class="text-center p-4" style="color: var(--text-secondary);">Nenhum resultado encontrado.</p>' : resultsHTML;
                 lucide.createIcons();
+            }
+
+            const getStarColorVar = (rating) => {
+                const r = parseInt(rating);
+                if (r <= 2) return 'var(--star-color-low)';
+                if (r <= 4) return 'var(--star-color-medium)';
+                return 'var(--star-color-high)';
+            };
+
+            async function getAverageRatingStarsHTML(contentId, size = 'base') {
+                const allRatingsColRef = collection(db, `content_feedback/${contentId}/ratings`);
+                try {
+                    const snapshot = await getDocs(allRatingsColRef);
+                    const ratings = snapshot.docs.map(doc => doc.data().rating);
+                    if (ratings.length > 0) {
+                        const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+                        const roundedAverage = Math.round(average);
+                        const color = getStarColorVar(roundedAverage);
+                        const iconSize = size === 'sm' ? 'w-4 h-4' : 'w-5 h-5';
+                        return `
+                            <div class="flex items-center gap-1" style="color: ${color};">
+                                <i data-lucide="star" class="${iconSize}" style="fill: ${color};"></i>
+                                <span class="font-bold text-white text-sm">${average.toFixed(1)}</span>
+                            </div>`;
+                    }
+                } catch (e) { /* Ignore errors for now */ }
+                return `<div class="flex items-center gap-1 text-gray-400"><i data-lucide="star" class="w-4 h-4"></i> <span class="text-sm">N/A</span></div>`;
             }
 
             async function setupRatingAndComments(contentId) {
@@ -1177,13 +1261,6 @@
                 let userRating = 0;
                 const ratingDoc = await getDoc(ratingDocRef);
                 if (ratingDoc.exists()) userRating = ratingDoc.data().rating;
-
-                const getStarColorVar = (rating) => {
-                    const r = parseInt(rating);
-                    if (r <= 2) return 'var(--star-color-low)';
-                    if (r <= 4) return 'var(--star-color-medium)';
-                    return 'var(--star-color-high)';
-                };
 
                 const displayStars = (rating) => {
                     const colorVar = getStarColorVar(rating);
@@ -1310,7 +1387,7 @@
                 DOMElements.settingsModal.clearHistoryBtn.onclick = async () => {
                     watchProgress = {};
                     await saveUserData();
-                    renderAllCarousels();
+                    renderHomePage();
                 };
 
                 const openAccountModal = () => {
@@ -1327,8 +1404,8 @@
                 DOMElements.homeLink.onclick = (e) => { e.preventDefault(); renderHomePage(); };
                 DOMElements.desktopListBtn.onclick = renderMyListPage;
                 DOMElements.desktopLiveBtn.onclick = renderLiveTvPage;
-                DOMElements.desktopMoviesBtn.onclick = () => renderCategoryPage('Filmes', contentDb.movies, { title: 'Nenhum filme encontrado', subtitle: 'Não há filmes para exibir no momento.' }, createGridMovieCardHTML);
-                DOMElements.desktopSeriesBtn.onclick = () => renderCategoryPage('Séries', contentDb.series, { title: 'Nenhuma série encontrada', subtitle: 'Volte mais tarde!' }, createGridSeriesCardHTML);
+                DOMElements.desktopMoviesBtn.onclick = () => renderCategoryPage('Filmes', contentDb.movies, { title: 'Nenhum filme encontrado', subtitle: 'Não há filmes para exibir no momento.' }, createGridCardHTML);
+                DOMElements.desktopSeriesBtn.onclick = () => renderCategoryPage('Séries', contentDb.series, { title: 'Nenhuma série encontrada', subtitle: 'Volte mais tarde!' }, createGridCardHTML);
                 DOMElements.desktopGenresBtn.onclick = renderGenresPage;
 
                 const openSearch = () => DOMElements.searchModal.container.classList.add('active');
@@ -1353,8 +1430,8 @@
                     switch(navTarget) {
                         case 'home': renderHomePage(); break;
                         case 'live': renderLiveTvPage(); break;
-                        case 'movies': renderCategoryPage('Filmes', contentDb.movies, { title: 'Nenhum filme encontrado', subtitle: 'Não há filmes para exibir no momento.' }, createGridMovieCardHTML); break;
-                        case 'series': renderCategoryPage('Séries', contentDb.series, { title: 'Nenhuma série encontrada', subtitle: 'Volte mais tarde!' }, createGridSeriesCardHTML); break;
+                        case 'movies': renderCategoryPage('Filmes', contentDb.movies, { title: 'Nenhum filme encontrado', subtitle: 'Não há filmes para exibir no momento.' }, createGridCardHTML); break;
+                        case 'series': renderCategoryPage('Séries', contentDb.series, { title: 'Nenhuma série encontrada', subtitle: 'Volte mais tarde!' }, createGridCardHTML); break;
                         case 'genres': renderGenresPage(); break;
                     }
                     DOMElements.mobileNav.classList.remove('active');
@@ -1363,19 +1440,20 @@
                 document.addEventListener('click', (e) => {
                     const target = e.target;
                     const detailsBtn = target.closest('.details-btn');
-                    if (detailsBtn) { DOMElements.searchModal.container.classList.remove('active'); return renderMovieDetailsPage(detailsBtn.dataset.movieId); }
+                    if (detailsBtn) { DOMElements.searchModal.container.classList.remove('active'); return renderDetailsPage(detailsBtn.dataset.contentId); }
+                    
                     const watchBtn = target.closest('.watch-btn');
-                    if (watchBtn) return openPlayerModal(watchBtn.dataset.movieId);
+                    if (watchBtn) return openPlayerModal(watchBtn.dataset.contentId);
+                    
                     const listBtn = target.closest('.add-to-list-btn');
-                    if (listBtn) return toggleMovieInList(listBtn.dataset.movieId);
-                    const seriesCard = target.closest('.series-card');
-                    if (seriesCard) { DOMElements.searchModal.container.classList.remove('active'); return renderSeriesDetailsPage(seriesCard.dataset.seriesId); }
+                    if (listBtn) return toggleItemInList(listBtn.dataset.contentId);
+                    
                     const episodeItem = target.closest('.episode-item');
                     if (episodeItem) { const { seriesId, seasonId, episodeIndex } = episodeItem.dataset; return openPlayerModalForEpisode(seriesId, seasonId, parseInt(episodeIndex)); }
+                    
                     const genreBtn = target.closest('.genre-btn');
                     if (genreBtn) return renderGenreResults(genreBtn.dataset.genre);
-                    const liveChannelCard = target.closest('.live-channel-card');
-                    if (liveChannelCard) return openLivePlayerModal(liveChannelCard.dataset.channelId);
+                    
                     if (!DOMElements.profileDropdownContainer.contains(target)) DOMElements.profileMenu.classList.add('hidden');
                 });
 
