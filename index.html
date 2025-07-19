@@ -759,7 +759,7 @@
             }
 
             function renderHero() {
-                const heroItem = contentDb.movies.find(m => m.id === 44) || contentDb.movies[0]; // Prioriza o novo item
+                const heroItem = contentDb.movies.find(m => m.id === 30) || contentDb.movies[0]; // Prioriza o novo item
                 const isMovie = heroItem.type === 'movie';
                 const contentId = `${heroItem.type}-${heroItem.id}`;
                 DOMElements.heroSection.innerHTML = `
