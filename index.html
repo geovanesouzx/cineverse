@@ -305,16 +305,16 @@
             // --- BANCO DE DADOS E ESTADO DA APLICAÇÃO ---
             const contentDb = {
                 movies: [
-                    { id: 5, title: "Orion e o Escuro", year: "2024", rating: 4.6, genres: ["Animação", "Aventura", "Fantasia"], director: "Sean Charmatz", cast: ["Jacob Tremblay", "Paul Walter Hauser"], synopsis: "Um garoto com uma imaginação ativa enfrenta seus medos numa jornada pela noite...", poster: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Orion_e_o_Escuro.jpg", backdrop: "https://occ-0-8407-92.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABXj5BLHAmSR-leac11zR8tVvyNTQSxhPr1j_kgD6kvXVCxwbeUZapd-BZywoz4WtVmP7heJQTd0AkuWLCtClHRPP3UBM1DgLaNnu.jpg?r=25c", playerType: 'video', url: "https://1a-1791.com/video/fww1/ae/s8/2/4/B/G/w/4BGwy.gaa.mp4", progress: 0, dateAdded: '2025-07-18' },
-                    { id: 13, title: "Ratatouille", year: "2007", rating: 4.8, genres: ["Animação", "Comédia", "Família"], director: "Brad Bird", cast: ["Patton Oswalt", "Ian Holm", "Lou Romano"], synopsis: "Um rato chamado Remy sonha em se tornar um grande chef francês...", poster: "https://upload.wikimedia.org/wikipedia/pt/8/82/Ratatouille_p%C3%B4ster.jpg", backdrop: "https://image.tmdb.org/t/p/original/uTSZLWiAIDxS6ELlmjHHtfNkTGP.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe2/fb/s8/2/2/X/V/S/2XVSx.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
-                    { id: 14, title: "Moana - Um Mar de Aventuras", year: "2016", rating: 4.7, genres: ["Animação", "Aventura", "Família"], director: "Ron Clements, John Musker", cast: ["Auli'i Cravalho", "Dwayne Johnson", "Rachel House"], synopsis: "Moana, uma jovem corajosa, parte em uma missão ousada para salvar seu povo.", poster: "https://br.web.img3.acsta.net/pictures/16/09/12/22/13/415370.jpg", backdrop: "https://image.tmdb.org/t/p/original/kNAANuEyhDu5g4c5p0gcMFLhV0k.jpg", playerType: 'video', url: "https://1a-1791.com/video/s8/2/K/T/8/c/KT8cv.gaa.mp4", progress: 0, dateAdded: '2025-07-16' },
-                    { id: 16, title: "Gato de Botas 2: O Último Pedido", year: "2022", rating: 4.9, genres: ["Animação", "Aventura", "Comédia"], director: "Joel Crawford", cast: ["Antonio Banderas", "Salma Hayek", "Harvey Guillén"], synopsis: "O Gato de Botas descobre que sua paixão pela aventura cobrou seu preço: ele queimou oito de suas nove vidas.", poster: "https://m.media-amazon.com/images/S/pv-target-images/af89ec33729d1d14d78507f10f3aa4e3be74093c22a149a90268a39435bc6a82.jpg", backdrop: "https://image.tmdb.org/t/p/original/u8XDx5S8RWc2UgCGc7HHwFWVE2a.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8c/s8/2/u/I/-/a/uI-ax.gaa.mp4", progress: 0, dateAdded: '2025-07-15' },
-                    { id: 17, title: "Como Treinar o Seu Dragão", year: "2010", rating: 4.8, genres: ["Animação", "Aventura", "Fantasia"], director: "Dean DeBlois, Chris Sanders", cast: ["Jay Baruchel", "Gerard Butler", "Craig Ferguson"], synopsis: "Um jovem Viking desafortunado que aspira a caçar dragões torna-se o amigo improvável de um jovem dragão...", poster: "https://upload.wikimedia.org/wikipedia/pt/e/ed/How_to_Train_Your_Dragon_%28filme_de_2010%29.jpg", backdrop: "https://image.tmdb.org/t/p/original/sUxsHQtSxfwmXkoqNlB7Uyl0kaN.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/b3/s8/2/b/4/9/-/b49-w.gaa.mp4", progress: 0, dateAdded: '2025-07-14' },
-                    { id: 3, title: "O Segredo dos Animais", year: "2006", rating: 4.1, genres: ["Comédia", "Animação"], director: "Steve Oedekerk", cast: ["Kevin James", "Courteney Cox"], synopsis: "Quando o fazendeiro está fora, todos os animais da fazenda cantam e dançam...", poster: "https://br.web.img3.acsta.net/medias/nmedia/18/94/12/17/20304560.jpg", backdrop: "https://http2.mlstatic.com/D_NQ_NP_751137-MLA73368651374_122023-B.webp", playerType: 'video', url: "https://1a-1791.com/video/fww1/ab/s8/2/o/e/2/s/oe2sy.gaa.mp4", progress: 50, dateAdded: '2025-07-13' },
-                    { id: 4, title: "A Nova Onda do Imperador", year: "2000", rating: 4.7, genres: ["Comédia", "Animação", "Aventura"], director: "Mark Dindal", cast: ["David Spade", "John Goodman"], synopsis: "O arrogante imperador Kuzco é transformado em uma lhama...", poster: "https://m.media-amazon.com/images/M/MV5BMjBkMWE4ZjUtZTgxYi00MjRlLWIyYWYtY2M2ZWQ2YzA3OTgyXkEyXkFqcGc@._V1_.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFDmG7HE_dd27sbKKLDzeZGzu95qaL2WUrTXspfaBNANTSJkTFvxbMcqqmto_MTH05C6XSW85CXpNIiyE8MQEzmG06xefmAiuale1SZaP5IMh17pRBS08vIdRDvxsz06ri6T2KToVw9Uk/s1000/a+nova+onda+do+imperador.png", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8b/s8/2/k/P/h/x/kPhxy.caa.mp4", progress: 0, dateAdded: '2025-07-12' },
-                    { id: 2, title: "Pica-Pau: O Filme", year: "2017", rating: 3.8, genres: ["Comédia", "Animação", "Aventura"], director: "Alex Zamm", cast: ["Timothy Omundson", "Thaila Ayala"], synopsis: "O Pica-Pau está metido em mais uma de suas brigas por território...", poster: "https://br.web.img2.acsta.net/pictures/17/08/25/19/04/419991.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg", playerType: 'iframe', url: "https://www.tokyvideo.com/embed/409976", progress: 0, dateAdded: '2025-07-11' },
-                    { id: 6, title: "Patos!", year: "2023", rating: 4.4, genres: ["Animação", "Aventura", "Comédia"], director: "Benjamin Renner", cast: ["Kumail Nanjiani", "Elizabeth Banks"], synopsis: "Uma família de patos tenta convencer seu pai a embarcar nas férias de suas vidas...", poster: "https://br.web.img2.acsta.net/pictures/23/12/07/19/08/2800297.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiHQEZwHPftCEbCl9A7Y0FDNCCyY63UzTzcw4jC9qsR78PsH_J5xely5IjIV9kr4KgBPMWRvdJXGL2pYnHIIKjDvDQnivL4esBc60uecHi4oZuP-SVyLw26sQ1ZaWF6zmZp89uSbjcGfTFD6-HLY6V1d-bBExjwMeZefxg-MH_6CdyNBYvawMcGUrQ9WMt/s1640/Patos%20cover.jpg", playerType: 'video', url: "https://1a-1791.com/video/fww1/26/s8/2/G/0/G/w/G0Gwy.gaa.mp4", progress: 20, dateAdded: '2025-07-10' },
-                    { id: 9, title: "Enrolados", year: "2010", rating: 4.8, genres: ["Animação", "Aventura", "Romance"], director: "Nathan Greno", cast: ["Mandy Moore", "Zachary Levi"], synopsis: "Rapunzel, com seu cabelo mágico, faz um acordo com o ladrão Flynn Rider...", poster: "https://upload.wikimedia.org/wikipedia/pt/9/99/Tangled_Disney.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEFR_J4w6veFIbYfEzl7Vgg_I4um9o0JUfNTWE8IiL1LrN_TNH6fD0MaTvg9yNV8fCZZAVhX9kLl_Cnphw8scYd5apRm62FhEg6x-jjwJX5peGv6mVJq8lGma_XzqAzrYkYVSgV81HTOk/s1000/enrolados.png", playerType: 'video', url: "https://1a-1791.com/video/fww1/5f/s8/2/g/J/K/t/gJKty.gaa.mp4", progress: 80, dateAdded: '2025-07-09' }
+                    { id: 5, title: "Orion e o Escuro", year: "2024", genres: ["Animação", "Aventura", "Fantasia"], director: "Sean Charmatz", cast: ["Jacob Tremblay", "Paul Walter Hauser"], synopsis: "Um garoto com uma imaginação ativa enfrenta seus medos numa jornada pela noite...", poster: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Orion_e_o_Escuro.jpg", backdrop: "https://occ-0-8407-92.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABXj5BLHAmSR-leac11zR8tVvyNTQSxhPr1j_kgD6kvXVCxwbeUZapd-BZywoz4WtVmP7heJQTd0AkuWLCtClHRPP3UBM1DgLaNnu.jpg?r=25c", playerType: 'video', url: "https://1a-1791.com/video/fww1/ae/s8/2/4/B/G/w/4BGwy.gaa.mp4", progress: 0, dateAdded: '2025-07-18' },
+                    { id: 13, title: "Ratatouille", year: "2007", genres: ["Animação", "Comédia", "Família"], director: "Brad Bird", cast: ["Patton Oswalt", "Ian Holm", "Lou Romano"], synopsis: "Um rato chamado Remy sonha em se tornar um grande chef francês...", poster: "https://upload.wikimedia.org/wikipedia/pt/8/82/Ratatouille_p%C3%B4ster.jpg", backdrop: "https://image.tmdb.org/t/p/original/uTSZLWiAIDxS6ELlmjHHtfNkTGP.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe2/fb/s8/2/2/X/V/S/2XVSx.gaa.mp4", progress: 0, dateAdded: '2025-07-17' },
+                    { id: 14, title: "Moana - Um Mar de Aventuras", year: "2016", genres: ["Animação", "Aventura", "Família"], director: "Ron Clements, John Musker", cast: ["Auli'i Cravalho", "Dwayne Johnson", "Rachel House"], synopsis: "Moana, uma jovem corajosa, parte em uma missão ousada para salvar seu povo.", poster: "https://br.web.img3.acsta.net/pictures/16/09/12/22/13/415370.jpg", backdrop: "https://image.tmdb.org/t/p/original/kNAANuEyhDu5g4c5p0gcMFLhV0k.jpg", playerType: 'video', url: "https://1a-1791.com/video/s8/2/K/T/8/c/KT8cv.gaa.mp4", progress: 0, dateAdded: '2025-07-16' },
+                    { id: 16, title: "Gato de Botas 2: O Último Pedido", year: "2022", genres: ["Animação", "Aventura", "Comédia"], director: "Joel Crawford", cast: ["Antonio Banderas", "Salma Hayek", "Harvey Guillén"], synopsis: "O Gato de Botas descobre que sua paixão pela aventura cobrou seu preço: ele queimou oito de suas nove vidas.", poster: "https://m.media-amazon.com/images/S/pv-target-images/af89ec33729d1d14d78507f10f3aa4e3be74093c22a149a90268a39435bc6a82.jpg", backdrop: "https://image.tmdb.org/t/p/original/u8XDx5S8RWc2UgCGc7HHwFWVE2a.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8c/s8/2/u/I/-/a/uI-ax.gaa.mp4", progress: 0, dateAdded: '2025-07-15' },
+                    { id: 17, title: "Como Treinar o Seu Dragão", year: "2010", genres: ["Animação", "Aventura", "Fantasia"], director: "Dean DeBlois, Chris Sanders", cast: ["Jay Baruchel", "Gerard Butler", "Craig Ferguson"], synopsis: "Um jovem Viking desafortunado que aspira a caçar dragões torna-se o amigo improvável de um jovem dragão...", poster: "https://upload.wikimedia.org/wikipedia/pt/e/ed/How_to_Train_Your_Dragon_%28filme_de_2010%29.jpg", backdrop: "https://image.tmdb.org/t/p/original/sUxsHQtSxfwmXkoqNlB7Uyl0kaN.jpg", playerType: 'video', url: "https://1a-1791.com/video/fwe1/b3/s8/2/b/4/9/-/b49-w.gaa.mp4", progress: 0, dateAdded: '2025-07-14' },
+                    { id: 3, title: "O Segredo dos Animais", year: "2006", genres: ["Comédia", "Animação"], director: "Steve Oedekerk", cast: ["Kevin James", "Courteney Cox"], synopsis: "Quando o fazendeiro está fora, todos os animais da fazenda cantam e dançam...", poster: "https://br.web.img3.acsta.net/medias/nmedia/18/94/12/17/20304560.jpg", backdrop: "https://http2.mlstatic.com/D_NQ_NP_751137-MLA73368651374_122023-B.webp", playerType: 'video', url: "https://1a-1791.com/video/fww1/ab/s8/2/o/e/2/s/oe2sy.gaa.mp4", progress: 50, dateAdded: '2025-07-13' },
+                    { id: 4, title: "A Nova Onda do Imperador", year: "2000", genres: ["Comédia", "Animação", "Aventura"], director: "Mark Dindal", cast: ["David Spade", "John Goodman"], synopsis: "O arrogante imperador Kuzco é transformado em uma lhama...", poster: "https://m.media-amazon.com/images/M/MV5BMjBkMWE4ZjUtZTgxYi00MjRlLWIyYWYtY2M2ZWQ2YzA3OTgyXkEyXkFqcGc@._V1_.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFDmG7HE_dd27sbKKLDzeZGzu95qaL2WUrTXspfaBNANTSJkTFvxbMcqqmto_MTH05C6XSW85CXpNIiyE8MQEzmG06xefmAiuale1SZaP5IMh17pRBS08vIdRDvxsz06ri6T2KToVw9Uk/s1000/a+nova+onda+do+imperador.png", playerType: 'video', url: "https://1a-1791.com/video/fwe1/8b/s8/2/k/P/h/x/kPhxy.caa.mp4", progress: 0, dateAdded: '2025-07-12' },
+                    { id: 2, title: "Pica-Pau: O Filme", year: "2017", genres: ["Comédia", "Animação", "Aventura"], director: "Alex Zamm", cast: ["Timothy Omundson", "Thaila Ayala"], synopsis: "O Pica-Pau está metido em mais uma de suas brigas por território...", poster: "https://br.web.img2.acsta.net/pictures/17/08/25/19/04/419991.jpg", backdrop: "https://www.themoviedb.org/t/p/original/rS3uTcmmS8b0Yw3aLp4iS2B2T21.jpg", playerType: 'iframe', url: "https://www.tokyvideo.com/embed/409976", progress: 0, dateAdded: '2025-07-11' },
+                    { id: 6, title: "Patos!", year: "2023", genres: ["Animação", "Aventura", "Comédia"], director: "Benjamin Renner", cast: ["Kumail Nanjiani", "Elizabeth Banks"], synopsis: "Uma família de patos tenta convencer seu pai a embarcar nas férias de suas vidas...", poster: "https://br.web.img2.acsta.net/pictures/23/12/07/19/08/2800297.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiHQEZwHPftCEbCl9A7Y0FDNCCyY63UzTzcw4jC9qsR78PsH_J5xely5IjIV9kr4KgBPMWRvdJXGL2pYnHIIKjDvDQnivL4esBc60uecHi4oZuP-SVyLw26sQ1ZaWF6zmZp89uSbjcGfTFD6-HLY6V1d-bBExjwMeZefxg-MH_6CdyNBYvawMcGUrQ9WMt/s1640/Patos%20cover.jpg", playerType: 'video', url: "https://1a-1791.com/video/fww1/26/s8/2/G/0/G/w/G0Gwy.gaa.mp4", progress: 20, dateAdded: '2025-07-10' },
+                    { id: 9, title: "Enrolados", year: "2010", genres: ["Animação", "Aventura", "Romance"], director: "Nathan Greno", cast: ["Mandy Moore", "Zachary Levi"], synopsis: "Rapunzel, com seu cabelo mágico, faz um acordo com o ladrão Flynn Rider...", poster: "https://upload.wikimedia.org/wikipedia/pt/9/99/Tangled_Disney.jpg", backdrop: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEFR_J4w6veFIbYfEzl7Vgg_I4um9o0JUfNTWE8IiL1LrN_TNH6fD0MaTvg9yNV8fCZZAVhX9kLl_Cnphw8scYd5apRm62FhEg6x-jjwJX5peGv6mVJq8lGma_XzqAzrYkYVSgV81HTOk/s1000/enrolados.png", playerType: 'video', url: "https://1a-1791.com/video/fww1/5f/s8/2/g/J/K/t/gJKty.gaa.mp4", progress: 80, dateAdded: '2025-07-09' }
                 ],
                 series: [
                     {
@@ -734,7 +734,7 @@
                         }).filter(Boolean)
                           .sort((a,b) => (watchProgress[b.id]?.lastPlayed || 0) - (watchProgress[a.id]?.lastPlayed || 0));
                     } else {
-                        items = allContent.filter(carouselConfig.filter);
+                        items = allContent.filter(item => item.genres && carouselConfig.filter(item));
                     }
 
                     if (carouselConfig.sort) items.sort(carouselConfig.sort);
@@ -834,8 +834,9 @@
                         </div>
                     </div>
                     <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-                        <div id="details-rating-display" class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
-                             <span>${movie.genres.join(', ')}</span>
+                        <div class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
+                            <div id="details-rating-display"></div>
+                            <span id="details-genres">${movie.genres.join(', ')}</span>
                         </div>
                         <div class="text-sm space-y-1 mt-4">
                             <p><strong style="color: var(--text-primary)">Diretor:</strong> ${movie.director}</p>
@@ -1005,8 +1006,9 @@
                         </div>
                     </div>
                     <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-                        <div id="details-rating-display" class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
-                           <span>${series.genres.join(', ')}</span>
+                        <div class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
+                            <div id="details-rating-display"></div>
+                           <span id="details-genres">${series.genres.join(', ')}</span>
                         </div>
                         <div class="mb-6">
                             <select id="season-selector" class="w-full sm:w-auto p-3 rounded-md font-semibold border-none cursor-pointer" style="background-color: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-hover-bg);">${seasonOptionsHTML}</select>
@@ -1167,7 +1169,7 @@
                 if (!ratingContainer) return;
                 const commentForm = document.querySelector(`.comment-form[data-id="${contentId}"]`);
                 const commentsSection = document.querySelector(`.comment-form[data-id="${contentId}"] + .comments-section`);
-                const stars = ratingContainer.querySelectorAll('.lucide-star');
+                
                 const ratingDocRef = doc(db, `content_feedback/${contentId}/ratings`, userProfile.uid);
                 const commentsColRef = collection(db, `content_feedback/${contentId}/comments`);
                 const allRatingsColRef = collection(db, `content_feedback/${contentId}/ratings`);
@@ -1185,6 +1187,7 @@
 
                 const displayStars = (rating) => {
                     const colorVar = getStarColorVar(rating);
+                    const stars = ratingContainer.querySelectorAll('[data-value]');
                     stars.forEach(star => {
                         const starValue = parseInt(star.dataset.value);
                         star.style.fill = starValue <= rating ? colorVar : 'none';
@@ -1196,26 +1199,22 @@
                     const ratings = snapshot.docs.map(doc => doc.data().rating);
                     const averageRatingDisplay = document.getElementById('details-rating-display');
                     if (averageRatingDisplay) {
-                        const genreSpan = averageRatingDisplay.querySelector('span:not([class])');
-                        const genreHTML = genreSpan ? genreSpan.outerHTML : '';
                         if (ratings.length > 0) {
                             const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
                             const roundedAverage = Math.round(average);
                             averageRatingDisplay.innerHTML = `
-                                <div class="flex items-center text-yellow-400">
+                                <div class="flex items-center" style="color: ${getStarColorVar(roundedAverage)}">
                                     ${'★'.repeat(roundedAverage)}${'☆'.repeat(5 - roundedAverage)} 
                                     <span class="ml-2" style="color: var(--text-primary);">${average.toFixed(1)}</span>
                                     <span class="ml-2 text-xs">(${ratings.length} avaliações)</span>
                                 </div>
-                                ${genreHTML}
                             `;
                         } else {
                              averageRatingDisplay.innerHTML = `
-                                <div class="flex items-center text-yellow-400">
+                                <div class="flex items-center text-gray-500">
                                     ☆☆☆☆☆
                                     <span class="ml-2" style="color: var(--text-primary);">N/A</span>
                                 </div>
-                                ${genreHTML}
                             `;
                         }
                     }
@@ -1242,17 +1241,26 @@
                 });
 
                 displayStars(userRating);
+                
+                ratingContainer.addEventListener('mouseover', (e) => {
+                    const star = e.target.closest('[data-value]');
+                    if (star) {
+                        displayStars(star.dataset.value);
+                    }
+                });
 
-                stars.forEach(star => {
-                    star.addEventListener('mouseover', () => displayStars(star.dataset.value));
-                    star.addEventListener('click', async () => {
+                ratingContainer.addEventListener('click', async (e) => {
+                    const star = e.target.closest('[data-value]');
+                    if (star) {
                         userRating = star.dataset.value;
                         await setDoc(ratingDocRef, { rating: parseInt(userRating) });
                         displayStars(userRating);
-                    });
+                    }
                 });
 
-                ratingContainer.addEventListener('mouseleave', () => displayStars(userRating));
+                ratingContainer.addEventListener('mouseleave', () => {
+                    displayStars(userRating);
+                });
 
                 commentForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
