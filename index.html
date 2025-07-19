@@ -20,7 +20,9 @@
             --accent-color: #a855f7; /* purple-500 */
             --hero-text-primary: #ffffff;
             --hero-text-secondary: #e5e7eb;
-            --star-color: #facc15; /* yellow-400 */
+            --star-color-low: #ef4444; /* red-500 */
+            --star-color-medium: #f97316; /* orange-500 */
+            --star-color-high: #facc15; /* yellow-400 */
         }
         html.light {
             --background: #f3f4f6; --text-primary: #1f2937; --text-secondary: #4b5563;
@@ -280,7 +282,8 @@
             collectionGroup,
             addDoc,
             orderBy,
-            onSnapshot
+            onSnapshot,
+            deleteDoc
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         document.addEventListener('DOMContentLoaded', async function() {
@@ -1173,11 +1176,19 @@
                 const ratingDoc = await getDoc(ratingDocRef);
                 if (ratingDoc.exists()) userRating = ratingDoc.data().rating;
 
+                const getStarColorVar = (rating) => {
+                    const r = parseInt(rating);
+                    if (r <= 2) return 'var(--star-color-low)';
+                    if (r <= 4) return 'var(--star-color-medium)';
+                    return 'var(--star-color-high)';
+                };
+
                 const displayStars = (rating) => {
+                    const colorVar = getStarColorVar(rating);
                     stars.forEach(star => {
                         const starValue = parseInt(star.dataset.value);
-                        star.style.fill = starValue <= rating ? 'var(--star-color)' : 'none';
-                        star.style.color = starValue <= rating ? 'var(--star-color)' : 'currentColor';
+                        star.style.fill = starValue <= rating ? colorVar : 'none';
+                        star.style.color = starValue <= rating ? colorVar : 'currentColor';
                     });
                 };
                 
@@ -1185,6 +1196,8 @@
                     const ratings = snapshot.docs.map(doc => doc.data().rating);
                     const averageRatingDisplay = document.getElementById('details-rating-display');
                     if (averageRatingDisplay) {
+                        const genreSpan = averageRatingDisplay.querySelector('span:not([class])');
+                        const genreHTML = genreSpan ? genreSpan.outerHTML : '';
                         if (ratings.length > 0) {
                             const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
                             const roundedAverage = Math.round(average);
@@ -1194,7 +1207,7 @@
                                     <span class="ml-2" style="color: var(--text-primary);">${average.toFixed(1)}</span>
                                     <span class="ml-2 text-xs">(${ratings.length} avaliações)</span>
                                 </div>
-                                ${averageRatingDisplay.querySelector('span:not([class])')?.outerHTML || ''}
+                                ${genreHTML}
                             `;
                         } else {
                              averageRatingDisplay.innerHTML = `
@@ -1202,7 +1215,7 @@
                                     ☆☆☆☆☆
                                     <span class="ml-2" style="color: var(--text-primary);">N/A</span>
                                 </div>
-                                ${averageRatingDisplay.querySelector('span:not([class])')?.outerHTML || ''}
+                                ${genreHTML}
                             `;
                         }
                     }
@@ -1212,12 +1225,20 @@
                 onSnapshot(query(commentsColRef, orderBy("createdAt", "desc")), (snapshot) => {
                      commentsSection.innerHTML = snapshot.docs.map(doc => {
                         const comment = doc.data();
-                        return `<div class="p-3 rounded-md" style="background-color: var(--card-hover-bg);">
-                                    <p class="font-bold text-sm">${comment.username || 'Anônimo'}</p>
-                                    <p class="whitespace-pre-wrap break-words">${comment.text}</p>
-                                    <p class="text-xs mt-1" style="color: var(--text-secondary);">${comment.createdAt.toDate().toLocaleString('pt-BR')}</p>
+                        return `<div class="p-3 rounded-md flex gap-2 items-start" style="background-color: var(--card-hover-bg);">
+                                    <div class="flex-grow">
+                                        <p class="font-bold text-sm">${comment.username || 'Anônimo'}</p>
+                                        <p class="whitespace-pre-wrap break-words">${comment.text}</p>
+                                        <p class="text-xs mt-1" style="color: var(--text-secondary);">${comment.createdAt.toDate().toLocaleString('pt-BR')}</p>
+                                    </div>
+                                    ${comment.uid === userProfile.uid ? `
+                                    <button class="delete-comment-btn p-1 text-gray-500 hover:text-red-500 transition-colors flex-shrink-0" data-comment-id="${doc.id}" title="Excluir comentário">
+                                        <i data-lucide="trash-2" class="w-4 h-4 pointer-events-none"></i>
+                                    </button>
+                                    ` : ''}
                                 </div>`
                     }).join('');
+                    lucide.createIcons();
                 });
 
                 displayStars(userRating);
@@ -1247,6 +1268,19 @@
                         textarea.value = '';
                     }
                 });
+                
+                commentsSection.addEventListener('click', async (e) => {
+                    const deleteBtn = e.target.closest('.delete-comment-btn');
+                    if (deleteBtn && userProfile) {
+                        const commentId = deleteBtn.dataset.commentId;
+                        const commentDocRef = doc(db, `content_feedback/${contentId}/comments`, commentId);
+                        try {
+                            await deleteDoc(commentDocRef);
+                        } catch (error) {
+                            console.error("Erro ao excluir comentário:", error);
+                        }
+                    }
+                });
             }
 
             function setupEventListeners() {
@@ -1266,7 +1300,6 @@
                 DOMElements.settingsModal.themeToggle.onchange = () => toggleTheme(true);
                 DOMElements.settingsModal.videoQualitySelect.onchange = saveUserData;
                 DOMElements.settingsModal.clearHistoryBtn.onclick = async () => {
-                    // Usar um modal customizado em vez de confirm()
                     watchProgress = {};
                     await saveUserData();
                     renderAllCarousels();
