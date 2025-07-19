@@ -278,7 +278,9 @@
             Timestamp,
             writeBatch,
             collectionGroup,
-            addDoc
+            addDoc,
+            orderBy,
+            onSnapshot
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         document.addEventListener('DOMContentLoaded', async function() {
@@ -679,7 +681,7 @@
                 }
             };
 
-            // --- FUNÇÕES DE RENDERIZAÇÃO (sem alterações significativas, apenas usando contentDb) ---
+            // --- FUNÇÕES DE RENDERIZAÇÃO ---
             function renderHomePage() {
                 window.scrollTo(0, 0);
                 DOMElements.contentContainer.className = 'py-8 md:py-12';
@@ -812,6 +814,7 @@
             function renderMovieDetailsPage(movieId) {
                 const movie = contentDb.movies.find(m => m.id == movieId);
                 if (!movie) return;
+                const contentId = `movie-${movie.id}`;
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
                 DOMElements.contentContainer.className = '';
@@ -828,9 +831,8 @@
                         </div>
                     </div>
                     <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-                        <div class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
-                            <div class="flex items-center text-yellow-400">${'★'.repeat(Math.round(movie.rating))}${'☆'.repeat(5 - Math.round(movie.rating))} <span class="ml-2" style="color: var(--text-primary);">${movie.rating}</span></div>
-                            <span>${movie.genres.join(', ')}</span>
+                        <div id="details-rating-display" class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
+                             <span>${movie.genres.join(', ')}</span>
                         </div>
                         <div class="text-sm space-y-1 mt-4">
                             <p><strong style="color: var(--text-primary)">Diretor:</strong> ${movie.director}</p>
@@ -844,10 +846,10 @@
                         </div>
                         <div class="mt-8 border-t pt-6" style="border-color: var(--card-hover-bg);">
                             <h3 class="text-xl font-bold mb-4">Avalie e Comente</h3>
-                            <div class="star-rating mb-4 flex items-center gap-1" data-id="movie-${movie.id}">
+                            <div class="star-rating mb-4 flex items-center gap-1" data-id="${contentId}">
                                 ${[1,2,3,4,5].map(i => `<i data-lucide="star" data-value="${i}" class="w-7 h-7"></i>`).join('')}
                             </div>
-                            <form class="comment-form" data-id="movie-${movie.id}">
+                            <form class="comment-form" data-id="${contentId}">
                                 <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
                                 <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
                             </form>
@@ -858,7 +860,7 @@
                 document.getElementById('back-button').onclick = renderHomePage;
                 updateAddToListButton(DOMElements.contentContainer.querySelector('.add-to-list-btn'));
                 lucide.createIcons();
-                setupRatingAndComments(`movie-${movie.id}`);
+                setupRatingAndComments(contentId);
                 window.scrollTo(0, 0);
             }
             
@@ -983,6 +985,7 @@
             function renderSeriesDetailsPage(seriesId) {
                 const series = contentDb.series.find(s => s.id === seriesId);
                 if (!series) return;
+                const contentId = `series-${series.id}`;
                 DOMElements.heroSection.style.display = 'none';
                 DOMElements.heroSection.classList.add('-mt-16');
                 DOMElements.contentContainer.className = '';
@@ -999,14 +1002,17 @@
                         </div>
                     </div>
                     <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+                        <div id="details-rating-display" class="flex flex-wrap items-center my-2 gap-x-4 gap-y-2 text-sm" style="color: var(--text-secondary)">
+                           <span>${series.genres.join(', ')}</span>
+                        </div>
                         <div class="mb-6">
                             <select id="season-selector" class="w-full sm:w-auto p-3 rounded-md font-semibold border-none cursor-pointer" style="background-color: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-hover-bg);">${seasonOptionsHTML}</select>
                         </div>
                         <div id="episodes-list" class="mt-6 space-y-3"></div>
                         <div class="mt-8 border-t pt-6" style="border-color: var(--card-hover-bg);">
                             <h3 class="text-xl font-bold mb-4">Avalie e Comente</h3>
-                            <div class="star-rating mb-4 flex items-center gap-1" data-id="series-${series.id}">${[1,2,3,4,5].map(i => `<i data-lucide="star" data-value="${i}" class="w-7 h-7"></i>`).join('')}</div>
-                            <form class="comment-form" data-id="series-${series.id}">
+                            <div class="star-rating mb-4 flex items-center gap-1" data-id="${contentId}">${[1,2,3,4,5].map(i => `<i data-lucide="star" data-value="${i}" class="w-7 h-7"></i>`).join('')}</div>
+                            <form class="comment-form" data-id="${contentId}">
                                 <textarea class="w-full p-2 rounded-md border-none mb-2" style="background-color: var(--card-hover-bg); color: var(--text-primary);" placeholder="Deixe seu comentário..."></textarea>
                                 <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Enviar</button>
                             </form>
@@ -1035,7 +1041,7 @@
                 seasonSelector.addEventListener('change', (e) => renderEpisodes(e.target.value));
                 if (series.seasons.length > 0) renderEpisodes(series.seasons[0].id);
                 lucide.createIcons();
-                setupRatingAndComments(`series-${series.id}`);
+                setupRatingAndComments(contentId);
                 window.scrollTo(0, 0);
             }
 
@@ -1161,6 +1167,7 @@
                 const stars = ratingContainer.querySelectorAll('.lucide-star');
                 const ratingDocRef = doc(db, `content_feedback/${contentId}/ratings`, userProfile.uid);
                 const commentsColRef = collection(db, `content_feedback/${contentId}/comments`);
+                const allRatingsColRef = collection(db, `content_feedback/${contentId}/ratings`);
 
                 let userRating = 0;
                 const ratingDoc = await getDoc(ratingDocRef);
@@ -1173,10 +1180,37 @@
                         star.style.color = starValue <= rating ? 'var(--star-color)' : 'currentColor';
                     });
                 };
+                
+                const updateAverageRating = (snapshot) => {
+                    const ratings = snapshot.docs.map(doc => doc.data().rating);
+                    const averageRatingDisplay = document.getElementById('details-rating-display');
+                    if (averageRatingDisplay) {
+                        if (ratings.length > 0) {
+                            const average = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+                            const roundedAverage = Math.round(average);
+                            averageRatingDisplay.innerHTML = `
+                                <div class="flex items-center text-yellow-400">
+                                    ${'★'.repeat(roundedAverage)}${'☆'.repeat(5 - roundedAverage)} 
+                                    <span class="ml-2" style="color: var(--text-primary);">${average.toFixed(1)}</span>
+                                    <span class="ml-2 text-xs">(${ratings.length} avaliações)</span>
+                                </div>
+                                ${averageRatingDisplay.querySelector('span:not([class])')?.outerHTML || ''}
+                            `;
+                        } else {
+                             averageRatingDisplay.innerHTML = `
+                                <div class="flex items-center text-yellow-400">
+                                    ☆☆☆☆☆
+                                    <span class="ml-2" style="color: var(--text-primary);">N/A</span>
+                                </div>
+                                ${averageRatingDisplay.querySelector('span:not([class])')?.outerHTML || ''}
+                            `;
+                        }
+                    }
+                };
 
-                const displayComments = async () => {
-                    const commentsSnapshot = await getDocs(query(commentsColRef));
-                    commentsSection.innerHTML = commentsSnapshot.docs.map(doc => {
+                onSnapshot(allRatingsColRef, updateAverageRating);
+                onSnapshot(query(commentsColRef, orderBy("createdAt", "desc")), (snapshot) => {
+                     commentsSection.innerHTML = snapshot.docs.map(doc => {
                         const comment = doc.data();
                         return `<div class="p-3 rounded-md" style="background-color: var(--card-hover-bg);">
                                     <p class="font-bold text-sm">${comment.username || 'Anônimo'}</p>
@@ -1184,10 +1218,9 @@
                                     <p class="text-xs mt-1" style="color: var(--text-secondary);">${comment.createdAt.toDate().toLocaleString('pt-BR')}</p>
                                 </div>`
                     }).join('');
-                };
+                });
 
                 displayStars(userRating);
-                await displayComments();
 
                 stars.forEach(star => {
                     star.addEventListener('mouseover', () => displayStars(star.dataset.value));
@@ -1211,7 +1244,6 @@
                             text: commentText,
                             createdAt: Timestamp.now()
                         });
-                        await displayComments();
                         textarea.value = '';
                     }
                 });
